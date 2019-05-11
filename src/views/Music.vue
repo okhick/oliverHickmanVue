@@ -1,18 +1,16 @@
 <template>
   <div id="music">
-      <parallax :speedFactor="0.2" direction="down" breakpoint="(min-width: 10px)">
-    <!-- <div class="imgContainer1"> -->
-        <img src="@/assets/img/Oliver+Kiersten-169.jpg" alt="noImg">
-    <!-- </div> -->
+    <parallax :speedFactor="0.2" direction="down" breakpoint="(min-width: 10px)">
+      <img src="@/assets/img/Oliver+Kiersten-169.jpg" alt="noImg">
   </parallax>
     <div class="content">
       <h1> MUSIC </h1>
       <pdf-modal v-show="modalIsShowing" />
-      <div class="pieceWrapper"
-        v-for='(piece,index) in $options.musicData'
+      <div v-for='(piece,index) in $options.musicData'
+        v-bind:class="{ pieceWrapper:validatePdf(piece.pdf), pieceWrapperBare:!(validatePdf(piece.pdf)) }"
       >
-        <cover-viewer class="cover" :index="index"/>
-        <audio-player class="audioPlayer"
+        <cover-viewer class="cover" v-if="validatePdf(piece.pdf)" :index="index"/>
+        <audio-player class="audioPlayer" v-if="validateRecording(piece.audio)"
           :index="index"
           :title="piece.title"
           :details="piece.details"
@@ -20,6 +18,10 @@
           :audio="piece.audio"
           :mvmts="validateMovements(piece.movements)"
         />
+        <div v-else="!(validateRecording(piece.audio))" class="bare">
+          <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
+          <p class="detail" v-html="piece.details"> </p>
+        </div>
       </div> <!-- end pieceWrapper -->
     </div> <!-- end content -->
   </div>
@@ -53,9 +55,15 @@ export default {
   methods: {
     validateMovements: function (piece) {
       //return the movements if exist or false
-      return (typeof piece !== 'undefined' ? piece : false);
+      console.log(typeof piece);
+      return (typeof piece !== 'object' ? false : piece);
     },
-
+    validatePdf: function(piece) {
+      return (typeof piece !== 'string' ? false : true);
+    },
+    validateRecording: function(piece) {
+      return (typeof piece !== 'string' ? false : true);
+    },
     togglePdfModal: function() {
       this.modalIsShowing = !this.modalIsShowing;
     }
@@ -118,6 +126,22 @@ export default {
   grid-template-columns: [cover] 155px [player] auto;
   grid-column-gap: 5px;
   padding-bottom: 30px;
+}
+
+.bare {
+  width: 100%;
+  padding-bottom: 30px;
+}
+.pieceWrapper.bare {
+  width: 100vw;
+}
+.bare h2.musicTitle {
+  text-align: left;
+  margin-left: 10px;
+}
+.bare p.detail {
+  position: relative;
+  margin-left: 10px;
 }
 
 .cover {

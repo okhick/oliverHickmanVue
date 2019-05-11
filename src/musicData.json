@@ -7,6 +7,10 @@
     "pdf": "CO3_fs.pdf"
   },
   {
+    "title": "TEST",
+    "details": "What the piece is actually goes here"
+  },
+  {
     "title": "Five Poems by E. E. Cummings (2017-2018)",
     "details": "for Soprano, Voice, Violin, and Piano <br> Premiered and Recorded by the NYU Composers Ensemble feat. Soprano <a class='linkOut' href='https://www.cassandravenaglia.com/'>Cassandra Venaglia</a>",
     "waveform": "e_e_cummings.png",
@@ -41,6 +45,10 @@
     "waveform": "extinguish.png",
     "audio": "extinguish.mp3",
     "pdf": "Extinguish_fs.pdf"
+  },
+  {
+    "title": "TEST",
+    "details": "What the piece is actually goes here"
   },
   {
     "title": "Trenches (2017)",
