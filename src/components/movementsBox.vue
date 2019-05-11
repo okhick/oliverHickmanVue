@@ -125,8 +125,6 @@ export default {
     EventBus.$on('NEW_PROGRESS_PERCENT', (percent) => {
       this.progressPercent = percent;
       this.determineWhatMvmtIsPlaying(percent);
-      // console.log("playing", this.movementPlaying);
-      // console.log("percent", percent);
     });
   }
 }
@@ -169,6 +167,16 @@ Number.prototype.between = function(a, b) {
   /* Shift it up just a little bit */
   margin-top: -7px;
   position: relative;
+}
+
+.movementButtonFa{
+  cursor: pointer;
+}
+.movementButtonFa:hover {
+  transform: scale(1.1,1.1);
+}
+.movementButtonWrapper:hover .movementButtonFa{
+  transform: scale(1.1,1.1);
 }
 
 .showMoreMvmts {

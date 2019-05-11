@@ -72,7 +72,7 @@ export default {
   color: #fff;
   cursor: pointer;
 }
-.coverImage fa-eye:hover {
+.coverImage .fa-eye:hover {
   -webkit-filter: brightness(85%);
   cursor: pointer;
 }

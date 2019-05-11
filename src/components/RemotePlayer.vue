@@ -2,10 +2,10 @@
   <div class="playbackWrapper">
     <div class="playbackControls">
       <div class="controlWrapper play-pause">
-        <font-awesome v-show="!playStatus" icon="play" class="fa" @click="togglePlayStatus"/>
+        <font-awesome v-show="!playStatus" icon="play" size="lg" class="fa" @click="togglePlayStatus"/>
       </div>
       <div class="controlWrapper play-pause">
-        <font-awesome v-show="playStatus" icon="pause" class="fa" @click="togglePlayStatus"/>
+        <font-awesome v-show="playStatus" icon="pause" size="lg" class="fa" @click="togglePlayStatus"/>
       </div>
     </div> <!-- end controlWrapper -->
     <div class="playbackTitle">
@@ -331,26 +331,29 @@
   grid-row: 1 / 3;
   grid-column: play;
   justify-self: center;
+  align-content: center;
   display: grid;
   grid-row-template: 1;
   grid-template-columns: 1fr 1fr 1fr;
 }
-.controlWrapper.circle-fa{
+.playbackControls .fa:hover {
+  transform: scale(1.1, 1.1);
+}
+.controlWrapper.circle-fa {
   grid-row: 1;
   grid-column: 1;
 }
-.controlWrapper.play-pause{
+.controlWrapper.play-pause {
   grid-row: 1;
   grid-column: 2 / 4;
-}
-.playbackControls .fa {
-  transform: scale(1.1, 1.1);
 }
 .titleOptions.fa {
   top: 0;
   padding-top: 5;
-  /* padding-left: 10px; */
   float: left;
+}
+.titleOptions.fa:hover {
+  transform: scale(1.1, 1.1);
 }
 .vue-slider-rail {
   background-color: #747777;
