@@ -1,17 +1,22 @@
 <template>
   <div id="music">
+
     <parallax :speedFactor="0.2" direction="down" breakpoint="(min-width: 10px)">
       <img src="@/assets/img/Oliver+Kiersten-169.jpg" alt="noImg">
-  </parallax>
+    </parallax>
+
     <div class="content">
-      <h1> MUSIC </h1>
+      <!-- The pdf viewing modal -->
       <pdf-modal v-show="modalIsShowing" />
 
+      <h1> MUSIC </h1>
+
       <div v-for="(category) in $options.musicData">
-        <h2 class="musicTitle categoryTitle"> {{ category.name }} </h2>
+        <h2 class="musicTitle categoryTitle"> {{ category.label }} </h2>
         <div v-for="(piece,index) in category.pieces"
           v-bind:class="{ pieceWrapper:validatePdf(piece.pdf), pieceWrapperBare:!(validatePdf(piece.pdf)) }"
         >
+        <!-- If theres a score and recording, render them -->
           <cover-viewer class="cover" v-if="validatePdf(piece.pdf)" :index="index"/>
           <audio-player class="audioPlayer" v-if="validateRecording(piece.audio)"
             :index="index"
@@ -21,6 +26,8 @@
             :audio="piece.audio"
             :mvmts="validateMovements(piece.movements)"
           />
+
+          <!-- If there's no score and recording, just render the title and description -->
           <div v-else="!(validateRecording(piece.audio))" class="bare">
             <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
             <p class="detail" v-html="piece.details"> </p>
@@ -137,7 +144,10 @@ export default {
 }
 
 .categoryTitle {
-  background: rgba(2, 85, 43, 0.4);
+  background: #99bbaa;
+  position: sticky !important;
+  top: 47px;
+  z-index: 29 !important;
 }
 
 .bare {

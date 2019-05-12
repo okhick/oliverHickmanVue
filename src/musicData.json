@@ -1,6 +1,6 @@
 {
-  "category": {
-    "name": "TESTER",
+  "category1": {
+    "label": "TESTER",
     "pieces": [
       {
         "title": "CO<sub>3</sub> (2018)",
@@ -48,7 +48,12 @@
         "waveform": "extinguish.png",
         "audio": "extinguish.mp3",
         "pdf": "Extinguish_fs.pdf"
-      },
+      }
+    ]
+  },
+  "category2": {
+    "label": "TEST2",
+    "pieces": [
       {
         "title": "TEST",
         "details": "What the piece is actually goes here"
