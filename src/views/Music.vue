@@ -6,23 +6,27 @@
     <div class="content">
       <h1> MUSIC </h1>
       <pdf-modal v-show="modalIsShowing" />
-      <div v-for='(piece,index) in $options.musicData'
-        v-bind:class="{ pieceWrapper:validatePdf(piece.pdf), pieceWrapperBare:!(validatePdf(piece.pdf)) }"
-      >
-        <cover-viewer class="cover" v-if="validatePdf(piece.pdf)" :index="index"/>
-        <audio-player class="audioPlayer" v-if="validateRecording(piece.audio)"
-          :index="index"
-          :title="piece.title"
-          :details="piece.details"
-          :waveform="piece.waveform"
-          :audio="piece.audio"
-          :mvmts="validateMovements(piece.movements)"
-        />
-        <div v-else="!(validateRecording(piece.audio))" class="bare">
-          <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
-          <p class="detail" v-html="piece.details"> </p>
-        </div>
-      </div> <!-- end pieceWrapper -->
+
+      <div v-for="(category) in $options.musicData">
+        <h2 class="musicTitle categoryTitle"> {{ category.name }} </h2>
+        <div v-for="(piece,index) in category.pieces"
+          v-bind:class="{ pieceWrapper:validatePdf(piece.pdf), pieceWrapperBare:!(validatePdf(piece.pdf)) }"
+        >
+          <cover-viewer class="cover" v-if="validatePdf(piece.pdf)" :index="index"/>
+          <audio-player class="audioPlayer" v-if="validateRecording(piece.audio)"
+            :index="index"
+            :title="piece.title"
+            :details="piece.details"
+            :waveform="piece.waveform"
+            :audio="piece.audio"
+            :mvmts="validateMovements(piece.movements)"
+          />
+          <div v-else="!(validateRecording(piece.audio))" class="bare">
+            <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
+            <p class="detail" v-html="piece.details"> </p>
+          </div>
+        </div> <!-- end pieceWrapper -->
+      </div> <!-- end category -->
     </div> <!-- end content -->
   </div>
 </template>
@@ -55,7 +59,6 @@ export default {
   methods: {
     validateMovements: function (piece) {
       //return the movements if exist or false
-      console.log(typeof piece);
       return (typeof piece !== 'object' ? false : piece);
     },
     validatePdf: function(piece) {
@@ -66,10 +69,11 @@ export default {
     },
     togglePdfModal: function() {
       this.modalIsShowing = !this.modalIsShowing;
-    }
+    },
   },
 
   mounted() {
+    // console.log(this.pdfFile);
     //open the modal first, then emit the load pdf event with requested file
     EventBus.$on('OPEN_PDF_MODAL', (clickIndex) => {
       this.togglePdfModal();
@@ -96,9 +100,13 @@ export default {
   beforeMount() {
     //make an array of data that the PDF modal will use
     let that = this;
-    musicData.forEach( (music, index) => {
-      that.pdfFile[index] = music.pdf;
-    });
+    for (let category in musicData) {
+      musicData[category].pieces.forEach( (music, index) => {
+        if (that.validatePdf(music.pdf)) {
+          that.pdfFile[index] = music.pdf;
+        }
+      });
+    }
   }
 }
 </script>
@@ -126,6 +134,10 @@ export default {
   grid-template-columns: [cover] 155px [player] auto;
   grid-column-gap: 5px;
   padding-bottom: 30px;
+}
+
+.categoryTitle {
+  background: rgba(2, 85, 43, 0.4);
 }
 
 .bare {

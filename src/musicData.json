@@ -1,88 +1,93 @@
-[
-  {
-    "title": "CO<sub>3</sub> (2018)",
-    "details": "for Large Ensemble <br> Premiered by the NYU Contempoary Music Ensemble</p>",
-    "waveform": "co3.png",
-    "audio": "co3.mp3",
-    "pdf": "CO3_fs.pdf"
-  },
-  {
-    "title": "TEST",
-    "details": "What the piece is actually goes here"
-  },
-  {
-    "title": "Five Poems by E. E. Cummings (2017-2018)",
-    "details": "for Soprano, Voice, Violin, and Piano <br> Premiered and Recorded by the NYU Composers Ensemble feat. Soprano <a class='linkOut' href='https://www.cassandravenaglia.com/'>Cassandra Venaglia</a>",
-    "waveform": "e_e_cummings.png",
-    "audio": "e_e_cummings.mp3",
-    "pdf": "test.pdf",
-    "movements": [
+{
+  "category": {
+    "name": "TESTER",
+    "pieces": [
       {
-        "title": "Something Long",
-        "timecode": "0:00"
+        "title": "CO<sub>3</sub> (2018)",
+        "details": "for Large Ensemble <br> Premiered by the NYU Contempoary Music Ensemble</p>",
+        "waveform": "co3.png",
+        "audio": "co3.mp3",
+        "pdf": "CO3_fs.pdf"
       },
       {
-        "title": "DUUUUUUUUUUUUUUUDE",
-        "timecode": "1:30"
+        "title": "TEST",
+        "details": "What the piece is actually goes here"
       },
       {
-        "title": "SWEEEET",
-        "timecode": "4:30"
+        "title": "Five Poems by E. E. Cummings (2017-2018)",
+        "details": "for Soprano, Voice, Violin, and Piano <br> Premiered and Recorded by the NYU Composers Ensemble feat. Soprano <a class='linkOut' href='https://www.cassandravenaglia.com/'>Cassandra Venaglia</a>",
+        "waveform": "e_e_cummings.png",
+        "audio": "e_e_cummings.mp3",
+        "pdf": "test.pdf",
+        "movements": [
+          {
+            "title": "Something Long",
+            "timecode": "0:00"
+          },
+          {
+            "title": "DUUUUUUUUUUUUUUUDE",
+            "timecode": "1:30"
+          },
+          {
+            "title": "SWEEEET",
+            "timecode": "4:30"
+          },
+          {
+            "title": "DOPE",
+            "timecode": "6:45"
+          },
+          {
+            "title": "#5",
+            "timecode": "8:15"
+          }
+        ]
       },
       {
-        "title": "DOPE",
-        "timecode": "6:45"
+        "title": "Extinguish (2017)",
+        "details": "for Piano, Double Bass, Drum Set, and Electronics <br> Recorded and premiered by <a class='linkOut' href='https://www.bearthoven.com'>Bearthoven</a>",
+        "waveform": "extinguish.png",
+        "audio": "extinguish.mp3",
+        "pdf": "Extinguish_fs.pdf"
       },
       {
-        "title": "#5",
-        "timecode": "8:15"
+        "title": "TEST",
+        "details": "What the piece is actually goes here"
+      },
+      {
+        "title": "Trenches (2017)",
+        "details": "for Soprano and Alto Saxophone <br> Recorded and premiered by <a class='linkOut' href='https://dylan-ward-saxophone.squarespace.com'>Dylan Ward</a> and <a class ='linkOut' href='https://www.andrewkossmusic.com'>Andrew Koss</a>",
+        "waveform": "trenches.png",
+        "audio": "trenches.mp3",
+        "pdf": "Trenches_letter_fs.pdf"
+      },
+      {
+        "title": "One at a Time (2017)",
+        "details": "for Double Bass and Electronics <br> Premiered by <a class='linkOut' href='https://www.codytakacs.com'>Cody Takács</a> at the 2017 SPLICE Institute",
+        "waveform": "one_at_a_time.png",
+        "audio": "one_at_a_time.mp3",
+        "pdf": "test5.pfd"
+      },
+      {
+        "title": "A Slightly Shortened String (2017)",
+        "details": "for 2 Alto Sax, 2 Electric Guitars, and Piano <br> Premiered and Recorded by the NYU Composers Ensemble",
+        "waveform": "a_slightly_shortened_string.png",
+        "audio": "a_slightly_shortened_string.mp3",
+        "pdf": "test6.pfd"
+      },
+      {
+        "title": "Helical Loaded (2017)",
+        "details": "for 2 Violas <br> Recorded and premiered by Kate Barmotina and <a class='linkOut' href='https://www.kylestalsberg.com'>Kyle Stalsberg</a>",
+        "waveform": "helical_loaded.png",
+        "audio": "helical_loaded.mp3",
+        "pdf": "test7.pfd"
+      },
+      {
+        "title": "Fluorescent Filckering (2017)",
+        "details": "for String Quartet <br> Premiered by the JACK Quartet",
+        "waveform": "fluorescent_filckering.png",
+        "audio": "fluorescent_filckering.mp3",
+        "pdf": "test8.pfd"
       }
     ]
-  },
-  {
-    "title": "Extinguish (2017)",
-    "details": "for Piano, Double Bass, Drum Set, and Electronics <br> Recorded and premiered by <a class='linkOut' href='https://www.bearthoven.com'>Bearthoven</a>",
-    "waveform": "extinguish.png",
-    "audio": "extinguish.mp3",
-    "pdf": "Extinguish_fs.pdf"
-  },
-  {
-    "title": "TEST",
-    "details": "What the piece is actually goes here"
-  },
-  {
-    "title": "Trenches (2017)",
-    "details": "for Soprano and Alto Saxophone <br> Recorded and premiered by <a class='linkOut' href='https://dylan-ward-saxophone.squarespace.com'>Dylan Ward</a> and <a class ='linkOut' href='https://www.andrewkossmusic.com'>Andrew Koss</a>",
-    "waveform": "trenches.png",
-    "audio": "trenches.mp3",
-    "pdf": "Trenches_letter_fs.pdf"
-  },
-  {
-    "title": "One at a Time (2017)",
-    "details": "for Double Bass and Electronics <br> Premiered by <a class='linkOut' href='https://www.codytakacs.com'>Cody Takács</a> at the 2017 SPLICE Institute",
-    "waveform": "one_at_a_time.png",
-    "audio": "one_at_a_time.mp3",
-    "pdf": "test5.pfd"
-  },
-  {
-    "title": "A Slightly Shortened String (2017)",
-    "details": "for 2 Alto Sax, 2 Electric Guitars, and Piano <br> Premiered and Recorded by the NYU Composers Ensemble",
-    "waveform": "a_slightly_shortened_string.png",
-    "audio": "a_slightly_shortened_string.mp3",
-    "pdf": "test6.pfd"
-  },
-  {
-    "title": "Helical Loaded (2017)",
-    "details": "for 2 Violas <br> Recorded and premiered by Kate Barmotina and <a class='linkOut' href='https://www.kylestalsberg.com'>Kyle Stalsberg</a>",
-    "waveform": "helical_loaded.png",
-    "audio": "helical_loaded.mp3",
-    "pdf": "test7.pfd"
-  },
-  {
-    "title": "Fluorescent Filckering (2017)",
-    "details": "for String Quartet <br> Premiered by the JACK Quartet",
-    "waveform": "fluorescent_filckering.png",
-    "audio": "fluorescent_filckering.mp3",
-    "pdf": "test8.pfd"
   }
-]
+}
