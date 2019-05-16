@@ -7,7 +7,8 @@ export default new Vuex.Store({
   state: {
     durations: [],
     titles: [],
-    whatIsPlaying: -1
+    whatIsPlaying: -1,
+    musicData: {}
   },
 
   getters: {
@@ -38,6 +39,9 @@ export default new Vuex.Store({
     },
     updateWhatIsPlaying(state, index) {
       state.whatIsPlaying = index;
+    },
+    addMusicData(state, payload) {
+      state.musicData[payload.slug] = payload.musicData;
     }
   },
 

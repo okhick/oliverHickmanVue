@@ -13,13 +13,17 @@
 
       <div v-for="(category) in $options.musicData">
         <h2 class="musicTitle categoryTitle"> {{ category.label }} </h2>
-        <div v-for="(piece,index) in category.pieces"
-          v-bind:class="{ pieceWrapper:validatePdf(piece.pdf), pieceWrapperBare:!(validatePdf(piece.pdf)) }"
+        <div v-for="(piece,catIndex) in category.pieces"
+          v-bind:class="{
+            pieceWrapper:validatePdf(piece.pdf),
+            pieceWrapperBare:!(validatePdf(piece.pdf)),
+            marginTop: (catIndex==0)
+          }"
         >
         <!-- If theres a score and recording, render them -->
-          <cover-viewer class="cover" v-if="validatePdf(piece.pdf)" :index="index"/>
+          <cover-viewer class="cover" v-if="validatePdf(piece.pdf)" :slug="piece.slug"/>
           <audio-player class="audioPlayer" v-if="validateRecording(piece.audio)"
-            :index="index"
+            :index="flatMusic[piece.slug].index"
             :title="piece.title"
             :details="piece.details"
             :waveform="piece.waveform"
@@ -60,6 +64,7 @@ export default {
     return {
       pdfFile: [], //this is populated beforeMount
       modalIsShowing: false,
+      flatMusic: this.$store.state.musicData,
     }
   },
 
@@ -77,14 +82,21 @@ export default {
     togglePdfModal: function() {
       this.modalIsShowing = !this.modalIsShowing;
     },
+    //store the title
+    registerMusicData: function(slug, data) {
+      this.$store.commit({
+        type: 'addMusicData',
+        slug: slug,
+        musicData: data
+      });
+    }
   },
 
   mounted() {
-    // console.log(this.pdfFile);
     //open the modal first, then emit the load pdf event with requested file
-    EventBus.$on('OPEN_PDF_MODAL', (clickIndex) => {
+    EventBus.$on('OPEN_PDF_MODAL', (slug) => {
       this.togglePdfModal();
-      EventBus.$emit('LOAD_PDF', this.pdfFile[clickIndex])
+      EventBus.$emit('LOAD_PDF', this.flatMusic[slug].pdf)
       });
 
     //close the modal
@@ -106,12 +118,20 @@ export default {
 
   beforeMount() {
     //make an array of data that the PDF modal will use
-    let that = this;
+    let pieceIndex = 0;
     for (let category in musicData) {
       musicData[category].pieces.forEach( (music, index) => {
-        if (that.validatePdf(music.pdf)) {
-          that.pdfFile[index] = music.pdf;
-        }
+        let musicData = {
+          index: pieceIndex,
+          title: music.title,
+          details: music.details,
+        };
+
+        if (this.validatePdf(music.pdf)) { musicData.pdf = music.pdf; }
+        if (this.validateRecording(music.audio)) { musicData.audio = music.audio; }
+
+        this.registerMusicData(music.slug, musicData);
+        pieceIndex++;
       });
     }
   }
@@ -144,10 +164,15 @@ export default {
 }
 
 .categoryTitle {
-  background: #99bbaa;
+  background: rgba(205, 219, 212, 0.9);
   position: sticky !important;
   top: 47px;
+  height: 32px;
   z-index: 29 !important;
+}
+
+.marginTop {
+  margin-top: 30px !important;
 }
 
 .bare {

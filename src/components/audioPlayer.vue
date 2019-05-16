@@ -78,20 +78,10 @@ export default {
         });
       }, 1000);
     },
-
-    //store the title
-    registerTitles: function() {
-      this.$store.commit({
-        type: 'addTitle',
-        index: this.index,
-        title: this.title
-      });
-    }
    },
 
   mounted () {
     //send some data to the store
-    this.registerTitles();
     this.player.on('ready', this.registerDurations)
 
     //do some things when the player changes

@@ -21,7 +21,7 @@ library.add(faEye);
 
 export default {
   name: 'cover-viewer',
-  props: ['index'],
+  props: ['slug'],
   components: {
     'font-awesome': FontAwesomeIcon
   },
@@ -33,7 +33,7 @@ export default {
   },
   methods: {
     openPdfModal: function() {
-      EventBus.$emit('OPEN_PDF_MODAL', this.index);
+      EventBus.$emit('OPEN_PDF_MODAL', this.slug);
     }
   }
 }
