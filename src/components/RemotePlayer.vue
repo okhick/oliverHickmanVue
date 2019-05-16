@@ -70,9 +70,10 @@
       return {
         playbackPercent: 0,
         durations: {},
-        indexes: {
+        flatMusic: this.$store.state.musicData,
+        slugs: {
           playing: -1,
-          pdf: 0
+          pdf: undefined
         },
         playStatus: false,
         wasPlayingBeforeScrub: false,
@@ -95,15 +96,15 @@
     methods: {
       togglePlayStatus() {
         if (this.playStatus) { //if the player is playing pause it, and don't worry about scrubbing.
-          EventBus.$emit(`PAUSE_PLAYER_${this.indexes.playing}`);
+          EventBus.$emit(`PAUSE_PLAYER_${this.slugs.playing}`);
           this.wasPlayingBeforeScrub = false;
 
-        } else if (this.playStatus == false && this.indexes.playing == -1) { // if the player is not playing and nothing was playing on open
-          EventBus.$emit(`START_PLAYER_${this.indexes.pdf}`);
-          this.indexes.playing = this.indexes.pdf;
+        } else if (this.playStatus == false && this.slugs.playing == -1) { // if the player is not playing and nothing was playing on open
+          EventBus.$emit(`START_PLAYER_${this.slugs.pdf}`);
+          this.slugs.playing = this.slugs.pdf;
 
         } else { //if we're starting and that had been stopped.
-          EventBus.$emit(`START_PLAYER_${this.indexes.playing}`);
+          EventBus.$emit(`START_PLAYER_${this.slugs.playing}`);
 
         }
         //toggle the playStatus no matter what.
@@ -112,12 +113,12 @@
 
       playInstead(indexRequested) {
         if (this.playStatus) { //if the player is playing pause it
-          EventBus.$emit(`PAUSE_PLAYER_${this.indexes.playing}`);
+          EventBus.$emit(`PAUSE_PLAYER_${this.slugs.playing}`);
         }
 
         //update some data
         EventBus.$emit(`START_PLAYER_${indexRequested}`);
-        this.indexes.playing = indexRequested;
+        this.slugs.playing = indexRequested;
         this.playStatus = true;
         this.whatTitleIsPlaying = this.$store.getters.getRequestedTitle(indexRequested);
         this.playbackCountdown;
@@ -127,31 +128,31 @@
         if(this.playStatus) { //if things are playing we need to pause them and set a reminder to start again when done (wasPlayingBeforeScrub)
           this.wasPlayingBeforeScrub = true;
           this.playStatus = false;
-          EventBus.$emit(`PAUSE_PLAYER_${this.indexes.playing}`);
+          EventBus.$emit(`PAUSE_PLAYER_${this.slugs.playing}`);
         }
-        EventBus.$emit(`PLAYER_PROGRESS_UPDATE_${this.indexes.playing}`, this.playbackPercent);
+        EventBus.$emit(`PLAYER_PROGRESS_UPDATE_${this.slugs.playing}`, this.playbackPercent);
       },
 
       //if we were playing before drag we need to play again.
       playStatusUpdateDraggingEnd() {
         if(this.wasPlayingBeforeScrub) {
           this.playStatus = true;
-          EventBus.$emit(`START_PLAYER_${this.indexes.playing}`);
+          EventBus.$emit(`START_PLAYER_${this.slugs.playing}`);
         }
       },
 
       //called when the pdf is opened. Gets the durations needed for both PDF and already playing.
       // getDurations() {
       //   return {
-      //     pdf: this.$store.getters.getRequestedDuration(this.indexes.pdf),
-      //     playing: this.$store.getters.getRequestedDuration(this.indexes.playing)
+      //     pdf: this.$store.getters.getRequestedDuration(this.slugs.pdf),
+      //     playing: this.$store.getters.getRequestedDuration(this.slugs.playing)
       //   };
       // },
 
       getElapsedTime() {
-        let whichDuration = (this.indexes.playing > -1) ? 'playing' : 'pdf';
+        let whichDuration = (this.slugs.playing != -1) ? 'playing' : 'pdf';
         let progressMul = this.playbackPercent / 100;
-        let duration = this.$store.getters.getRequestedDuration(this.indexes[whichDuration]);
+        let duration = this.$store.getters.getRequestedDuration(this.slugs[whichDuration]);
         // console.log(this.$store.state.durations);
         return {
           progressMul: progressMul,
@@ -160,32 +161,33 @@
       },
 
       //just a local storage for indexes
-      registerIndexes(pdfIndex) {
-        this.indexes = {
-          pdf: pdfIndex,
+      registerSlugs(pdfSlug) {
+        this.slugs = {
+          pdf: pdfSlug,
           playing: this.$store.state.whatIsPlaying
         }
       },
 
       //goes to the store and gets the title of whats playing
-      getAppropriateTitle(index) {
+      getAppropriateTitle(slug) {
         if(this.playStatus) { //if playing get the playing title
-          return this.$store.state.titles[this.indexes.playing];
+          let playingSlug = this.$store.state.whatIsPlaying
+          return this.$store.state.musicData[playingSlug].title;
         } else { //or get the pdf title
-          return this.$store.getters.getRequestedTitle(index)
+          return this.$store.state.musicData[slug].title;
         }
       },
 
       //figure out what's needed in the popper menu
       shouldShowPopperRow(rowIndex) {
-        if (this.indexes.playing != -1) { //if something is playing
-          if (rowIndex == this.indexes.playing) { //if the row matches what is playing
+        if (this.slugs.playing != -1) { //if something is playing
+          if (rowIndex == this.slugs.playing) { //if the row matches what is playing
             return false;
           } else { //if the row doens't match what is playing
             return true;
           }
         } else { //if nothing is playing
-          if (rowIndex == this.indexes.pdf) { //if the row is the current pdf
+          if (rowIndex == this.slugs.pdf) { //if the row is the current pdf
             return false;
           } else { //if the row is not the pdf
             return true;
@@ -195,13 +197,14 @@
     },
 
     mounted() {
-      EventBus.$on('OPEN_PDF_MODAL', (index) => {
+      EventBus.$on('OPEN_PDF_MODAL', (slug) => {
+        let index = this.flatMusic[slug].index;
         //get some data for what is playing and the pdf
-        this.registerIndexes(index);
+        this.registerSlugs(slug);
         //if something is playing set the playStatus to true
-        this.playStatus = (this.indexes.playing == -1 ) ? false : true;
+        this.playStatus = (this.slugs.playing == -1 ) ? false : true;
         //get the title--either what is playing or pdf title
-        this.whatTitleIsPlaying = this.getAppropriateTitle(index);
+        this.whatTitleIsPlaying = this.getAppropriateTitle(slug);
         //update the play status bar if something is playing, else set it to 0
         this.playbackPercent = (this.playStatus) ? this.playbackPercent : 0;
 
@@ -209,7 +212,7 @@
 
       EventBus.$on("CLOSE_PDF_MODAL", () => {
         if(!this.playStatus) { //if something is not playing when the modal is closed, reset the play index
-          this.indexes.playing = -1;
+          this.slugs.playing = -1;
         }
       });
 
@@ -224,15 +227,23 @@
 
     computed: {
       playbackCountdown() {
-        let elapsedTime = this.getElapsedTime();
-        // console.log(elapsedTime);
-        let newDurationSec = elapsedTime.duration - (elapsedTime.duration * elapsedTime.progressMul);
-        return convertTimeToString(newDurationSec);
+        //this first calculates before the slugs is loaded
+        try {
+          let elapsedTime = this.getElapsedTime();
+          let newDurationSec = elapsedTime.duration - (elapsedTime.duration * elapsedTime.progressMul);
+          return convertTimeToString(newDurationSec);
+        } catch(e) {
+          //do nothing
+        }
       },
       toolTipValue() {
-        let elapsedTime = this.getElapsedTime();
-        let newDurationSec = elapsedTime.duration * elapsedTime.progressMul;
-        return convertTimeToString(newDurationSec);
+        try {
+          let elapsedTime = this.getElapsedTime();
+          let newDurationSec = elapsedTime.duration * elapsedTime.progressMul;
+          return convertTimeToString(newDurationSec);
+        } catch(e) {
+          //do nothing
+        }
       },
       allTitles() {
         return this.$store.getters.getAllTitles;

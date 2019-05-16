@@ -4,6 +4,7 @@
     <mvmt-box v-if="mvmts"
       :mvmts="mvmts"
       :index="index"
+      :slug="slug"
     />
     <img :src="`${publicPath}waveforms/${waveform}`" class="waveform" />
     <div class='songProgress'>
@@ -38,9 +39,10 @@ export default {
       playbackPercent: 0,
       publicPath: process.env.BASE_URL,
       playerIsPlaying: false,
+      flatMusic: this.$store.state.musicData,
     }
   },
-  props: ['index', 'title', 'details', 'waveform', 'audio', 'mvmts', 'length'],
+  props: ['slug', 'index', 'title', 'details', 'waveform', 'audio', 'mvmts', 'length'],
 
   methods: {
     //this updates the bar as it progresses
@@ -49,7 +51,7 @@ export default {
       this.playbackPercent = percent;
       //send progress to modal
       EventBus.$emit('NEW_PROGRESS_PERCENT', percent);
-      this.$store.commit('updateWhatIsPlaying', this.index);
+      this.$store.commit('updateWhatIsPlaying', this.slug);
     },
 
     //when the player stops, send it to the store
@@ -60,7 +62,7 @@ export default {
     updateWhatIsPlaying() {
       //remember what we are playing for the remote-player. If nothing then -1
       if(this.playerIsPlaying) {
-        this.$store.commit('updateWhatIsPlaying', this.index);
+        this.$store.commit('updateWhatIsPlaying', this.slug);
       } else {
         this.$store.commit('updateWhatIsPlaying', -1);
       }

@@ -73,7 +73,7 @@ export default {
     },
 
     calculateDurationPercent() {
-      let duration = this.$store.getters.getRequestedDuration(this.index);
+      let duration = this.$store.getters.getRequestedDuration(this.slug);
       this.mvmts.forEach((mvmt, index) => {
         let percent = mvmt.timecode.toSeconds() / duration;
         this.durationPercent[index] = percent;
@@ -85,7 +85,7 @@ export default {
       let durationPercentLength = this.durationPercent.length;
       let lastMvmtPlaying = realPercent.between(this.durationPercent[durationPercentLength - 1], 1);
       //if we're playing this piece
-      if (this.$store.state.whatIsPlaying == this.index) {
+      if (this.$store.state.whatIsPlaying == this.slug) {
         //if the last movement is playing set it to true, otherwise loop through and set what is playing
         if (lastMvmtPlaying) {
           this.movementPlaying[durationPercentLength - 1] = true;
@@ -107,7 +107,7 @@ export default {
     },
   },
 
-  props: ['index', 'mvmts'],
+  props: ['index', 'mvmts', 'slug'],
 
   computed: {
     columnsCalc () { return `gridTemplateColumns: repeat(${this.mvmts.length}, auto)` }

@@ -12,8 +12,13 @@ export default new Vuex.Store({
   },
 
   getters: {
-    getRequestedDuration: (state) => (index) => {
-      return state.durations[index];
+    getRequestedDuration: (state) => (slug) => {
+      try {
+        let index = state.musicData[slug].index;
+        return state.durations[index];
+      } catch(e) {
+        //do nothing
+      }
     },
     getRequestedTitle: (state) => (index) => {
       return state.titles[index];

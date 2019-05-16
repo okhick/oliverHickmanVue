@@ -23,6 +23,7 @@
         <!-- If theres a score and recording, render them -->
           <cover-viewer class="cover" v-if="validatePdf(piece.pdf)" :slug="piece.slug"/>
           <audio-player class="audioPlayer" v-if="validateRecording(piece.audio)"
+            :slug="piece.slug"
             :index="flatMusic[piece.slug].index"
             :title="piece.title"
             :details="piece.details"
@@ -65,6 +66,7 @@ export default {
       pdfFile: [], //this is populated beforeMount
       modalIsShowing: false,
       flatMusic: this.$store.state.musicData,
+      totalRec: undefined
     }
   },
 
@@ -108,7 +110,7 @@ export default {
     this.$store.subscribe((mutation, state) => {
       switch(mutation.type) {
         case 'addDuration':
-          if(state.durations.length == musicData.length) {
+          if(state.durations.length == this.totalRec) {
             EventBus.$emit('DURATIONS_REGISTERED')
           }
           break;
@@ -119,6 +121,7 @@ export default {
   beforeMount() {
     //make an array of data that the PDF modal will use
     let pieceIndex = 0;
+    let simplePieceCount = 0;
     for (let category in musicData) {
       musicData[category].pieces.forEach( (music, index) => {
         let musicData = {
@@ -128,12 +131,18 @@ export default {
         };
 
         if (this.validatePdf(music.pdf)) { musicData.pdf = music.pdf; }
-        if (this.validateRecording(music.audio)) { musicData.audio = music.audio; }
+        if (this.validateRecording(music.audio)) {
+          musicData.audio = music.audio;
+        } else {
+          simplePieceCount++;
+        }
 
         this.registerMusicData(music.slug, musicData);
         pieceIndex++;
       });
     }
+    //the total recording count
+    this.totalRec = (pieceIndex - simplePieceCount) + 1;
   }
 }
 </script>
