@@ -227,7 +227,7 @@
 
     computed: {
       playbackCountdown() {
-        //this first calculates before the slugs is loaded
+        //this first calculates before the slugs are loaded
         try {
           let elapsedTime = this.getElapsedTime();
           let newDurationSec = elapsedTime.duration - (elapsedTime.duration * elapsedTime.progressMul);

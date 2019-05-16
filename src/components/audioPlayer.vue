@@ -92,20 +92,20 @@ export default {
     this.player.on('pause', this.playerStatusChange);
 
     //update the player times. TIMECODE comes from movement box. PROGRESS comes from remote player
-    EventBus.$on(`NEW_TIMECODE_${this.index}`, timecode => {
+    EventBus.$on(`NEW_TIMECODE_${this.slug}`, timecode => {
       this.player.currentTime = timecode;
     });
-    EventBus.$on(`PLAYER_PROGRESS_UPDATE_${this.index}`, (update) => {
+    EventBus.$on(`PLAYER_PROGRESS_UPDATE_${this.slug}`, (update) => {
       let updateMul = update / 100;
       let currentTime = this.duration * updateMul;
       this.player.currentTime = currentTime;
     });
 
     //start and stop the plater when remote player says to
-    EventBus.$on(`START_PLAYER_${this.index}`, () => {
+    EventBus.$on(`START_PLAYER_${this.slug}`, () => {
       this.player.play();
     });
-    EventBus.$on(`PAUSE_PLAYER_${this.index}`, () => {
+    EventBus.$on(`PAUSE_PLAYER_${this.slug}`, () => {
       this.player.pause();
     });
 
