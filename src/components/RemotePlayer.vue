@@ -14,16 +14,16 @@
         <div class="popper">
           <table class="popper-table">
             <tr class="popper-title-row"
-              v-for="(title, index) in allTitles"
-              v-show="shouldShowPopperRow(index)"
-              @mouseover="popperOpts.hover=index"
+              v-for="music in allTitles"
+              v-show="shouldShowPopperRow(music.slug)"
+              @mouseover="popperOpts.hover=music.slug"
               @mouseout="popperOpts.hover=-1"
-              @click="playInstead(index)"
+              @click="playInstead(music.slug)"
             >
-              <td class="popper-title" v-html="title"></td>
+              <td class="popper-title" v-html="music.title"></td>
               <td class="popper-fa">
-                <font-awesome icon="eye" v-show="(index == indexes.pdf && popperOpts.hover!=index)" />
-                <font-awesome icon="play-circle" v-show="popperOpts.hover==index" />
+                <font-awesome icon="eye" v-show="(music.slug == slugs.pdf && popperOpts.hover!=music.slug)" />
+                <font-awesome icon="play-circle" v-show="popperOpts.hover==music.slug" />
               </td>
             </tr> <!-- end class="popper-title-row" -->
           </table>
@@ -111,16 +111,16 @@
         this.playStatus = !this.playStatus;
       },
 
-      playInstead(indexRequested) {
+      playInstead(slugRequested) {
         if (this.playStatus) { //if the player is playing pause it
           EventBus.$emit(`PAUSE_PLAYER_${this.slugs.playing}`);
         }
 
         //update some data
-        EventBus.$emit(`START_PLAYER_${indexRequested}`);
-        this.slugs.playing = indexRequested;
+        EventBus.$emit(`START_PLAYER_${slugRequested}`);
+        this.slugs.playing = slugRequested;
         this.playStatus = true;
-        this.whatTitleIsPlaying = this.$store.getters.getRequestedTitle(indexRequested);
+        this.whatTitleIsPlaying = this.$store.state.musicData[slugRequested].title;
         this.playbackCountdown;
       },
 
@@ -179,15 +179,15 @@
       },
 
       //figure out what's needed in the popper menu
-      shouldShowPopperRow(rowIndex) {
+      shouldShowPopperRow(slug) {
         if (this.slugs.playing != -1) { //if something is playing
-          if (rowIndex == this.slugs.playing) { //if the row matches what is playing
+          if (slug == this.slugs.playing) { //if the row matches what is playing
             return false;
           } else { //if the row doens't match what is playing
             return true;
           }
         } else { //if nothing is playing
-          if (rowIndex == this.slugs.pdf) { //if the row is the current pdf
+          if (slug == this.slugs.pdf) { //if the row is the current pdf
             return false;
           } else { //if the row is not the pdf
             return true;
@@ -246,7 +246,7 @@
         }
       },
       allTitles() {
-        return this.$store.getters.getAllTitles;
+        return this.$store.getters.getAllTitlesWithRec;
       }
     },
   }

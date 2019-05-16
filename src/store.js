@@ -20,15 +20,17 @@ export default new Vuex.Store({
         //do nothing
       }
     },
-    getRequestedTitle: (state) => (index) => {
-      return state.titles[index];
+
+    getAllTitlesWithRec(state) {
+      let allTitlesWithRec = []
+      for (let piece in state.musicData) {
+        let music = state.musicData[piece];
+        if (music.audio) {
+          allTitlesWithRec.push({ title: music.title,  slug: piece})
+        }
+      }
+      return allTitlesWithRec;
     },
-    getAllTitles(state) {
-      return state.titles;
-    },
-    howManyDurations(state) {
-      return state.durations;
-    }
   },
 
   mutations: {
@@ -36,11 +38,6 @@ export default new Vuex.Store({
       let index = payload.index;
       let duration = payload.duration;
       state.durations[index] = duration;
-    },
-    addTitle(state, payload) {
-      let index = payload.index;
-      let title = payload.title;
-      state.titles[index] = title;
     },
     updateWhatIsPlaying(state, index) {
       state.whatIsPlaying = index;
