@@ -75,7 +75,7 @@ export default {
       setTimeout(() => {
         this.$store.commit({
           type: 'addDuration',
-          index: this.index,
+          slug: this.slug,
           duration: this.player.duration
         });
       }, 1000);

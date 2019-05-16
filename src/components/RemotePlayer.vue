@@ -198,7 +198,6 @@
 
     mounted() {
       EventBus.$on('OPEN_PDF_MODAL', (slug) => {
-        let index = this.flatMusic[slug].index;
         //get some data for what is playing and the pdf
         this.registerSlugs(slug);
         //if something is playing set the playStatus to true

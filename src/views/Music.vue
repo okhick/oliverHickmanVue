@@ -24,7 +24,6 @@
           <cover-viewer class="cover" v-if="validatePdf(piece.pdf)" :slug="piece.slug"/>
           <audio-player class="audioPlayer" v-if="validateRecording(piece.audio)"
             :slug="piece.slug"
-            :index="flatMusic[piece.slug].index"
             :title="piece.title"
             :details="piece.details"
             :waveform="piece.waveform"
@@ -119,17 +118,14 @@ export default {
   },
 
   beforeMount() {
-    //make an array of data that the PDF modal will use
+    //make an array of data that children compenents will share
     let pieceIndex = 0;
     let simplePieceCount = 0;
     for (let category in musicData) {
       musicData[category].pieces.forEach( (music, index) => {
         let musicData = {
-          index: pieceIndex,
           title: music.title,
-          details: music.details,
         };
-
         if (this.validatePdf(music.pdf)) { musicData.pdf = music.pdf; }
         if (this.validateRecording(music.audio)) {
           musicData.audio = music.audio;
