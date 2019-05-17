@@ -5,6 +5,7 @@ import VueRouter from 'vue-router';
 import Home from './views/Home.vue';
 import About from './views/About.vue';
 import Music from './views/Music.vue';
+import Downloads from './views/Downloads.vue'
 import Contact from './views/Contact.vue';
 
 Vue.use(VueRouter);
@@ -25,6 +26,11 @@ export default new VueRouter({
       path: '/music',
       name: 'music',
       component: Music
+    },
+    {
+      path: '/downloads',
+      name: 'downloads',
+      component: Downloads
     },
     {
       path: '/contact',
