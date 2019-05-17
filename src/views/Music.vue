@@ -119,10 +119,10 @@ export default {
 
   beforeMount() {
     //make an array of data that children compenents will share
-    let pieceIndex = 0;
-    let simplePieceCount = 0;
+    let pieceIndex = 0; //used to count the total works
+    let simplePieceCount = 0; //used to count the pieces that don't have recordings
     for (let category in musicData) {
-      musicData[category].pieces.forEach( (music, index) => {
+      musicData[category].pieces.forEach( (music) => {
         let musicData = {
           title: music.title,
         };
