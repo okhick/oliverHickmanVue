@@ -105,7 +105,7 @@ export default {
     let that = this;
     //load when it's time to load
     EventBus.$on('LOAD_PDF', function(file) {
-      that.url = file;
+      that.url = `/pdfs/${file}`;
       that.fetchPDF();
     });
 

@@ -126,9 +126,13 @@ export default {
         let musicData = {
           title: music.title,
         };
-        if (this.validatePdf(music.pdf)) { musicData.pdf = music.pdf; }
+        if (this.validatePdf(music.pdf)) {
+          musicData.pdf = music.pdf;
+          musicData.cover = music.cover;
+        }
         if (this.validateRecording(music.audio)) {
           musicData.audio = music.audio;
+          musicData.waveform = music.waveform;
         } else {
           simplePieceCount++;
         }

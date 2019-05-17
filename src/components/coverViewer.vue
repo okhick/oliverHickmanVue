@@ -2,7 +2,7 @@
   <div class="coverImage"
     v-on:click="openPdfModal"
     >
-    <img v-bind:src="`${publicPath}CO3_cover.jpg`"/>
+    <img v-bind:src="`${publicPath}covers/${coverFile}`"/>
     <font-awesome
       icon="eye"
       class="fa-eye"
@@ -29,13 +29,14 @@ export default {
     return {
       publicPath: process.env.BASE_URL,
       coverHover: false,
+      coverFile: this.$store.state.musicData[this.slug].cover
     }
   },
   methods: {
     openPdfModal: function() {
       EventBus.$emit('OPEN_PDF_MODAL', this.slug);
-    }
-  }
+    },
+  },
 }
 </script>
 
