@@ -1,13 +1,8 @@
 <template>
-  <div class="coverImage"
-    v-on:click="openPdfModal"
-    >
-    <img v-bind:src="`${publicPath}covers/${coverFile}`"/>
-    <font-awesome
-      icon="eye"
-      class="fa-eye"
-    />
-    </div>
+  <div class="coverImage" v-on:click="openPdfModal">
+    <img ref="cover" v-bind:src="`${publicPath}covers/${coverFile}`"/>
+    <font-awesome icon="eye" class="fa-eye" v-bind:class="{portrait: isPortrait, landscape: !isPortrait}"/>
+  </div>
 </template>
 
 <script>
@@ -29,7 +24,8 @@ export default {
     return {
       publicPath: process.env.BASE_URL,
       coverHover: false,
-      coverFile: this.$store.state.musicData[this.slug].cover
+      coverFile: this.$store.state.musicData[this.slug].cover,
+      isPortrait: true
     }
   },
   methods: {
@@ -37,6 +33,11 @@ export default {
       EventBus.$emit('OPEN_PDF_MODAL', this.slug);
     },
   },
+  mounted() {
+    let width = this.$refs.cover.naturalWidth;
+    let height = this.$refs.cover.naturalHeight;
+    this.isPortrait = (width < height) ? true : false;
+  }
 }
 </script>
 
@@ -44,14 +45,17 @@ export default {
 .coverImage{
   grid-column: cover;
   position: relative;
+  align-content: center;
   /* make sure this is on top or modal won't work */
   z-index: 25;
 }
 .coverImage img{
+  position: absolute;
+  top: 50%;
+  left: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  overflow: hidden;
+  height: auto;
+  transform: translateY(-50%);
   -webkit-filter: brightness(100%);
   transition: all 0.3s ease;
 }
@@ -59,14 +63,25 @@ export default {
   -webkit-filter: brightness(85%);
   cursor: pointer;
 }
+.coverWrapper {
+  width: auto;
+  height: auto;
+}
 .fa-eye{
-  position: absolute;
-  right: 15px;
-  top: 14px;
+  position: relative;
+  float: right;
   z-index: 1;
   transition: all 0.3s ease;
   padding: 2px;
   border-radius: 2px;
+}
+.portrait {
+  right: 15px;
+  top: 14px;
+}
+.landscape {
+  right: 13px;
+  top: 52px;
 }
 .coverImage:hover .fa-eye {
   background-color: #02552b;

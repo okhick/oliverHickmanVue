@@ -126,10 +126,12 @@ export default {
         let musicData = {
           title: music.title,
         };
+        //if there's a pdf, log the file and the cover
         if (this.validatePdf(music.pdf)) {
           musicData.pdf = music.pdf;
           musicData.cover = music.cover;
         }
+        //if there's a recording, log the file and the waveform
         if (this.validateRecording(music.audio)) {
           musicData.audio = music.audio;
           musicData.waveform = music.waveform;
