@@ -1,4 +1,5 @@
 <template>
+
   <div class=aboutWrapper>
     <div class="imgContainer1">
       <parallax
@@ -9,10 +10,11 @@
         <img src="@/assets/img/Oliver+Kiersten-184.jpg" alt="noImg">
       </parallax>
     </div>
-    
-    <div class = "bioDiv">
+
+    <div class = "bioDiv" v-bind:style="{padding: padding}">
       <h1> OLIVER HICKMAN </h1>
-      <p class="bioText"> Oliver Hickman is a composer, music technologist, guitarist, and sound designer currently residing in Brooklyn, New York.
+      <p class="bioText">
+        Oliver Hickman is a composer, music technologist, guitarist, and sound designer currently residing in Brooklyn, New York.
         He holds a Bachelor of Music degree in composition from Columbia College Chicago and a Master of Music
         degree in Music Theory and Composition from NYU Steinhardt where he studied under Robert Honstein,
         Julia Wolfe, and Tae Hong Park. Oliver has written works for soloists to large ensembles including
@@ -25,7 +27,9 @@
         to free improvisation. He is a co-founder of the improv ensemble <em>Consensus</em>. He also has been working within the theatre and dance worlds as a composer and sound designer on various productions
         in Chicago and New York City since 2014.
        </br> </p>
-      <h1> <router-link to="/music"> LISTEN TO WORKS >> </router-link> </h1>
+      <h1 v-bind:style="{ fontSize: ($mq == 'sm') ? '20px' : '24px' }"> 
+        <router-link to="/music"> LISTEN TO WORKS >> </router-link>
+      </h1>
     </div>
   </div>
 </template>
@@ -37,6 +41,20 @@ export default {
   components: {
     Parallax,
   },
+  computed: {
+    padding: function() {
+      switch(this.$mq) {
+        case "sm":
+          return '10px 20px 10px 25px';
+          break
+        case 'md':
+          return '10px 50px 10px 50px';
+          break
+        default:
+          return '10px 100px 10px 100px';
+      }
+    }
+  }
 }
 </script>
 

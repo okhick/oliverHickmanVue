@@ -1,6 +1,8 @@
 <template>
   <div class="footer menuText">
-    <div class="footCon">© OLIVER HICKMAN MUSIC {{ new Date().getFullYear() }}</div>
+    <div class="footCon" v-bind:style="{ fontSize: ($mq == 'sm') ? '16px' : '18px' }">
+      © OLIVER HICKMAN MUSIC {{ new Date().getFullYear() }}
+    </div>
   </div>
 </template>
 
