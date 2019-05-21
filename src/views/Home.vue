@@ -8,23 +8,37 @@
       >
         <img src="@/assets/img/image1-okhick-bw-crop.jpg" alt="noImg">
       </parallax>
-      <div class="titleNameBox">
-        <p class="firstName">OLIVER</p>
-        <p class="lastName">HICKMAN</p>
+
+      <div :class="whichNameBox.wrapper">
+        <p :class="whichNameBox.firstName">OLIVER</p>
+        <p :class="whichNameBox.lastName">HICKMAN</p>
       </div>
     </div>
 
-    <div class="homeContent">
-      <div class="logo">
-          <img class="logoImg" src="@/assets/img/headphones-icon.png" alt="noLogo">
+    <mq-layout mq="lg">
+      <div class="homeContent">
+        <div class="logo">
+            <img class="logoImg" src="@/assets/img/headphones-icon.png" alt="noLogo">
+        </div>
+        <div class="text">
+          <h1> COMPOSER, MUSIC TECHNOLOGIST, </br> GUITARIST, SOUND DESIGNER </h1>
+          <p> Oliver Hickman is a composer, music technologist, guitarist, and sound designer
+              currently residing in Brooklyn, New York. </br> </p>
+          <h1> <router-link to="/about"> MORE ABOUT OLIVER >> </router-link> </h1>
+        </div>
       </div>
-      <div class="text">
-        <h1> COMPOSER, MUSIC TECHNOLOGIST, </br> GUITARIST, SOUND DESIGNER </h1>
-        <p> Oliver Hickman is a composer, music technologist, guitarist, and sound designer
-            currently residing in Brooklyn, New York. </br> </p>
-        <h1> <router-link to="/about"> MORE ABOUT OLIVER >> </router-link> </h1>
+    </mq-layout>
+
+    <mq-layout :mq="['sm', 'md']">
+      <div class="homeContentSmall">
+        <div class="text">
+          <h1> COMPOSER, </br> MUSIC TECHNOLOGIST, </br> GUITARIST, </br> SOUND DESIGNER </h1>
+          <p> Oliver Hickman is a composer, music technologist, guitarist, and sound designer
+              currently residing in Brooklyn, New York. </br> </p>
+          <h1 class="toAbout"> <router-link to="/about"> MORE ABOUT </br> OLIVER >> </router-link> </h1>
+        </div>
       </div>
-    </div>
+    </mq-layout>
 
     <div class="linkBoxGrid">
       <parallax
@@ -55,7 +69,12 @@ export default {
 
   data: function() {
     return {
-      img2Margin: 0
+      img2Margin: 0,
+      nameBoxClasses: {
+        wrapper: undefined,
+        firstName: undefined,
+        lastName: undefined
+      }
     }
   },
 
@@ -64,6 +83,25 @@ export default {
     //the 0.15 comes from the parallax speed. Add ten for good measure.
     const img2Height = this.$refs.img2.clientHeight;
     this.img2Margin = (img2Height * 0.15 + 10) * -1;
+  },
+
+  computed: {
+    whichNameBox: function() {
+      switch(this.$mq) {
+        case 'sm':
+          return {
+            wrapper: 'titleNameBox smallTitleBox',
+            firstName: 'firstName smallTitleBox',
+            lastName: 'lastName smallTitleBox'
+          }
+      default:
+        return {
+          wrapper: 'titleNameBox',
+          firstName: 'firstName',
+          lastName: 'lastName'
+        }
+      }
+    }
   }
 }
 </script>
@@ -75,6 +113,7 @@ export default {
   display: inline-grid;
   position: relative;
   z-index: 1;
+  overflow: hidden;
 }
 /* Bottom Image */
 .linkBoxGrid {
@@ -141,6 +180,18 @@ p.lastName{
   text-shadow: -12px 0 10px #191c21;
 }
 
+.titleNameBox.smallTitleBox {
+  padding: 0px 0px 0px;
+  right: -7px;
+}
+p.firstName.smallTitleBox {
+  font-size: 68px;
+}
+p.lastName.smallTitleBox {
+  font-size: 60px;
+}
+
+
 .logo {
   grid-column: logo;
   display: inline-grid;
@@ -166,5 +217,24 @@ p.lastName{
   margin-top: -6px;
   position: relative;
   z-index: 99;
+}
+.homeContentSmall {
+  grid-row: stuff;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  background-color: #fff;
+  margin-top: -6px;
+  position: relative;
+  z-index: 99;
+}
+
+.homeContentSmall .text {
+  padding-right: 20px;
+  padding-left: 20px;
+  text-align: justify;
+}
+
+.toAbout {
+  text-align: left;
 }
 </style>
