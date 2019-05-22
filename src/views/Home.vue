@@ -30,7 +30,7 @@
     </mq-layout>
 
     <mq-layout :mq="['sm', 'md']">
-      <div class="homeContentSmall">
+      <div class="homeContent small">
         <div class="text">
           <h1> COMPOSER, </br> MUSIC TECHNOLOGIST, </br> GUITARIST, </br> SOUND DESIGNER </h1>
           <p> Oliver Hickman is a composer, music technologist, guitarist, and sound designer
@@ -51,8 +51,8 @@
         <img src="@/assets/img/image2-okhick-bw-crop.jpg" ref="img2">
       </parallax>
       <div class="img2Top"></div>
-      <div class="musicLinkBox">
-        <router-link to="/music" class="musicLink"> LISTEN TO MUSIC </router-link>
+      <div v-bind:class="whichMusicLink.wrapper">
+        <router-link to="/music" v-bind:class="whichMusicLink.linkBox"> LISTEN TO MUSIC </router-link>
       </div>
       <div class="img2Bottom"></div>
     </div>
@@ -86,20 +86,35 @@ export default {
   },
 
   computed: {
+    whichMusicLink: function() {
+      switch(this.$mq) {
+        case 'sm':
+          return {
+            wrapper: 'musicLinkBox small',
+            linkBox: 'musicLink small',
+          }
+        default:
+          return {
+            wrapper: 'musicLinkBox',
+            linkBox: 'musicLink',
+          }
+      }
+    },
+
     whichNameBox: function() {
       switch(this.$mq) {
         case 'sm':
           return {
-            wrapper: 'titleNameBox smallTitleBox',
-            firstName: 'firstName smallTitleBox',
-            lastName: 'lastName smallTitleBox'
+            wrapper: 'titleNameBox small',
+            firstName: 'firstName small',
+            lastName: 'lastName small'
           }
       default:
-        return {
-          wrapper: 'titleNameBox',
-          firstName: 'firstName',
-          lastName: 'lastName'
-        }
+          return {
+            wrapper: 'titleNameBox',
+            firstName: 'firstName',
+            lastName: 'lastName'
+          }
       }
     }
   }
@@ -149,6 +164,13 @@ export default {
   letter-spacing: 0.2em;
   text-decoration: none;
 }
+.musicLinkBox.small {
+  padding: 16px;
+}
+.musicLink.small {
+  font-size: 19px;
+}
+
 .img2Bottom{
   grid-row: 3;
 }
@@ -180,14 +202,14 @@ p.lastName{
   text-shadow: -12px 0 10px #191c21;
 }
 
-.titleNameBox.smallTitleBox {
+.titleNameBox.small {
   padding: 0px 0px 0px;
   right: -7px;
 }
-p.firstName.smallTitleBox {
+p.firstName.small {
   font-size: 68px;
 }
-p.lastName.smallTitleBox {
+p.lastName.small {
   font-size: 60px;
 }
 
@@ -216,19 +238,13 @@ p.lastName.smallTitleBox {
   background-color: #fff;
   margin-top: -6px;
   position: relative;
-  z-index: 99;
+  z-index: 29;
 }
-.homeContentSmall {
-  grid-row: stuff;
-  padding-top: 50px;
-  padding-bottom: 50px;
-  background-color: #fff;
-  margin-top: -6px;
-  position: relative;
-  z-index: 99;
+.homeContent.small {
+  display: block;
 }
 
-.homeContentSmall .text {
+.homeContent.small .text {
   padding-right: 20px;
   padding-left: 20px;
   text-align: justify;
