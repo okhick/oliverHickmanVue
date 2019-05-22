@@ -3,6 +3,7 @@
     <div class="imgContainer1">
       <parallax
         class= 'img'
+        v-bind:class="{ shifted: smallHeaderImg }"
         :speedFactor="0.15" direction="down"
         breakpoint="(min-width: 10px)"
       >
@@ -116,6 +117,10 @@ export default {
             lastName: 'lastName'
           }
       }
+    },
+
+    smallHeaderImg: function() {
+      return (this.$mq == 'sm') ? true : false;
     }
   }
 }
@@ -129,6 +134,9 @@ export default {
   position: relative;
   z-index: 1;
   overflow: hidden;
+}
+.img.shifted .Masthead__image.is-parallax > img {
+  width: 150% !important;
 }
 /* Bottom Image */
 .linkBoxGrid {

@@ -69,6 +69,7 @@ a:visited {
 .img {
   width: 100vw;
   object-fit: cover;
+  position: absolute;
 }
 /* The top image */
 .imgContainer1 {

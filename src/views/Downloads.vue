@@ -3,6 +3,7 @@
     <div class="imgContainer1">
       <parallax
         class='img'
+        v-bind:class="{ shifted: smallHeaderImg }"
         :speedFactor="0.15" direction="down"
         breakpoint="(min-width: 10px)"
       >
@@ -23,6 +24,11 @@ export default {
   components: {
     Parallax,
   },
+  computed: {
+    smallHeaderImg: function() {
+      return (this.$mq == 'sm') ? true : false;
+    }
+  }
 }
 </script>
 
@@ -35,13 +41,6 @@ export default {
   background-color: #fff;
   padding-top: 10px;
   margin-top: -8px;
-}
-.contactInfo h1 {
-  /* margin-top: 0; */
-}
-.downloadContent p {
-  margin: auto;
-  line-height: 150px;
 }
 
 </style>
