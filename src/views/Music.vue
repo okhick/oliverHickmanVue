@@ -10,16 +10,16 @@
       <pdf-modal v-show="modalIsShowing" />
 
       <h1> MUSIC </h1>
-
       <div v-for="(category) in $options.musicData">
         <h2 class="musicTitle categoryTitle"> {{ category.label }} </h2>
-        <div v-for="(piece,catIndex) in category.pieces"
+
+        <mq-layout mq="lg"
+          v-for="(piece,catIndex) in category.pieces"
           v-bind:class="{
-            pieceWrapper:validatePdf(piece.pdf),
-            pieceWrapperBare:!(validatePdf(piece.pdf)),
-            marginTop: (catIndex==0)
-          }"
-        >
+          pieceWrapper:validatePdf(piece.pdf),
+          pieceWrapperBare:!(validatePdf(piece.pdf)),
+          marginTop: (catIndex==0)
+        }">
         <!-- If theres a score and recording, render them -->
           <cover-viewer class="cover" v-if="validatePdf(piece.pdf)" :slug="piece.slug"/>
           <audio-player class="audioPlayer" v-if="validateRecording(piece.audio)"
@@ -36,7 +36,8 @@
             <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
             <p class="detail" v-html="piece.details"> </p>
           </div>
-        </div> <!-- end pieceWrapper -->
+        </mq-layout> <!-- end pieceWrapper -->
+        
       </div> <!-- end category -->
     </div> <!-- end content -->
   </div>
@@ -115,6 +116,12 @@ export default {
           break;
       }
     });
+  },
+
+  computed: {
+    displayTest: function() {
+      return this.$mq === 'md' ? 'I am md' : 'I am large'
+    },
   },
 
   beforeMount() {
