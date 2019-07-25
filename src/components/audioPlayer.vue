@@ -1,12 +1,12 @@
 <template>
-  <div class='playerWrapper'>
+  <div :class="playerWrapperSize">
     <h2 class="musicTitle" v-html="`${title.toUpperCase()}`"> </h2>
     <mvmt-box v-if="mvmts"
       :mvmts="mvmts"
       :index="index"
       :slug="slug"
     />
-    <img :src="`${publicPath}waveforms/${waveform}`" class="waveform" />
+    <img :src="`${publicPath}waveforms/${waveform}`" :class="waveformSize" />
     <div class='songProgress'>
       <div class='songProgressBar' v-bind:style="{ width:`${playbackPercent}%` }"></div>
     </div>
@@ -17,7 +17,7 @@
         </audio>
       </vue-plyr>
     </div> <!-- end player -->
-    <p class="detail" v-html="details"> </p>
+    <p :class="detailSize" v-html="details"> </p>
   </div> <!-- end playerWrapper -->
 </template>
 
@@ -83,6 +83,9 @@ export default {
    },
 
   mounted () {
+    //set the plyr width
+    this.$refs.plyr.$el.style.width = (this.$mq === 'lg') ? 'calc(100vw - 155px - 5px)' : '100vw';
+
     //send some data to the store
     this.player.on('ready', this.registerDurations)
 
@@ -116,6 +119,10 @@ export default {
 
     //returns the duration of the track
     duration () { return this.$refs.plyr.player.duration },
+
+    playerWrapperSize () { return (this.$mq === 'lg') ? 'playerWrapper' : 'playerWrapper small' },
+    waveformSize () { return (this.$mq === 'lg') ? 'waveform' : 'waveform small' },
+    detailSize () { return (this.$mq === 'sm') ? 'detail small' : 'detail' }
   },
 }
 </script>
@@ -130,6 +137,10 @@ p.detail {
   bottom: 0px;
   margin: 0 0 2px 5px;
   z-index: 4;
+}
+p.detail.small {
+  font-size: 17px;
+  margin: 0 0 0 5px;
 }
 .linkOut {
   color: #4a4a4a;
@@ -158,7 +169,10 @@ h2.musicTitle {
   width: calc(100vw - 155px - 5px); /* viewWidth - pictureWidth - grid-column-gap */
   height: 200px;
 }
-.waveform, .player, .songProgress {
+.playerWrapper.small {
+  width: 100vw;
+}
+.waveform, .waveformSmall, .player, .songProgress {
   position: absolute;
   top: 0;
   left: 0;
@@ -168,6 +182,9 @@ h2.musicTitle {
   width: calc(100vw - 155px - 5px); /* viewWidth - pictureWidth - grid-column-gap */
   height: 100%;
   z-index: 1;
+}
+.waveform.small {
+  width: 100vw;
 }
 
 /* Make the progress bar */
@@ -192,11 +209,14 @@ h2.musicTitle {
 .plyr {
   font-family: "Nunito Sans", sans-serif;
   color: #000;
-  width: calc(100vw - 155px - 5px); /* viewWidth - pictureWidth - grid-column-gap */
+  /* width: calc(100vw - 155px - 5px); /* viewWidth - pictureWidth - grid-column-gap */
   position: relative;
   right: 10px;
   top: 74px;
   z-index: 4;
+}
+.plyrSmall {
+  width: 100vw !important;
 }
 /* Moves the tooltip in front the Movements box since they overlap a bit */
 .plyr:hover {
