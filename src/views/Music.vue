@@ -79,7 +79,7 @@ export default {
     Parallax,
     AudioPlayer,
     coverViewer,
-    pdfModal
+    pdfModal,
   },
 
   musicData: musicData,

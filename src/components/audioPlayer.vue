@@ -31,6 +31,11 @@
         </audio>
       </vue-plyr>
     </div> <!-- end player -->
+
+    <mq-layout :mq="['sm','md']">
+      <font-awesome icon="eye" class="fa-eye" v-on:click="openPdfModal"/>
+    </mq-layout>
+
     <p :class="detailSize" v-html="details"> </p>
   </div> <!-- end playerWrapper -->
 </template>
@@ -42,11 +47,17 @@ import 'vue-plyr/dist/vue-plyr.css';
 import 'rangetouch/dist/rangetouch.js';
 import EventBus from '../eventBus.js';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+library.add(faEye);
+
 export default {
   name: 'audio-player',
   components: {
     VuePlyr,
-    'mvmt-box': MovementsBox
+    'mvmt-box': MovementsBox,
+    'font-awesome': FontAwesomeIcon
   },
   data: function() {
     return {
@@ -83,6 +94,10 @@ export default {
       // console.log(this.$store.state.whatIsPlaying);
     },
 
+    openPdfModal: function() {
+      EventBus.$emit('OPEN_PDF_MODAL', this.slug);
+    },
+
     //store the duration
     registerDurations: function() {
       //Have to use a time out because aparently durations are not ready when the player is?
@@ -98,7 +113,7 @@ export default {
 
   mounted () {
     //set the plyr width
-    this.$refs.plyr.$el.style.width = (this.$mq === 'lg') ? 'calc(100vw - 155px - 5px)' : '100vw';
+    this.$refs.plyr.$el.style.width = (this.$mq === 'lg') ? 'calc(100vw - 155px - 5px)' : '98vw';
 
     //send some data to the store
     this.player.on('ready', this.registerDurations)
@@ -268,5 +283,20 @@ h2.musicTitle {
 }
 .plyr__tooltip {
   z-index: 100;
+}
+
+.playerWrapper.small .fa-eye {
+  position: absolute;
+  top: 66px;
+  right: 0;
+  padding: 7px 7px 7px 7px;
+  margin-right: 3px;
+  z-index: 5;
+}
+
+.playerWrapper.small .fa-eye:hover {
+  color: #fff;
+  background: #02552b;
+  cursor: pointer;
 }
 </style>
