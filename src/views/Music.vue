@@ -10,10 +10,12 @@
       <pdf-modal v-show="modalIsShowing" />
 
       <h1> MUSIC </h1>
-
       <div v-for="(category) in $options.musicData">
         <h2 class="musicTitle categoryTitle"> {{ category.label }} </h2>
-        <div v-for="(piece,catIndex) in category.pieces"
+
+        <!-- For large screens -->
+        <mq-layout mq="lg"
+          v-for="(piece,catIndex) in category.pieces"
           v-bind:class="{
             pieceWrapper:validatePdf(piece.pdf),
             pieceWrapperBare:!(validatePdf(piece.pdf)),
@@ -36,7 +38,29 @@
             <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
             <p class="detail" v-html="piece.details"> </p>
           </div>
-        </div> <!-- end pieceWrapper -->
+        </mq-layout> <!-- end pieceWrapper large screens-->
+
+        <mq-layout :mq="['sm', 'md']"
+          v-for="(piece,catIndex) in category.pieces"
+          v-bind:class="{
+            pieceWrapperSmall:validatePdf(piece.pdf),
+            pieceWrapperBareSmall:!(validatePdf(piece.pdf)),
+            marginTopSmall: (catIndex==0)
+          }"
+        >
+          <audio-player class="audioPlayer" v-if="validateRecording(piece.audio)"
+            :slug="piece.slug"
+            :title="piece.title"
+            :details="piece.details"
+            :waveform="piece.waveform"
+            :audio="piece.audio"
+            :mvmts="validateMovements(piece.movements)"
+          />
+          <div v-else="!(validateRecording(piece.audio))" class="bare">
+            <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
+            <p class="detail" v-html="piece.details"> </p>
+          </div>
+        </mq-layout>
       </div> <!-- end category -->
     </div> <!-- end content -->
   </div>
@@ -55,7 +79,7 @@ export default {
     Parallax,
     AudioPlayer,
     coverViewer,
-    pdfModal
+    pdfModal,
   },
 
   musicData: musicData,
@@ -173,6 +197,9 @@ export default {
   grid-column-gap: 5px;
   padding-bottom: 30px;
 }
+.pieceWrapperSmall {
+  padding-bottom: 50px;
+}
 
 .categoryTitle {
   background: rgba(205, 219, 212, 0.9);
@@ -185,21 +212,32 @@ export default {
 .marginTop {
   margin-top: 30px !important;
 }
+.marginTopSmall {
+  margin-top: 50px !important;
+}
 
 .bare {
   width: 100%;
+  /* padding-bottom: 30px; */
+}
+.pieceWrapperBare {
+  width: 100vw;
   padding-bottom: 30px;
 }
-.pieceWrapper.bare {
-  width: 100vw;
+.pieceWrapperBareSmall{
+  padding-bottom: 50px;
 }
 .bare h2.musicTitle {
   text-align: left;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 .bare p.detail {
   position: relative;
-  margin-left: 10px;
+  font-size: 17px;
+}
+.pieceWrapperBareSmall h2.musicTitle {
+  font-size: 20px;
+  letter-spacing: 0.1em;
 }
 
 .cover {

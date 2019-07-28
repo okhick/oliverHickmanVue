@@ -1,23 +1,32 @@
 <template>
-<div class="playerMovementBoxWrapper">
+<div class="playerMovementBoxWrapper" :class="$mq | mq({sm:'small', md:'small'})">
   <div class="showMoreMvmts">
+
     <popper trigger="click" :options="popperOpts" :visible-arrow="true">
+
       <div class="moreMvmts popper"v-bind:style="columnsCalc">
         <div v-for="(mvmt, mvmtIndex) in mvmts"
           class="mvmt"
           v-on:click="selectMvmt(mvmtIndex)"
-
         >
-          {{ mvmt.title }}
+          <!-- Render HTML here to control breaking spaces -->
+          <span class="mvmtTitle" v-html="mvmt.title"> </span>
           <font-awesome icon="play-circle" class="fa" v-bind:class="{ isPlaying: movementPlaying[mvmtIndex] }"/>
-          <!-- <font-awesome icon="play-circle" class="fa" v-show="movementPlaying[mvmtIndex]"/> -->
         </div>
       </div>
 
+      <!-- control the placement of the movement selector -->
       <div slot="reference" class="movementButtonWrapper">
-        <font-awesome icon="bars" class="movementButtonFa"/>
-        <p>MOVEMENTS</p>
+        <mq-layout :mq="['sm','md']">
+          <font-awesome icon="bars" class="movementButtonFa small"/>
+        </mq-layout>
+
+        <mq-layout :mq="['lg']">
+          <font-awesome icon="bars" class="movementButtonFa"/>
+          <p>MOVEMENTS</p>
+        </mq-layout>
       </div>
+
     </popper>
   </div>
 </div>
@@ -27,7 +36,6 @@
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faBars, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
-// import { faAngleUp } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import Popper from 'vue-popperjs';
@@ -37,7 +45,6 @@ import 'animate.css/animate.min.css';
 import EventBus from '../eventBus.js';
 
 library.add(faBars, faPlayCircle)
-// library.add(faAngleUp);
 
 export default {
   components: {
@@ -51,7 +58,7 @@ export default {
       progressPercent: 0,
       popperOpts: {
         hover: false,
-        placement: 'bottom',
+        placement: '',
         modifiers: {
           preventOverflow: {
             enabled: false
@@ -110,11 +117,23 @@ export default {
   props: ['index', 'mvmts', 'slug'],
 
   computed: {
-    columnsCalc () { return `gridTemplateColumns: repeat(${this.mvmts.length}, auto)` }
+    columnsCalc () {
+      let columns;
+      if (this.$mq !== 'lg') {
+        columns = 1;
+      } else {
+        columns = this.mvmts.length;
+      }
+      return `gridTemplateColumns: repeat(${columns}, auto)`
+    },
   },
 
   created() {
     this.instantiateMovementPlaying();
+  },
+
+  beforeMount() {
+    this.popperOpts.placement = (this.$mq !== 'lg') ? 'bottom-start' : 'bottom';
   },
 
   mounted() {
@@ -169,6 +188,11 @@ Number.prototype.between = function(a, b) {
   position: relative;
 }
 
+.playerMovementBoxWrapper.small {
+  display: inline-block;
+}
+
+
 .movementButtonFa{
   cursor: pointer;
 }
@@ -177,6 +201,12 @@ Number.prototype.between = function(a, b) {
 }
 .movementButtonWrapper:hover .movementButtonFa{
   transform: scale(1.1,1.1);
+}
+.playerMovementBoxWrapper.small .movementButtonWrapper {
+  margin-left: 0;
+  margin-top: 0;
+  top: -2px;
+  padding-right: 6px;
 }
 
 .showMoreMvmts {
@@ -210,19 +240,29 @@ Number.prototype.between = function(a, b) {
   border-radius: 2px;
   cursor: pointer;
   transition: all 0.3s ease;
+  display: inline-grid;
+  grid-template-columns: [title] auto [fa] 10px;
+  grid-column-gap: 3px;
 }
 .mvmt:hover {
   background-color: #02552b;
   color: #fff;
 }
+.playerMovementBoxWrapper.small .mvmt {
+  text-align: left;
+}
+.mvmtTitle {
+  grid-column: title;
+}
 
 .mvmt .fa {
   margin-top: -10;
+  padding-top: 3px;
   color: #000;
   top: 0;
-  padding-left: 3px;
   cursor: pointer;
   visibility: hidden;
+  grid-column: fa;
 }
 .mvmt:hover .fa {
   color: #fff;

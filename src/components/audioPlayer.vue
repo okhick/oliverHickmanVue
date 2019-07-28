@@ -1,12 +1,26 @@
 <template>
-  <div class='playerWrapper'>
-    <h2 class="musicTitle" v-html="`${title.toUpperCase()}`"> </h2>
-    <mvmt-box v-if="mvmts"
-      :mvmts="mvmts"
-      :index="index"
-      :slug="slug"
-    />
-    <img :src="`${publicPath}waveforms/${waveform}`" class="waveform" />
+  <div :class="playerWrapperSize">
+
+    <mq-layout :mq="['sm', 'md']">
+      <mvmt-box v-if="mvmts"
+        :mvmts="mvmts"
+        :index="index"
+        :slug="slug"
+      />
+      <h2 class="musicTitle" v-html="`${title.toUpperCase()}`"> </h2>
+    </mq-layout>
+
+    <mq-layout :mq="['lg']">
+      <h2 class="musicTitle" v-html="`${title.toUpperCase()}`"> </h2>
+      <mvmt-box v-if="mvmts"
+        :mvmts="mvmts"
+        :index="index"
+        :slug="slug"
+      />
+    </mq-layout>
+
+    <img :src="`${publicPath}waveforms/${waveform}`" :class="waveformSize" />
+
     <div class='songProgress'>
       <div class='songProgressBar' v-bind:style="{ width:`${playbackPercent}%` }"></div>
     </div>
@@ -17,7 +31,12 @@
         </audio>
       </vue-plyr>
     </div> <!-- end player -->
-    <p class="detail" v-html="details"> </p>
+
+    <mq-layout :mq="['sm','md']">
+      <font-awesome icon="eye" class="fa-eye" v-on:click="openPdfModal"/>
+    </mq-layout>
+
+    <p :class="detailSize" v-html="details"> </p>
   </div> <!-- end playerWrapper -->
 </template>
 
@@ -28,11 +47,17 @@ import 'vue-plyr/dist/vue-plyr.css';
 import 'rangetouch/dist/rangetouch.js';
 import EventBus from '../eventBus.js';
 
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+library.add(faEye);
+
 export default {
   name: 'audio-player',
   components: {
     VuePlyr,
-    'mvmt-box': MovementsBox
+    'mvmt-box': MovementsBox,
+    'font-awesome': FontAwesomeIcon
   },
   data: function() {
     return {
@@ -69,6 +94,10 @@ export default {
       // console.log(this.$store.state.whatIsPlaying);
     },
 
+    openPdfModal: function() {
+      EventBus.$emit('OPEN_PDF_MODAL', this.slug);
+    },
+
     //store the duration
     registerDurations: function() {
       //Have to use a time out because aparently durations are not ready when the player is?
@@ -83,6 +112,9 @@ export default {
    },
 
   mounted () {
+    //set the plyr width
+    this.$refs.plyr.$el.style.width = (this.$mq === 'lg') ? 'calc(100vw - 155px - 5px)' : '98vw';
+
     //send some data to the store
     this.player.on('ready', this.registerDurations)
 
@@ -116,6 +148,10 @@ export default {
 
     //returns the duration of the track
     duration () { return this.$refs.plyr.player.duration },
+
+    playerWrapperSize () { return (this.$mq === 'lg') ? 'playerWrapper' : 'playerWrapper small' },
+    waveformSize () { return (this.$mq === 'lg') ? 'waveform' : 'waveform small' },
+    detailSize () { return (this.$mq === 'sm') ? 'detail small' : 'detail' }
   },
 }
 </script>
@@ -130,6 +166,10 @@ p.detail {
   bottom: 0px;
   margin: 0 0 2px 5px;
   z-index: 4;
+}
+p.detail.small {
+  font-size: 17px;
+  margin: 0 0 0 5px;
 }
 .linkOut {
   color: #4a4a4a;
@@ -158,7 +198,18 @@ h2.musicTitle {
   width: calc(100vw - 155px - 5px); /* viewWidth - pictureWidth - grid-column-gap */
   height: 200px;
 }
-.waveform, .player, .songProgress {
+.playerWrapper.small {
+  width: 100vw;
+  height: 160px;
+}
+
+.playerWrapper.small h2.musicTitle {
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  display: inline;
+}
+
+.waveform, .waveformSmall, .player, .songProgress {
   position: absolute;
   top: 0;
   left: 0;
@@ -168,6 +219,9 @@ h2.musicTitle {
   width: calc(100vw - 155px - 5px); /* viewWidth - pictureWidth - grid-column-gap */
   height: 100%;
   z-index: 1;
+}
+.waveform.small {
+  width: 100vw;
 }
 
 /* Make the progress bar */
@@ -184,19 +238,17 @@ h2.musicTitle {
   z-index: 2;
 }
 
-.movementBoxWrapper {
-  z-index: 3;
-}
-
 /* Style the plyr a bit */
 .plyr {
   font-family: "Nunito Sans", sans-serif;
   color: #000;
-  width: calc(100vw - 155px - 5px); /* viewWidth - pictureWidth - grid-column-gap */
   position: relative;
   right: 10px;
   top: 74px;
   z-index: 4;
+}
+.playerWrapper.small .plyr {
+  top: 54px;
 }
 /* Moves the tooltip in front the Movements box since they overlap a bit */
 .plyr:hover {
@@ -231,5 +283,20 @@ h2.musicTitle {
 }
 .plyr__tooltip {
   z-index: 100;
+}
+
+.playerWrapper.small .fa-eye {
+  position: absolute;
+  top: 66px;
+  right: 0;
+  padding: 7px 7px 7px 7px;
+  margin-right: 3px;
+  z-index: 5;
+}
+
+.playerWrapper.small .fa-eye:hover {
+  color: #fff;
+  background: #02552b;
+  cursor: pointer;
 }
 </style>
