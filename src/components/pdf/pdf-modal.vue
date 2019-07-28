@@ -6,14 +6,15 @@
 
           <mq-layout :mq="['md', 'lg']">
             <remote-player></remote-player>
-            <progress-bar
-              class="loadingBar"
-              :val="loadingProgress"
-              bg-color="#b3b4b4"
-              bar-color="#012a15"
-              bar-transition="all 0.1s ease"
-            ></progress-bar>
           </mq-layout>
+
+          <progress-bar
+            class="loadingBar"
+            :val="loadingProgress"
+            bg-color="#b3b4b4"
+            bar-color="#012a15"
+            bar-transition="all 0.1s ease"
+          ></progress-bar>
 
           <div class="left-controls">
             <font-awesome icon="times" size="2x" class="fa fa-times" @click="close"/>
@@ -21,8 +22,12 @@
             <font-awesome icon="search-minus" size="2x" class="fa fa-zoom-out" @click="zoomOut"/>
           </div>
 
+          <div class="download">
+            <a :href="url" download> <font-awesome icon="download" size="2x" class="fa"/> </a>
+          </div>
+
         </div> <!-- end nav-cover -->
-        
+
         <div class="pdf-wrapper">
           <div class="pdf-document" :key="scale">
             <PDFPage
@@ -49,9 +54,9 @@ import EventBus from '@/eventBus.js';
 
 // stuff for font awesome
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes, faSearchPlus, faSearchMinus } from '@fortawesome/free-solid-svg-icons';
+import { faTimes, faSearchPlus, faSearchMinus, faDownload } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
-library.add(faTimes, faSearchPlus, faSearchMinus);
+library.add(faTimes, faSearchPlus, faSearchMinus, faDownload);
 
 export default {
   name: 'pdf-modal',
@@ -202,6 +207,20 @@ export default {
     transform:scale(0.8, 0.8);
   }
   .fa-zoom-out:hover {
+    transform:scale(0.9, 0.9);
+  }
+
+  .download {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding-right: 8px;
+    padding-top: 8px;
+    transform:scale(0.8, 0.8);
+    z-index: 9001;
+  }
+  .download:hover {
+    cursor: pointer;
     transform:scale(0.9, 0.9);
   }
 
