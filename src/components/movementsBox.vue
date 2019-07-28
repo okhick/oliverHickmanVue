@@ -1,5 +1,5 @@
 <template>
-<div class="playerMovementBoxWrapper" :class="$mq | mq({sm:'small'})">
+<div class="playerMovementBoxWrapper" :class="$mq | mq({sm:'small', md:'small'})">
   <div class="showMoreMvmts">
 
     <popper trigger="click" :options="popperOpts" :visible-arrow="true">
@@ -17,11 +17,11 @@
 
       <!-- control the placement of the movement selector -->
       <div slot="reference" class="movementButtonWrapper">
-        <mq-layout mq="sm">
+        <mq-layout :mq="['sm','md']">
           <font-awesome icon="bars" class="movementButtonFa small"/>
         </mq-layout>
 
-        <mq-layout :mq="['md','lg']">
+        <mq-layout :mq="['lg']">
           <font-awesome icon="bars" class="movementButtonFa"/>
           <p>MOVEMENTS</p>
         </mq-layout>
@@ -71,10 +71,6 @@ export default {
     }
   },
   methods: {
-    popperType: function() {
-      let kind = (this.$mq == 'sm') ? 'bottom-start' : 'bottom';
-      return kind;
-    },
     //take the clicked element, find the time code, and emit the event to the EventBus
     selectMvmt: function(mvmtIndex) {
       let newTimecodeEmit = `NEW_TIMECODE_${this.index}`;
@@ -123,7 +119,7 @@ export default {
   computed: {
     columnsCalc () {
       let columns;
-      if (this.$mq == 'sm') {
+      if (this.$mq !== 'lg') {
         columns = 1;
       } else {
         columns = this.mvmts.length;
@@ -137,7 +133,7 @@ export default {
   },
 
   beforeMount() {
-    this.popperOpts.placement = (this.$mq == 'sm') ? 'bottom-start' : 'bottom';
+    this.popperOpts.placement = (this.$mq !== 'lg') ? 'bottom-start' : 'bottom';
   },
 
   mounted() {

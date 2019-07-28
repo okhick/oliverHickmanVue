@@ -1,7 +1,7 @@
 <template>
   <div :class="playerWrapperSize">
 
-    <mq-layout mq='sm'>
+    <mq-layout :mq="['sm', 'md']">
       <mvmt-box v-if="mvmts"
         :mvmts="mvmts"
         :index="index"
@@ -10,7 +10,7 @@
       <h2 class="musicTitle" v-html="`${title.toUpperCase()}`"> </h2>
     </mq-layout>
 
-    <mq-layout :mq="['md', 'lg']">
+    <mq-layout :mq="['lg']">
       <h2 class="musicTitle" v-html="`${title.toUpperCase()}`"> </h2>
       <mvmt-box v-if="mvmts"
         :mvmts="mvmts"
