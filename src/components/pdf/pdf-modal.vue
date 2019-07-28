@@ -3,20 +3,26 @@
     <div class="modal-backdrop">
       <div class="modal">
         <div class="nav-cover">
-          <remote-player></remote-player>
-          <progress-bar
-            class="loadingBar"
-            :val="loadingProgress"
-            bg-color="#b3b4b4"
-            bar-color="#012a15"
-            bar-transition="all 0.1s ease"
-          ></progress-bar>
+
+          <mq-layout :mq="['md', 'lg']">
+            <remote-player></remote-player>
+            <progress-bar
+              class="loadingBar"
+              :val="loadingProgress"
+              bg-color="#b3b4b4"
+              bar-color="#012a15"
+              bar-transition="all 0.1s ease"
+            ></progress-bar>
+          </mq-layout>
+
           <div class="left-controls">
             <font-awesome icon="times" size="2x" class="fa fa-times" @click="close"/>
             <font-awesome icon="search-plus" size="2x" class="fa fa-zoom" @click="zoomIn"/>
             <font-awesome icon="search-minus" size="2x" class="fa fa-zoom-out" @click="zoomOut"/>
           </div>
+
         </div> <!-- end nav-cover -->
+        
         <div class="pdf-wrapper">
           <div class="pdf-document" :key="scale">
             <PDFPage
