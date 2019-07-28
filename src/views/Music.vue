@@ -218,21 +218,26 @@ export default {
 
 .bare {
   width: 100%;
+  /* padding-bottom: 30px; */
+}
+.pieceWrapperBare {
+  width: 100vw;
   padding-bottom: 30px;
 }
-.pieceWrapper.bare {
-  width: 100vw;
-}
 .pieceWrapperBareSmall{
-  margin-bottom: 50px;
+  padding-bottom: 50px;
 }
 .bare h2.musicTitle {
   text-align: left;
-  margin-left: 10px;
+  margin-left: 5px;
 }
 .bare p.detail {
   position: relative;
-  margin-left: 10px;
+  font-size: 17px;
+}
+.pieceWrapperBareSmall h2.musicTitle {
+  font-size: 20px;
+  letter-spacing: 0.1em;
 }
 
 .cover {

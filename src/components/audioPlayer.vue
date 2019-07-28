@@ -1,12 +1,26 @@
 <template>
   <div :class="playerWrapperSize">
-    <h2 class="musicTitle" v-html="`${title.toUpperCase()}`"> </h2>
-    <mvmt-box v-if="mvmts"
-      :mvmts="mvmts"
-      :index="index"
-      :slug="slug"
-    />
+
+    <mq-layout mq='sm'>
+      <mvmt-box v-if="mvmts"
+        :mvmts="mvmts"
+        :index="index"
+        :slug="slug"
+      />
+      <h2 class="musicTitle" v-html="`${title.toUpperCase()}`"> </h2>
+    </mq-layout>
+
+    <mq-layout :mq="['md', 'lg']">
+      <h2 class="musicTitle" v-html="`${title.toUpperCase()}`"> </h2>
+      <mvmt-box v-if="mvmts"
+        :mvmts="mvmts"
+        :index="index"
+        :slug="slug"
+      />
+    </mq-layout>
+
     <img :src="`${publicPath}waveforms/${waveform}`" :class="waveformSize" />
+
     <div class='songProgress'>
       <div class='songProgressBar' v-bind:style="{ width:`${playbackPercent}%` }"></div>
     </div>
@@ -171,7 +185,15 @@ h2.musicTitle {
 }
 .playerWrapper.small {
   width: 100vw;
+  height: 160px;
 }
+
+.playerWrapper.small h2.musicTitle {
+  font-size: 20px;
+  letter-spacing: 0.1em;
+  display: inline;
+}
+
 .waveform, .waveformSmall, .player, .songProgress {
   position: absolute;
   top: 0;
@@ -201,22 +223,17 @@ h2.musicTitle {
   z-index: 2;
 }
 
-.movementBoxWrapper {
-  z-index: 3;
-}
-
 /* Style the plyr a bit */
 .plyr {
   font-family: "Nunito Sans", sans-serif;
   color: #000;
-  /* width: calc(100vw - 155px - 5px); /* viewWidth - pictureWidth - grid-column-gap */
   position: relative;
   right: 10px;
   top: 74px;
   z-index: 4;
 }
-.plyrSmall {
-  width: 100vw !important;
+.playerWrapper.small .plyr {
+  top: 54px;
 }
 /* Moves the tooltip in front the Movements box since they overlap a bit */
 .plyr:hover {

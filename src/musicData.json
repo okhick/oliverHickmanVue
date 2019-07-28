@@ -5,7 +5,7 @@
       {
         "title": "CO<sub>3</sub> (2018)",
         "slug": "co3",
-        "details": "for Large Ensemble <br> Premiered by the NYU Contempoary Music Ensemble</p>",
+        "details": "for Large Ensemble <br> Premiered by the NYU Contempoary Music Ensemble",
         "waveform": "co3.png",
         "audio": "co3.mp3",
         "pdf": "CO3_fs.pdf",
@@ -25,7 +25,7 @@
         "pdf": "test.pdf",
         "movements": [
           {
-            "title": "Something Long",
+            "title": "Something&nbsp;Long",
             "timecode": "0:00"
           },
           {
