@@ -99,7 +99,7 @@ export default {
       return (typeof piece !== 'object' ? false : piece);
     },
     validatePdf: function(piece) {
-      return (typeof piece !== 'string' ? false : true);
+      return (typeof piece !== 'object' ? false : true);
     },
     validateRecording: function(piece) {
       return (typeof piece !== 'string' ? false : true);
@@ -121,7 +121,7 @@ export default {
     //open the modal first, then emit the load pdf event with requested file
     EventBus.$on('OPEN_PDF_MODAL', (slug) => {
       this.togglePdfModal();
-      EventBus.$emit('LOAD_PDF', this.flatMusic[slug].pdf)
+      EventBus.$emit('LOAD_PDF', slug)
       });
 
     //close the modal
@@ -153,6 +153,11 @@ export default {
         //if there's a pdf, log the file and the cover
         if (this.validatePdf(music.pdf)) {
           musicData.pdf = music.pdf;
+          try {
+            musicData.downloadable = music.downloadable;
+          } catch (e) {
+            //nada
+          }
           musicData.cover = music.cover;
         }
         //if there's a recording, log the file and the waveform

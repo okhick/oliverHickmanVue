@@ -22,7 +22,8 @@
             <font-awesome icon="search-minus" size="2x" class="fa fa-zoom-out" @click="zoomOut"/>
           </div>
 
-          <div class="download">
+
+          <div v-if="downloadable" class="download">
             <a :href="url" download> <font-awesome icon="download" size="2x" class="fa"/> </a>
           </div>
 
@@ -68,6 +69,7 @@ export default {
       scale: 1,
       scaleChangeAmount: 0.1,
       url: '',
+      downloadable: false,
       progressArray: [],
       loadingProgress: 0,
       loadingEndPointScale: 0,
@@ -110,20 +112,25 @@ export default {
       this.scale = 1;
       EventBus.$emit('CLOSE_PDF_MODAL');
     },
+
+    getPdfInfo(slug) {
+      return this.$store.getters.getPdfState(slug);
+    }
   },
 
   mounted() {
-    let that = this;
     //load when it's time to load
-    EventBus.$on('LOAD_PDF', function(file) {
-      that.url = `/pdfs/${file}`;
-      that.fetchPDF();
+    EventBus.$on('LOAD_PDF', (slug) => {
+      let pdfInfo = this.getPdfInfo(slug);
+      this.url = `/pdfs/${pdfInfo.file}`;
+      this.downloadable = pdfInfo.downloadable;
+      this.fetchPDF();
     });
 
     //When a page is rendered increase the loading bar
-    EventBus.$on('PAGE_RENDERED', function(page) {
-      that.progressArray.push(page);
-      that.loadingProgress = that.progressArray.length * that.loadingEndPointScale;
+    EventBus.$on('PAGE_RENDERED', (page) => {
+      this.progressArray.push(page);
+      this.loadingProgress = this.progressArray.length * this.loadingEndPointScale;
     });
   },
 

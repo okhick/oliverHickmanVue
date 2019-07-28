@@ -30,6 +30,11 @@ export default new Vuex.Store({
       }
       return allTitlesWithRec;
     },
+
+    getPdfState: (state) => (slug) => {
+      let pdf = state.musicData[slug].pdf;
+      return pdf;
+    }
   },
 
   mutations: {

@@ -8,7 +8,10 @@
         "details": "for Large Ensemble <br> Premiered by the NYU Contempoary Music Ensemble",
         "waveform": "co3.png",
         "audio": "co3.mp3",
-        "pdf": "CO3_fs.pdf",
+        "pdf": {
+          "file": "CO3_fs.pdf",
+          "downloadable": true
+        },
         "cover": "CO3_cover.jpg"
       },
       {
@@ -22,7 +25,10 @@
         "details": "for Soprano, Voice, Violin, and Piano <br> Premiered and Recorded by the NYU Composers Ensemble feat. Soprano <a class='linkOut' href='https://www.cassandravenaglia.com/'>Cassandra Venaglia</a>",
         "waveform": "e_e_cummings.png",
         "audio": "e_e_cummings.mp3",
-        "pdf": "test.pdf",
+        "pdf": {
+          "file": "test.pdf",
+          "downloadable": true
+        },
         "movements": [
           {
             "title": "Something&nbsp;Long",
@@ -52,7 +58,10 @@
         "details": "for Piano, Double Bass, Drum Set, and Electronics <br> Recorded and premiered by <a class='linkOut' href='https://www.bearthoven.com'>Bearthoven</a>",
         "waveform": "extinguish.png",
         "audio": "extinguish.mp3",
-        "pdf": "Extinguish_fs.pdf"
+        "pdf": {
+          "file": "Extinguish_fs.pdf",
+          "downloadable": true
+        }
       }
     ]
   },
@@ -70,7 +79,10 @@
         "details": "for Soprano and Alto Saxophone <br> Recorded and premiered by <a class='linkOut' href='https://dylan-ward-saxophone.squarespace.com'>Dylan Ward</a> and <a class ='linkOut' href='https://www.andrewkossmusic.com'>Andrew Koss</a>",
         "waveform": "trenches.png",
         "audio": "trenches.mp3",
-        "pdf": "Trenches_letter_fs.pdf",
+        "pdf": {
+          "file": "Trenches_letter_fs.pdf",
+          "downloadable": false
+        },
         "cover": "Trenches_cover.jpg"
       },
       {
@@ -79,7 +91,10 @@
         "details": "for Double Bass and Electronics <br> Premiered by <a class='linkOut' href='https://www.codytakacs.com'>Cody Takács</a> at the 2017 SPLICE Institute",
         "waveform": "one_at_a_time.png",
         "audio": "one_at_a_time.mp3",
-        "pdf": "test5.pfd"
+        "pdf": {
+          "file": "test5.pfd",
+          "downloadable": true
+        }
       },
       {
         "title": "A Slightly Shortened String (2017)",
@@ -87,7 +102,10 @@
         "details": "for 2 Alto Sax, 2 Electric Guitars, and Piano <br> Premiered and Recorded by the NYU Composers Ensemble",
         "waveform": "a_slightly_shortened_string.png",
         "audio": "a_slightly_shortened_string.mp3",
-        "pdf": "test6.pfd"
+        "pdf": {
+          "file": "test6.pfd",
+          "downloadable": true
+        }
       },
       {
         "title": "Helical Loaded (2017)",
@@ -95,7 +113,10 @@
         "details": "for 2 Violas <br> Recorded and premiered by Kate Barmotina and <a class='linkOut' href='https://www.kylestalsberg.com'>Kyle Stalsberg</a>",
         "waveform": "helical_loaded.png",
         "audio": "helical_loaded.mp3",
-        "pdf": "test7.pfd"
+        "pdf": {
+          "file": "test7.pfd",
+          "downloadable": false
+        }
       },
       {
         "title": "Fluorescent Filckering (2017)",
@@ -103,7 +124,10 @@
         "details": "for String Quartet <br> Premiered by the JACK Quartet",
         "waveform": "fluorescent_filckering.png",
         "audio": "fluorescent_filckering.mp3",
-        "pdf": "test8.pfd"
+        "pdf": {
+          "file": "test8.pfd",
+          "downloadable": true
+        }
       }
     ]
   }
