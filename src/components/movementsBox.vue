@@ -73,7 +73,7 @@ export default {
   methods: {
     //take the clicked element, find the time code, and emit the event to the EventBus
     selectMvmt: function(mvmtIndex) {
-      let newTimecodeEmit = `NEW_TIMECODE_${this.index}`;
+      let newTimecodeEmit = `NEW_TIMECODE_${this.slug}`;
       let newTimecodeString = this.mvmts[mvmtIndex].timecode;
       let newTimecode = newTimecodeString.toSeconds();
       EventBus.$emit(newTimecodeEmit, newTimecode);
@@ -114,7 +114,7 @@ export default {
     },
   },
 
-  props: ['index', 'mvmts', 'slug'],
+  props: ['mvmts', 'slug'],
 
   computed: {
     columnsCalc () {

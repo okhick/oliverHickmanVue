@@ -26,11 +26,6 @@
           <cover-viewer class="cover" v-if="validatePdf(piece.pdf)" :slug="piece.slug"/>
           <audio-player class="audioPlayer" v-if="validateRecording(piece.audio)"
             :slug="piece.slug"
-            :title="piece.title"
-            :details="piece.details"
-            :waveform="piece.waveform"
-            :audio="piece.audio"
-            :mvmts="validateMovements(piece.movements)"
           />
 
           <!-- If there's no score and recording, just render the title and description -->
@@ -50,11 +45,6 @@
         >
           <audio-player class="audioPlayer" v-if="validateRecording(piece.audio)"
             :slug="piece.slug"
-            :title="piece.title"
-            :details="piece.details"
-            :waveform="piece.waveform"
-            :audio="piece.audio"
-            :mvmts="validateMovements(piece.movements)"
           />
           <div v-else="!(validateRecording(piece.audio))" class="bare">
             <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
@@ -94,15 +84,15 @@ export default {
   },
 
   methods: {
-    validateMovements: function (piece) {
-      //return the movements if exist or false
-      return (typeof piece !== 'object' ? false : piece);
-    },
     validatePdf: function(piece) {
       return (typeof piece !== 'object' ? false : true);
     },
     validateRecording: function(piece) {
       return (typeof piece !== 'string' ? false : true);
+    },
+    validateMovements: function (piece) {
+      //return the movements if exist or false
+      return (typeof piece !== 'object' ? false : piece);
     },
     togglePdfModal: function() {
       this.modalIsShowing = !this.modalIsShowing;
@@ -153,12 +143,10 @@ export default {
         //if there's a pdf, log the file and the cover
         if (this.validatePdf(music.pdf)) {
           musicData.pdf = music.pdf;
-          try {
-            musicData.downloadable = music.downloadable;
-          } catch (e) {
-            //nada
-          }
           musicData.cover = music.cover;
+        }
+        if (this.validateMovements(music.movements)) {
+          musicData.movements = music.movements;
         }
         //if there's a recording, log the file and the waveform
         if (this.validateRecording(music.audio)) {

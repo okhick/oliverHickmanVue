@@ -2,24 +2,22 @@
   <div :class="playerWrapperSize">
 
     <mq-layout :mq="['sm', 'md']">
-      <mvmt-box v-if="mvmts"
-        :mvmts="mvmts"
-        :index="index"
+      <mvmt-box v-if="validateMovements(musicData.movements)"
+        :mvmts="musicData.movements"
         :slug="slug"
       />
-      <h2 class="musicTitle" v-html="`${title.toUpperCase()}`"> </h2>
+      <h2 class="musicTitle" v-html="`${musicData.title.toUpperCase()}`"> </h2>
     </mq-layout>
 
     <mq-layout :mq="['lg']">
-      <h2 class="musicTitle" v-html="`${title.toUpperCase()}`"> </h2>
-      <mvmt-box v-if="mvmts"
-        :mvmts="mvmts"
-        :index="index"
+      <h2 class="musicTitle" v-html="`${musicData.title.toUpperCase()}`"> </h2>
+      <mvmt-box v-if="musicData.movements"
+        :mvmts="musicData.movements"
         :slug="slug"
       />
     </mq-layout>
 
-    <img :src="`${publicPath}waveforms/${waveform}`" :class="waveformSize" />
+    <img :src="`${publicPath}waveforms/${musicData.waveform}`" :class="waveformSize" />
 
     <div class='songProgress'>
       <div class='songProgressBar' v-bind:style="{ width:`${playbackPercent}%` }"></div>
@@ -27,7 +25,7 @@
     <div class='player'>
       <vue-plyr ref="plyr">
         <audio>
-          <source :src="`${publicPath}audio/${audio}`" type="audio/mp3"/>
+          <source :src="`${publicPath}audio/${musicData.audio}`" type="audio/mp3"/>
         </audio>
       </vue-plyr>
     </div> <!-- end player -->
@@ -36,7 +34,7 @@
       <font-awesome icon="eye" class="fa-eye" v-on:click="openPdfModal"/>
     </mq-layout>
 
-    <p :class="detailSize" v-html="details"> </p>
+    <p :class="detailSize" v-html="musicData.details"> </p>
   </div> <!-- end playerWrapper -->
 </template>
 
@@ -64,10 +62,10 @@ export default {
       playbackPercent: 0,
       publicPath: process.env.BASE_URL,
       playerIsPlaying: false,
-      flatMusic: this.$store.state.musicData,
+      musicData: this.$store.state.musicData[this.slug],
     }
   },
-  props: ['slug', 'index', 'title', 'details', 'waveform', 'audio', 'mvmts', 'length'],
+  props: ['slug'],
 
   methods: {
     //this updates the bar as it progresses
@@ -109,7 +107,12 @@ export default {
         });
       }, 1000);
     },
-   },
+
+    validateMovements: function (piece) {
+      //return the movements if exist or false
+      return (typeof piece !== 'object' ? false : piece);
+    },
+  },
 
   mounted () {
     //set the plyr width
