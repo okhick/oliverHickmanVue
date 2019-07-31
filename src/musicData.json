@@ -1,134 +1,278 @@
 {
-  "category1": {
-    "label": "TESTER",
-    "pieces": [
+	"solo": {
+		"label": "SOLO",
+		"pieces": [{
+				"title": "Hexagon 25 (2019-2019)",
+				"slug": "hexagon_25",
+				"details": "for Clarinet and Tap Dance <br> Commissioned by Corrine Klemenc. Premiere TBD."
+			},
+			{
+				"title": "Tight Ratchet (2018)",
+				"slug": "tight_ratchet",
+				"details": "for Soprano Saxophone and Electronics <br> Commissioned and Premiered by <a class ='linkOut' href='https://www.andrewkossmusic.com'>Andrew Koss</a>",
+				"waveform": "",
+				"audio": "",
+				"pdf": {
+					"file": "",
+					"downloadable": true
+				}
+			},
+			{
+				"title": "Bronzelidded (2017)",
+				"slug": "bronzelidded",
+				"details": "for 7 String Electric Violin and Electronics <br> Commissioned and Premiered by <a class='linkOut' href='https://www.kylestalsberg.com'>Kyle Stalsberg</a> at Pulsing &amp; Shaking 2018",
+				"waveform": "",
+				"audio": "",
+				"pdf": {
+					"file": "",
+					"downloadable": true
+				}
+			},
+			{
+				"title": "One at a Time (2017)",
+				"slug": "one_at_a_time",
+				"details": "for Double Bass and Electronics <br> Premiered by <a class='linkOut' href='https://www.codytakacs.com'>Cody Takács</a> at the 2017 SPLICE Institute",
+				"waveform": "one_at_a_time.png",
+				"audio": "one_at_a_time.mp3",
+				"pdf": {
+					"file": "",
+					"downloadable": true
+				}
+			},
+			{
+				"title": "<span style='text-transform:lowercase'> k.fn[s] + 'a' (2017) </span>",
+				"slug": "harmonica",
+				"details": "for Harmonica and Electronics <br> Premiered and Recorded by Oliver Hickman",
+				"waveform": "",
+				"audio": "one_at_a_time.mp3",
+				"pdf": {
+					"file": "",
+					"downloadable": true
+				}
+			},
+			{
+				"title": "&#916; (2017)",
+				"slug": "Triangle",
+				"details": "for triangle and Electronics <br> Premiered by Oliver Hickman"
+			},
+			{
+				"title": "Bobby (2014, <span style='text-transform:lowercase'> rev. </span> 2016)",
+				"slug": "bobby",
+				"details": "for Alto Saxophone and Electronics <br> Premiered by Hannah Hickman (2014), <a class ='linkOut' href='https://www.andrewkossmusic.com'>Andrew Koss</a> (2016)"
+			},
+			{
+				"title": "Decay Through the Chasm (2015)",
+				"slug": "decay_through_the_chasm",
+				"details": "for Electric Guitar and Electronics <br> Premiered by Oliver Hickman"
+			}
+		]
+	},
+	"chamber": {
+		"label": "CHAMBER",
+		"pieces": [{
+				"title": "Sonorous Noise (2018)",
+				"slug": "sonorous_noise",
+				"details": "for Laptop Orchestra <br> Commissioned and premiered by Stony Brook University's Synthbeats"
+			},
+			{
+				"title": "4 (2018)",
+				"slug": "four",
+				"details": "for Flute and Piano <br> Premiered by <a class='linkOut' href='https://www.righteousgirls.com'> RighteousGIRLS </a> in collaboration with NeverMind the Noise"
+			},
+			{
+				"title": "Five Poems by E. E. Cummings (2017-2018)",
+				"slug": "eecummings",
+				"details": "for Soprano, Voice, Violin, and Piano <br> Premiered and Recorded by the NYU Composers Ensemble feat. Soprano <a class='linkOut' href='https://www.cassandravenaglia.com/'>Cassandra Venaglia</a>",
+				"waveform": "e_e_cummings.png",
+				"audio": "e_e_cummings.mp3",
+				"pdf": {
+					"file": "test.pdf",
+					"downloadable": true
+				},
+				"movements": [{
+						"title": "I.&nbsp;into&nbsp;the strenuous&nbsp;briefness",
+						"timecode": "0:00"
+					},
+					{
+						"title": "II.&nbsp;oh&nbsp;sweet spontaneous&nbsp;earth",
+						"timecode": "1:30"
+					},
+					{
+						"title": "III.&nbsp;but&nbsp;the&nbsp;other",
+						"timecode": "4:30"
+					},
+					{
+						"title": "IV.&nbsp;in&nbsp;Just-",
+						"timecode": "6:45"
+					},
+					{
+						"title": "V.&nbsp;spring&nbsp;omnipotent goddess&nbsp;Thou",
+						"timecode": "8:15"
+					}
+				]
+			},
+			{
+				"title": "Extinguish (2017)",
+				"slug": "extinguish",
+				"details": "for Piano, Double Bass, Drum Set, and Electronics <br> Recorded and premiered by <a class='linkOut' href='https://www.bearthoven.com'>Bearthoven</a>",
+				"waveform": "extinguish.png",
+				"audio": "extinguish.mp3",
+				"pdf": {
+					"file": "Extinguish_fs.pdf",
+					"downloadable": true
+				}
+			},
+			{
+				"title": "Trenches (2017)",
+				"slug": "trenches",
+				"details": "for Soprano and Alto Saxophone <br> Recorded and premiered by <a class='linkOut' href='https://dylan-ward-saxophone.squarespace.com'>Dylan Ward</a> and <a class ='linkOut' href='https://www.andrewkossmusic.com'>Andrew Koss</a>",
+				"waveform": "trenches.png",
+				"audio": "trenches.mp3",
+				"pdf": {
+					"file": "Trenches_letter_fs.pdf",
+					"downloadable": false
+				},
+				"cover": "Trenches_cover.jpg"
+			},
+			{
+				"title": "No/To (2017)",
+				"slug": "noto",
+				"details": "for Soprano, Alto Saxophone, and Electric Guitar <br> Recorded and premiered by <a class='linkOut' href='https://www.cassandravenaglia.com/'>Cassandra Venaglia</a>, <a class ='linkOut' href='https://www.andrewkossmusic.com'>Andrew Koss</a>, and Oliver Hickman",
+				"waveform": "",
+				"audio": "",
+				"pdf": {
+					"file": "",
+					"downloadable": true
+				}
+			},
+			{
+				"title": "A Slightly Shortened String (2017)",
+				"slug": "a_slightly_shortened_string",
+				"details": "for 2 Alto Sax, 2 Electric Guitars, and Piano <br> Premiered and Recorded by the NYU Composers Ensemble",
+				"waveform": "a_slightly_shortened_string.png",
+				"audio": "a_slightly_shortened_string.mp3",
+				"pdf": {
+					"file": "test6.pfd",
+					"downloadable": true
+				}
+			},
+			{
+				"title": "Helical Loaded (2017)",
+				"slug": "helical_loaded",
+				"details": "for 2 Violas <br> Recorded and premiered by Kate Barmotina and <a class='linkOut' href='https://www.kylestalsberg.com'>Kyle Stalsberg</a>",
+				"waveform": "helical_loaded.png",
+				"audio": "helical_loaded.mp3",
+				"pdf": {
+					"file": "test7.pfd",
+					"downloadable": false
+				}
+			},
+			{
+				"title": "Fluorescent Filckering (2017)",
+				"slug": "fluorescent_filckering",
+				"details": "for String Quartet <br> Premiered by the JACK Quartet",
+				"waveform": "fluorescent_filckering.png",
+				"audio": "fluorescent_filckering.mp3",
+				"pdf": {
+					"file": "test8.pfd",
+					"downloadable": true
+				}
+			},
+			{
+				"title": "Vortex Encroaching (2015)",
+				"slug": "vortex_encroaching",
+				"details": "for Flute/Piccolo, Clarinet/Bass Clarinet, Trombone, Cello, Vibraphone/Percussion <br> Premiered by members of Mocrep",
+				"waveform": "",
+				"audio": "",
+				"pdf": {
+					"file": "",
+					"downloadable": true
+				}
+			}
+		]
+	},
+	"large": {
+		"label": "LARGE ENSEMBLE",
+		"pieces": [{
+				"title": "CO<sub>3</sub> (2018)",
+				"slug": "co3",
+				"details": "for Large Ensemble <br> Premiered by the NYU Contempoary Music Ensemble",
+				"waveform": "co3.png",
+				"audio": "co3.mp3",
+				"pdf": {
+					"file": "CO3_fs.pdf",
+					"downloadable": true
+				},
+				"cover": "CO3_cover.jpg"
+			},
+			{
+				"title": "Just Give Me a Minute (2017)",
+				"slug": "just_give_me_a_minute",
+				"details": "for Percussion Ensemble <br> Premiered by the NYU Percussion Ensemble"
+			},
+			{
+				"title": "Limited Evolution (2014)",
+				"slug": "limited_evolution",
+				"details": "for 4 Violas, 4 Cellos, and 2 Basses <br> Recorded by members of the Chicago Composers Orchestra",
+				"waveform": "",
+				"audio": "",
+				"pdf": {
+					"file": "",
+					"downloadable": true
+				},
+				"cover": "",
+        "movements": [{
+						"title": "I",
+						"timecode": "0:00"
+					},
+					{
+						"title": "II",
+						"timecode": "1:30"
+					},
+					{
+						"title": "III",
+						"timecode": "4:30"
+					},
+					{
+						"title": "IV",
+						"timecode": "6:45"
+					}
+				]
+			},
+			{
+				"title": "Peering into Universes",
+				"slug": "peering_into_universes",
+				"details": "Horn in F Concerto with Chamber Orchestra <br> Recorded by Matthew Oliphant and the Chicago Composers Orchestra"
+			}
+		]
+	},
+	"fixed": {
+		"label": "FIXED MEDIA",
+		"pieces": [
       {
-        "title": "CO<sub>3</sub> (2018)",
-        "slug": "co3",
-        "details": "for Large Ensemble <br> Premiered by the NYU Contempoary Music Ensemble",
-        "waveform": "co3.png",
-        "audio": "co3.mp3",
-        "pdf": {
-          "file": "CO3_fs.pdf",
-          "downloadable": true
-        },
-        "cover": "CO3_cover.jpg"
-      },
+        "title": "Void of Onions (2017)",
+				"slug": "void_of_onions",
+				"details": "Stereo Audio <br> Commissioned by <a class='linkOut' href='https://vimeo.com/isadoraelmira'>Isadora Elmira Scott</a>",
+				"waveform": "",
+				"audio": "",
+				"pdf": {
+					"file": "",
+					"downloadable": true
+				},
+				"cover": ""
+			},
       {
-        "title": "TEST",
-        "slug": "test1",
-        "details": "What the piece is actually goes here"
-      },
-      {
-        "title": "Five Poems by E. E. Cummings (2017-2018)",
-        "slug": "eecummings",
-        "details": "for Soprano, Voice, Violin, and Piano <br> Premiered and Recorded by the NYU Composers Ensemble feat. Soprano <a class='linkOut' href='https://www.cassandravenaglia.com/'>Cassandra Venaglia</a>",
-        "waveform": "e_e_cummings.png",
-        "audio": "e_e_cummings.mp3",
-        "pdf": {
-          "file": "test.pdf",
-          "downloadable": true
-        },
-        "movements": [
-          {
-            "title": "Something&nbsp;Long",
-            "timecode": "0:00"
-          },
-          {
-            "title": "DUUUUUUUUUUUUUUUDE",
-            "timecode": "1:30"
-          },
-          {
-            "title": "SWEEEET",
-            "timecode": "4:30"
-          },
-          {
-            "title": "DOPE",
-            "timecode": "6:45"
-          },
-          {
-            "title": "#5",
-            "timecode": "8:15"
-          }
-        ]
-      },
-      {
-        "title": "Extinguish (2017)",
-        "slug": "extinguish",
-        "details": "for Piano, Double Bass, Drum Set, and Electronics <br> Recorded and premiered by <a class='linkOut' href='https://www.bearthoven.com'>Bearthoven</a>",
-        "waveform": "extinguish.png",
-        "audio": "extinguish.mp3",
-        "pdf": {
-          "file": "Extinguish_fs.pdf",
-          "downloadable": true
-        }
+        "title": "The Constancy of Change (2016)",
+				"slug": "constancy_of_change",
+				"details": "Stereo Audio",
+				"waveform": "",
+				"audio": "",
+				"pdf": {
+					"file": "",
+					"downloadable": true
+				},
+				"cover": ""
       }
     ]
-  },
-  "category2": {
-    "label": "TEST2",
-    "pieces": [
-      {
-        "title": "TEST",
-        "slug": "test2",
-        "details": "What the piece is actually goes here"
-      },
-      {
-        "title": "Trenches (2017)",
-        "slug": "trenches",
-        "details": "for Soprano and Alto Saxophone <br> Recorded and premiered by <a class='linkOut' href='https://dylan-ward-saxophone.squarespace.com'>Dylan Ward</a> and <a class ='linkOut' href='https://www.andrewkossmusic.com'>Andrew Koss</a>",
-        "waveform": "trenches.png",
-        "audio": "trenches.mp3",
-        "pdf": {
-          "file": "Trenches_letter_fs.pdf",
-          "downloadable": false
-        },
-        "cover": "Trenches_cover.jpg"
-      },
-      {
-        "title": "One at a Time (2017)",
-        "slug": "one_at_a_time",
-        "details": "for Double Bass and Electronics <br> Premiered by <a class='linkOut' href='https://www.codytakacs.com'>Cody Takács</a> at the 2017 SPLICE Institute",
-        "waveform": "one_at_a_time.png",
-        "audio": "one_at_a_time.mp3",
-        "pdf": {
-          "file": "test5.pfd",
-          "downloadable": true
-        }
-      },
-      {
-        "title": "A Slightly Shortened String (2017)",
-        "slug": "a_slightly_shortened_string",
-        "details": "for 2 Alto Sax, 2 Electric Guitars, and Piano <br> Premiered and Recorded by the NYU Composers Ensemble",
-        "waveform": "a_slightly_shortened_string.png",
-        "audio": "a_slightly_shortened_string.mp3",
-        "pdf": {
-          "file": "test6.pfd",
-          "downloadable": true
-        }
-      },
-      {
-        "title": "Helical Loaded (2017)",
-        "slug": "helical_loaded",
-        "details": "for 2 Violas <br> Recorded and premiered by Kate Barmotina and <a class='linkOut' href='https://www.kylestalsberg.com'>Kyle Stalsberg</a>",
-        "waveform": "helical_loaded.png",
-        "audio": "helical_loaded.mp3",
-        "pdf": {
-          "file": "test7.pfd",
-          "downloadable": false
-        }
-      },
-      {
-        "title": "Fluorescent Filckering (2017)",
-        "slug": "fluorescent_filckering",
-        "details": "for String Quartet <br> Premiered by the JACK Quartet",
-        "waveform": "fluorescent_filckering.png",
-        "audio": "fluorescent_filckering.mp3",
-        "pdf": {
-          "file": "test8.pfd",
-          "downloadable": true
-        }
-      }
-    ]
-  }
+	}
 }
