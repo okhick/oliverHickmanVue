@@ -4,7 +4,7 @@
 
     <popper trigger="click" :options="popperOpts" :visible-arrow="true">
 
-      <div class="moreMvmts popper"v-bind:style="columnsCalc">
+      <div class="moreMvmts popper"v-bind:style="menuCalc">
         <div v-for="(mvmt, mvmtIndex) in mvmts"
           class="mvmt"
           v-on:click="selectMvmt(mvmtIndex)"
@@ -126,6 +126,14 @@ export default {
       }
       return `gridTemplateColumns: repeat(${columns}, auto)`
     },
+    menuCalc() {
+      let length = this.mvmts.length;
+      if (this.$mq !== 'lg') {
+        return `gridTemplateRows: repeat(${length}, auto)`;
+      } else {
+        return `gridTemplateColumns: repeat(${length}, auto)`;
+      }
+    }
   },
 
   created() {
@@ -227,7 +235,8 @@ Number.prototype.between = function(a, b) {
 .moreMvmts {
   display: inline-grid;
   grid-template-rows: auto;
-  column-gap: 6px;
+  grid-column-gap: 6px;
+  grid-row-gap: 6px;
   position: relative;
 }
 
