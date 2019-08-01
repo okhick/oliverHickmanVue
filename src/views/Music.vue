@@ -156,6 +156,8 @@ export default {
           simplePieceCount++;
         }
 
+        musicData.details = music.details;
+
         this.registerMusicData(music.slug, musicData);
         pieceIndex++;
       });

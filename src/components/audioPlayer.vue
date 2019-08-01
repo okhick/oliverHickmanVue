@@ -34,7 +34,7 @@
       <font-awesome icon="eye" class="fa-eye" v-on:click="openPdfModal"/>
     </mq-layout>
 
-    <p :class="detailSize" v-html="musicData.details"> </p>
+    <p :class="detailSize" v-html='musicData.details'> </p>
   </div> <!-- end playerWrapper -->
 </template>
 
@@ -169,9 +169,9 @@ p.detail {
   bottom: 0px;
   margin: 0 0 2px 5px;
   z-index: 4;
+  font-size: 17px;
 }
 p.detail.small {
-  font-size: 17px;
   margin: 0 0 0 5px;
 }
 .linkOut {
