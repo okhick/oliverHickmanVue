@@ -1,5 +1,5 @@
 <template>
-  <div :class="playerWrapperSize">
+  <div :class="[playerWrapperSize, {audioOnly:audioOnly}]">
 
     <mq-layout :mq="['sm', 'md']">
       <mvmt-box v-if="validateMovements(musicData.movements)"
@@ -63,6 +63,7 @@ export default {
       publicPath: process.env.BASE_URL,
       playerIsPlaying: false,
       musicData: this.$store.state.musicData[this.slug],
+      audioOnly: false
     }
   },
   props: ['slug'],
@@ -115,8 +116,16 @@ export default {
   },
 
   mounted () {
-    //set the plyr width
-    this.$refs.plyr.$el.style.width = (this.$mq === 'lg') ? 'calc(100vw - 155px - 5px)' : '98vw';
+    //set some things up if this is an audio only situation
+    this.audioOnly = (this.musicData.workType == 'AUDIO_ONLY') ? true : false;
+
+    if (this.$mq === 'lg' && (this.audioOnly == false)) {
+      this.$refs.plyr.$el.style.width = 'calc(100vw - 155px - 5px)';
+    } else if (this.$mq === 'lg' && (this.audioOnly == true)) {
+      this.$refs.plyr.$el.style.width = '100vw';
+    } else {
+      this.$refs.plyr.$el.style.width = '98vw';
+    }
 
     //send some data to the store
     this.player.on('ready', this.registerDurations)
@@ -206,6 +215,10 @@ h2.musicTitle {
   height: 160px;
 }
 
+.audioOnly {
+  width: 100vw
+}
+
 .playerWrapper.small h2.musicTitle {
   font-size: 20px;
   letter-spacing: 0.1em;
@@ -219,7 +232,7 @@ h2.musicTitle {
 }
 
 .waveform {
-  width: calc(100vw - 155px - 5px); /* viewWidth - pictureWidth - grid-column-gap */
+  width: 100%; /* viewWidth - pictureWidth - grid-column-gap */
   height: 100%;
   z-index: 1;
 }

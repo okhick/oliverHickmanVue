@@ -251,7 +251,7 @@
 				]
 			},
 			{
-				"title": "Peering into Universes",
+				"title": "Peering into Universes (2014)",
 				"slug": "peering_into_universes",
 				"details": "Horn in F Concerto with Chamber Orchestra <br> Recorded by Matthew Oliphant and the Chicago Composers Orchestra"
 			}
@@ -264,12 +264,7 @@
 				"slug": "void_of_onions",
 				"details": "Stereo Audio <br> Commissioned by <a class='linkOut' href='https://vimeo.com/isadoraelmira'>Isadora Elmira Scott</a>",
 				"waveform": "",
-				"audio": "",
-				"pdf": {
-					"file": "",
-					"downloadable": true
-				},
-				"cover": ""
+				"audio": "void_of_onions.mp3"
 			},
 			{
 				"title": "The Constancy of Change (2016)",

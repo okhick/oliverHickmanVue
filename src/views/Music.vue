@@ -16,25 +16,36 @@
         <!-- For large screens -->
         <mq-layout mq="lg"
           v-for="(piece,catIndex) in category.pieces"
-          v-bind:class="{
-            pieceWrapper:validatePdf(piece.pdf),
-            pieceWrapperBare:!(validatePdf(piece.pdf)),
-            marginTop: (catIndex==0)
-          }"
         >
-        <!-- If theres a score and recording, render them -->
-          <cover-viewer class="cover" v-if="validatePdf(piece.pdf)" :slug="piece.slug"/>
-          <audio-player class="audioPlayer" v-if="validateRecording(piece.audio)"
-            :slug="piece.slug"
-          />
+          <!-- If theres a score and recording, render them -->
+          <div v-if="flatMusic[piece.slug].workType == 'AUDIO_AND_SCORE'" class="pieceWrapper" :class="{marginTopSmall: (catIndex==0)}">
+            <cover-viewer class="cover" :slug="piece.slug"/>
+            <audio-player class="audioPlayer" :slug="piece.slug"/>
+          </div>
 
-          <!-- If there's no score and recording, just render the title and description -->
+          <div v-else-if="flatMusic[piece.slug].workType == 'AUDIO_ONLY'" class="pieceWrapperAudio" :class="{marginTopSmall: (catIndex==0)}">
+            <audio-player class="audioPlayer" :slug="piece.slug"/>
+          </div>
+
+          <div v-else-if="flatMusic[piece.slug].workType == 'SCORE_ONLY'" :class="{marginTopSmall: (catIndex==0)}">
+            <cover-viewer class="cover" :slug="piece.slug"/>
+          </div>
+
+          <div v-else-if="flatMusic[piece.slug].workType == 'SIMPLE'" class="pieceWrapperBare" :class="{marginTopSmall: (catIndex==0)}">
+            <div class="bare">
+              <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
+              <p class="detail" v-html="piece.details"> </p>
+            </div>
+          </div>
+
+          <!-- If there's no score and recording, just render the title and description
           <div v-else="!(validateRecording(piece.audio))" class="bare">
             <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
             <p class="detail" v-html="piece.details"> </p>
-          </div>
+          </div> -->
         </mq-layout> <!-- end pieceWrapper large screens-->
 
+        <!-- For not large screens -->
         <mq-layout :mq="['sm', 'md']"
           v-for="(piece,catIndex) in category.pieces"
           v-bind:class="{
@@ -140,24 +151,35 @@ export default {
         let musicData = {
           title: music.title,
         };
+
+        let hasPDF = this.validatePdf(music.pdf);
+        let hasRecording = this.validateRecording(music.audio)
+
         //if there's a pdf, log the file and the cover
-        if (this.validatePdf(music.pdf)) {
+        if (hasPDF && hasRecording) {
           musicData.pdf = music.pdf;
           musicData.cover = music.cover;
-        }
-        if (this.validateMovements(music.movements)) {
-          musicData.movements = music.movements;
-        }
-        //if there's a recording, log the file and the waveform
-        if (this.validateRecording(music.audio)) {
           musicData.audio = music.audio;
           musicData.waveform = music.waveform;
+          musicData.workType = 'AUDIO_AND_SCORE';
+        } else if (hasPDF && (hasRecording == false)) {
+          musicData.pdf = music.pdf;
+          musicData.cover = music.cover;
+          musicData.workType = 'SCORE_ONLY';
+        } else if ((hasPDF == false) && hasRecording) {
+          musicData.audio = music.audio;
+          musicData.waveform = music.waveform;
+          musicData.workType = 'AUDIO_ONLY';
         } else {
           simplePieceCount++;
+          musicData.workType = 'SIMPLE'
         }
 
         musicData.details = music.details;
 
+        if (this.validateMovements(music.movements)) {
+          musicData.movements = music.movements;
+        }
         this.registerMusicData(music.slug, musicData);
         pieceIndex++;
       });
@@ -194,6 +216,10 @@ export default {
 }
 .pieceWrapperSmall {
   padding-bottom: 50px;
+}
+.pieceWrapperAudio {
+  width:100vw;
+  padding-bottom: 30px;
 }
 
 .categoryTitle {
