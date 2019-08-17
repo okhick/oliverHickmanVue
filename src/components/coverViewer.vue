@@ -1,12 +1,17 @@
 <template>
   <div class="coverImage" v-on:click="openPdfModal">
-    <img ref="cover" v-bind:src="`${publicPath}covers/${coverFile}`"/>
+    <img
+      ref="cover"
+      v-bind:src="`${publicPath}covers/${coverFile}`"
+      v-images-loaded:on.progress="imageProgress"
+    />
     <font-awesome icon="eye" class="fa-eye" v-bind:class="{portrait: isPortrait, landscape: !isPortrait}"/>
   </div>
 </template>
 
 <script>
-import { library } from '@fortawesome/fontawesome-svg-core'
+import imagesLoaded from 'vue-images-loaded';
+import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -32,11 +37,16 @@ export default {
     openPdfModal: function() {
       EventBus.$emit('OPEN_PDF_MODAL', this.slug);
     },
+    imageProgress(instance, image ) {
+      if (image.isLoaded) {
+        let width = image.img.naturalWidth;
+        let height = image.img.naturalHeight;
+        this.isPortrait = (width < height) ? true : false;
+      }
+    }
   },
-  mounted() {
-    let width = this.$refs.cover.naturalWidth;
-    let height = this.$refs.cover.naturalHeight;
-    this.isPortrait = (width < height) ? true : false;
+  directives: {
+    imagesLoaded
   }
 }
 </script>
