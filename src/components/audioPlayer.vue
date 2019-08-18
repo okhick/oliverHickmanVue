@@ -31,7 +31,7 @@
     </div> <!-- end player -->
 
     <mq-layout :mq="['sm','md']">
-      <font-awesome icon="eye" class="fa-eye" v-on:click="openPdfModal"/>
+      <font-awesome icon="eye" class="fa-eye" v-on:click="openPdfModal" v-if="!audioOnly"/>
     </mq-layout>
 
     <p :class="detailSize" v-html='musicData.details'> </p>
@@ -119,9 +119,11 @@ export default {
     //set some things up if this is an audio only situation
     this.audioOnly = (this.musicData.workType == 'AUDIO_ONLY') ? true : false;
 
-    if (this.$mq === 'lg' && (this.audioOnly == false)) {
+    if (this.$mq === 'lg' && this.audioOnly === false) {
       this.$refs.plyr.$el.style.width = 'calc(100vw - 155px - 5px)';
-    } else if (this.$mq === 'lg' && (this.audioOnly == true)) {
+    } else if (this.$mq === 'lg' && this.audioOnly === true) {
+      this.$refs.plyr.$el.style.width = '100vw';
+    } else if (this.mq !== 'lg' && this.audioOnly === true){
       this.$refs.plyr.$el.style.width = '100vw';
     } else {
       this.$refs.plyr.$el.style.width = '98vw';
@@ -308,6 +310,9 @@ h2.musicTitle {
   padding: 7px 7px 7px 7px;
   margin-right: 3px;
   z-index: 5;
+}
+.fullWidth: {
+  margin-right: 0;
 }
 
 .playerWrapper.small .fa-eye:hover {

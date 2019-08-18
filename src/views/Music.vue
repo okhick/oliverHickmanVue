@@ -52,15 +52,15 @@
         <!-- For not large screens -->
         <mq-layout :mq="['sm', 'md']"
           v-for="(piece,catIndex) in category.pieces"
-          v-bind:class="{
-            pieceWrapperSmall:validatePdf(piece.pdf),
-            pieceWrapperBareSmall:!(validatePdf(piece.pdf)),
-            marginTopSmall: (catIndex==0)
-          }"
         >
-          <audio-player class="audioPlayer" v-if="validateRecording(piece.audio)"
-            :slug="piece.slug"
-          />
+          <div v-if="flatMusic[piece.slug].workType == 'AUDIO_AND_SCORE'" class="audioPlayer">
+            <audio-player class="audioPlayer" :slug="piece.slug"/>
+          </div>
+
+          <div v-if="flatMusic[piece.slug].workType == 'AUDIO_ONLY'" class="audioPlayer">
+            <audio-player class="audioPlayer" :slug="piece.slug"/>
+          </div>
+
           <div v-else="!(validateRecording(piece.audio))" class="bare">
             <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
             <p class="detail" v-html="piece.details"> </p>
