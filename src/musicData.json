@@ -219,7 +219,12 @@
 			{
 				"title": "Just Give Me a Minute (2017)",
 				"slug": "just_give_me_a_minute",
-				"details": "for Percussion Ensemble <br> Premiered by the NYU Percussion Ensemble"
+				"details": "for Percussion Ensemble <br> Premiered by the NYU Percussion Ensemble",
+				"pdf": {
+					"file": "Just Give Me a Minute_fs.pdf",
+					"downloadable": true
+				},
+				"cover": "Just Give Me a Minute_cover.jpg"
 			},
 			{
 				"title": "Limited Evolution (2014)",

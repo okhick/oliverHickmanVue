@@ -47,19 +47,20 @@ export default {
   },
   directives: {
     imagesLoaded
-  }
+  },
 }
 </script>
 
 <style>
-.coverImage{
+.coverImage {
   grid-column: cover;
   position: relative;
   align-content: center;
   /* make sure this is on top or modal won't work */
   z-index: 25;
 }
-.coverImage img{
+
+.coverImage img {
   position: absolute;
   top: 50%;
   left: 0;
@@ -69,6 +70,7 @@ export default {
   -webkit-filter: brightness(100%);
   transition: all 0.3s ease;
 }
+
 .coverImage img:hover {
   -webkit-filter: brightness(85%);
   cursor: pointer;

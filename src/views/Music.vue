@@ -27,8 +27,12 @@
             <audio-player class="audioPlayer" :slug="piece.slug"/>
           </div>
 
-          <div v-else-if="flatMusic[piece.slug].workType == 'SCORE_ONLY'" :class="{marginTopSmall: (catIndex==0)}">
-            <cover-viewer class="cover" :slug="piece.slug"/>
+          <div v-else-if="flatMusic[piece.slug].workType == 'SCORE_ONLY'" class="pieceWrapper" :class="{marginTopSmall: (catIndex==0)}">
+            <cover-viewer class="cover scoreOnly" :slug="piece.slug"/>
+            <div class="bare scoreOnlyDetails">
+              <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
+              <p class="detail" v-html="piece.details"> </p>
+            </div>
           </div>
 
           <div v-else-if="flatMusic[piece.slug].workType == 'SIMPLE'" class="pieceWrapperBare" :class="{marginTopSmall: (catIndex==0)}">
@@ -212,7 +216,7 @@ export default {
   grid-template-rows: 200px;
   grid-template-columns: [cover] 155px [player] auto;
   grid-column-gap: 5px;
-  padding-bottom: 30px;
+  padding-bottom: 50px;
 }
 .pieceWrapperSmall {
   padding-bottom: 50px;
@@ -243,7 +247,7 @@ export default {
 }
 .pieceWrapperBare {
   width: 100vw;
-  padding-bottom: 30px;
+  padding-bottom: 50px;
 }
 .pieceWrapperBareSmall{
   padding-bottom: 50px;
@@ -263,5 +267,11 @@ export default {
 
 .cover {
   grid-column: cover;
+}
+.scoreOnly {
+
+}
+.scoreOnlyDetails {
+  grid-column: player
 }
 </style>
