@@ -113,10 +113,6 @@ export default {
       //return the movements if exist or false
       return (typeof piece !== 'object' ? false : piece);
     },
-
-    openPdfModal: function() {
-      EventBus.$emit('OPEN_PDF_MODAL', this.slug);
-    },
   },
 
   mounted () {

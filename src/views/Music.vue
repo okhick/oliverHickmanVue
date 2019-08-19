@@ -245,7 +245,7 @@ export default {
 }
 .pieceWrapperAudio {
   width:100vw;
-  padding-bottom: 30px;
+  padding-bottom: 50px;
 }
 
 .categoryTitle {

@@ -2,7 +2,7 @@
 	"solo": {
 		"label": "SOLO",
 		"pieces": [{
-				"title": "Hexagon 25 (2019-2019)",
+				"title": "Hexagon 25 (2018-2019)",
 				"slug": "hexagon_25",
 				"details": "for Clarinet and Tap Dance <br> Commissioned by Corrine Klemenc. Premiere TBD."
 			},
@@ -46,7 +46,7 @@
 				"title": "<span style='text-transform:lowercase'> k.fn[s]+'a' (2017) </span>",
 				"slug": "harmonica",
 				"details": "for Harmonica and Electronics <br> Premiered and Recorded by Oliver Hickman",
-				"waveform": "",
+				"waveform": "harmonica.png",
 				"audio": "harmonica.mp3",
 				"pdf": {
 					"file": "harmonica.pdf",
@@ -76,7 +76,12 @@
 		"pieces": [{
 				"title": "Sonorous Noise (2018)",
 				"slug": "sonorous_noise",
-				"details": "for Laptop Orchestra <br> Commissioned and premiered by Stony Brook University's Synthbeats"
+				"details": "for Laptop Orchestra <br> Commissioned and premiered by Stony Brook University's Synthbeats",
+				"pdf": {
+					"file": "Sonorous Noise_fs.pdf",
+					"downloadable": true
+				},
+				"cover": "Sonorous Noise_cover.jpg"
 			},
 			{
 				"title": "4 (2018)",
@@ -183,10 +188,10 @@
 				"waveform": "fluorescent_filckering.png",
 				"audio": "fluorescent_filckering.mp3",
 				"pdf": {
-					"file": "",
+					"file": "Fluorescent Flickering_fs.pdf",
 					"downloadable": true
 				},
-				"cover": ""
+				"cover": "Fluorescent Flickering_cover.jpg"
 			},
 			{
 				"title": "Vortex Encroaching (2015)",
@@ -268,20 +273,15 @@
 				"title": "Void of Onions (2017)",
 				"slug": "void_of_onions",
 				"details": "Stereo Audio <br> Commissioned by <a class='linkOut' href='https://vimeo.com/isadoraelmira'>Isadora Elmira Scott</a>",
-				"waveform": "",
+				"waveform": "void_of_onions.png",
 				"audio": "void_of_onions.mp3"
 			},
 			{
 				"title": "The Constancy of Change (2016)",
 				"slug": "constancy_of_change",
 				"details": "Stereo Audio",
-				"waveform": "",
-				"audio": "",
-				"pdf": {
-					"file": "",
-					"downloadable": true
-				},
-				"cover": ""
+				"waveform": "constancy.png",
+				"audio": "constancy.mp3"
 			}
 		]
 	}
