@@ -16,18 +16,21 @@
         <!-- For large screens -->
         <mq-layout mq="lg"
           v-for="(piece,catIndex) in category.pieces"
+          v-bind:class="{
+            marginTopSmall: (catIndex==0)
+          }"
         >
           <!-- If theres a score and recording, render them -->
-          <div v-if="flatMusic[piece.slug].workType == 'AUDIO_AND_SCORE'" class="pieceWrapper" :class="{marginTopSmall: (catIndex==0)}">
+          <div v-if="flatMusic[piece.slug].workType == 'AUDIO_AND_SCORE'" class="pieceWrapper">
             <cover-viewer class="cover" :slug="piece.slug"/>
             <audio-player class="audioPlayer" :slug="piece.slug"/>
           </div>
 
-          <div v-else-if="flatMusic[piece.slug].workType == 'AUDIO_ONLY'" class="pieceWrapperAudio" :class="{marginTopSmall: (catIndex==0)}">
+          <div v-else-if="flatMusic[piece.slug].workType == 'AUDIO_ONLY'" class="pieceWrapperAudio">
             <audio-player class="audioPlayer" :slug="piece.slug"/>
           </div>
 
-          <div v-else-if="flatMusic[piece.slug].workType == 'SCORE_ONLY'" class="pieceWrapper" :class="{marginTopSmall: (catIndex==0)}">
+          <div v-else-if="flatMusic[piece.slug].workType == 'SCORE_ONLY'" class="pieceWrapper">
             <cover-viewer class="cover scoreOnly" :slug="piece.slug"/>
             <div class="bare scoreOnlyDetails">
               <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
@@ -35,36 +38,43 @@
             </div>
           </div>
 
-          <div v-else-if="flatMusic[piece.slug].workType == 'SIMPLE'" class="pieceWrapperBare" :class="{marginTopSmall: (catIndex==0)}">
+          <div v-else-if="flatMusic[piece.slug].workType == 'SIMPLE'" class="pieceWrapperBare">
             <div class="bare">
               <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
               <p class="detail" v-html="piece.details"> </p>
             </div>
           </div>
 
-          <!-- If there's no score and recording, just render the title and description
-          <div v-else="!(validateRecording(piece.audio))" class="bare">
-            <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
-            <p class="detail" v-html="piece.details"> </p>
-          </div> -->
         </mq-layout> <!-- end pieceWrapper large screens-->
 
         <!-- For not large screens -->
         <mq-layout :mq="['sm', 'md']"
           v-for="(piece,catIndex) in category.pieces"
+          v-bind:class="{
+            marginTopSmall: (catIndex==0)
+          }"
         >
-          <div v-if="flatMusic[piece.slug].workType == 'AUDIO_AND_SCORE'" class="audioPlayer">
+          <div v-if="flatMusic[piece.slug].workType == 'AUDIO_AND_SCORE'" class="audioPlayer, pieceWrapperSmall">
             <audio-player class="audioPlayer" :slug="piece.slug"/>
           </div>
 
-          <div v-if="flatMusic[piece.slug].workType == 'AUDIO_ONLY'" class="audioPlayer">
+          <div v-else-if="flatMusic[piece.slug].workType == 'AUDIO_ONLY'" class="audioPlayer, pieceWrapperSmall">
             <audio-player class="audioPlayer" :slug="piece.slug"/>
           </div>
 
-          <div v-else="!(validateRecording(piece.audio))" class="bare">
-            <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
+          <div v-else-if="flatMusic[piece.slug].workType == 'SCORE_ONLY'" class="bare pieceWrapperBareSmall">
+            <div class="smallNoAudioWrapper">
+              <h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2>
+              <font-awesome icon="eye" class="fa-eye" v-on:click="openPdfModal(piece.slug)"/>
+            </div>
             <p class="detail" v-html="piece.details"> </p>
           </div>
+
+          <div v-else-if="flatMusic[piece.slug].workType == 'SIMPLE'" class="bare pieceWrapperBareSmall">
+            <div class="smallNoAudioWrapper"><h2 class="musicTitle" v-html="`${piece.title.toUpperCase()}`"> </h2></div>
+            <p class="detail" v-html="piece.details"> </p>
+          </div>
+
         </mq-layout>
       </div> <!-- end category -->
     </div> <!-- end content -->
@@ -76,8 +86,15 @@ import Parallax from 'vue-parallaxy';
 import AudioPlayer from '@/components/audioPlayer.vue';
 import coverViewer from '@/components/coverViewer.vue';
 import pdfModal from '@/components/pdf/pdf-modal.vue';
+
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+
 import musicData from '@/musicData.json';
 import EventBus from '../eventBus.js';
+
+library.add(faEye);
 
 export default {
   components: {
@@ -85,6 +102,7 @@ export default {
     AudioPlayer,
     coverViewer,
     pdfModal,
+    'font-awesome': FontAwesomeIcon
   },
 
   musicData: musicData,
@@ -119,7 +137,11 @@ export default {
         slug: slug,
         musicData: data
       });
-    }
+    },
+    //Used here only on mobile, score only works
+    openPdfModal: function(slug) {
+      EventBus.$emit('OPEN_PDF_MODAL', slug);
+    },
   },
 
   mounted() {
@@ -263,6 +285,8 @@ export default {
 .pieceWrapperBareSmall h2.musicTitle {
   font-size: 20px;
   letter-spacing: 0.1em;
+  display: inline;
+  float: left;
 }
 
 .cover {
@@ -273,5 +297,22 @@ export default {
 }
 .scoreOnlyDetails {
   grid-column: player
+}
+
+.pieceWrapperBareSmall .fa-eye {
+  padding: 7px 7px 7px 7px;
+  float: left;
+  display: inline-block;
+}
+.pieceWrapperBareSmall .fa-eye:hover {
+  background-color: #02552b;
+  color: #fff;
+  cursor: pointer;
+  -webkit-filter: brightness(85%);
+}
+
+.smallNoAudioWrapper {
+  height: 20px;
+  padding-bottom: 12px;
 }
 </style>
