@@ -302,6 +302,12 @@ h2.musicTitle {
 .plyr__tooltip {
   z-index: 100;
 }
+.plyr__controls > .plyr__control:first-child {
+  margin-right: 0px;
+}
+.plyr__controls__item.plyr__progress__container {
+  width: 100%;
+}
 
 .playerWrapper.small .fa-eye {
   position: absolute;
@@ -311,7 +317,7 @@ h2.musicTitle {
   margin-right: 3px;
   z-index: 5;
 }
-.fullWidth: {
+.fullWidth {
   margin-right: 0;
 }
 
