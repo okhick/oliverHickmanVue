@@ -83,13 +83,13 @@
 
 <script>
 import Parallax from 'vue-parallaxy';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import { faEye } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import AudioPlayer from '@/components/audioPlayer.vue';
 import coverViewer from '@/components/coverViewer.vue';
 import pdfModal from '@/components/pdf/pdf-modal.vue';
 
-import { library } from '@fortawesome/fontawesome-svg-core';
-import { faEye } from '@fortawesome/free-solid-svg-icons';
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
 import musicData from '@/musicData.json';
 import EventBus from '../eventBus.js';
@@ -102,66 +102,66 @@ export default {
     AudioPlayer,
     coverViewer,
     pdfModal,
-    'font-awesome': FontAwesomeIcon
+    'font-awesome': FontAwesomeIcon,
   },
 
-  musicData: musicData,
+  musicData,
 
-  data: function() {
+  data() {
     return {
-      pdfFile: [], //this is populated beforeMount
+      pdfFile: [], // this is populated beforeMount
       modalIsShowing: false,
       flatMusic: this.$store.state.musicData,
-      totalRec: undefined
-    }
+      totalRec: undefined,
+    };
   },
 
   methods: {
-    validatePdf: function(piece) {
-      return (typeof piece !== 'object' ? false : true);
+    validatePdf(piece) {
+      return (typeof piece === 'object');
     },
-    validateRecording: function(piece) {
-      return (typeof piece !== 'string' ? false : true);
+    validateRecording(piece) {
+      return (typeof piece === 'string');
     },
-    validateMovements: function (piece) {
-      //return the movements if exist or false
+    validateMovements(piece) {
+      // return the movements if exist or false
       return (typeof piece !== 'object' ? false : piece);
     },
-    togglePdfModal: function() {
+    togglePdfModal() {
       this.modalIsShowing = !this.modalIsShowing;
     },
-    //store the title
-    registerMusicData: function(slug, data) {
+    // store the title
+    registerMusicData(slug, data) {
       this.$store.commit({
         type: 'addMusicData',
-        slug: slug,
-        musicData: data
+        slug,
+        musicData: data,
       });
     },
-    //Used here only on mobile, score only works
-    openPdfModal: function(slug) {
+    // Used here only on mobile, score only works
+    openPdfModal(slug) {
       EventBus.$emit('OPEN_PDF_MODAL', slug);
     },
   },
 
   mounted() {
-    //open the modal first, then emit the load pdf event with requested file
+    // open the modal first, then emit the load pdf event with requested file
     EventBus.$on('OPEN_PDF_MODAL', (slug) => {
       this.togglePdfModal();
-      EventBus.$emit('LOAD_PDF', slug)
-      });
+      EventBus.$emit('LOAD_PDF', slug);
+    });
 
-    //close the modal
+    // close the modal
     EventBus.$on('CLOSE_PDF_MODAL', () => {
       this.togglePdfModal();
     });
 
-    //Watch for all the durations to come in.
+    // Watch for all the durations to come in.
     this.$store.subscribe((mutation, state) => {
-      switch(mutation.type) {
+      switch (mutation.type) {
         case 'addDuration':
-          if(state.durations.length == this.totalRec) {
-            EventBus.$emit('DURATIONS_REGISTERED')
+          if (state.durations.length == this.totalRec) {
+            EventBus.$emit('DURATIONS_REGISTERED');
           }
           break;
       }
@@ -169,19 +169,19 @@ export default {
   },
 
   beforeMount() {
-    //make an array of data that children compenents will share
-    let pieceIndex = 0; //used to count the total works
-    let simplePieceCount = 0; //used to count the pieces that don't have recordings
-    for (let category in musicData) {
-      musicData[category].pieces.forEach( (music) => {
-        let musicData = {
+    // make an array of data that children compenents will share
+    let pieceIndex = 0; // used to count the total works
+    let simplePieceCount = 0; // used to count the pieces that don't have recordings
+    for (const category in musicData) {
+      musicData[category].pieces.forEach((music) => {
+        const musicData = {
           title: music.title,
         };
 
-        let hasPDF = this.validatePdf(music.pdf);
-        let hasRecording = this.validateRecording(music.audio)
+        const hasPDF = this.validatePdf(music.pdf);
+        const hasRecording = this.validateRecording(music.audio);
 
-        //if there's a pdf, log the file and the cover
+        // if there's a pdf, log the file and the cover
         if (hasPDF && hasRecording) {
           musicData.pdf = music.pdf;
           musicData.cover = music.cover;
@@ -198,7 +198,7 @@ export default {
           musicData.workType = 'AUDIO_ONLY';
         } else {
           simplePieceCount++;
-          musicData.workType = 'SIMPLE'
+          musicData.workType = 'SIMPLE';
         }
 
         musicData.details = music.details;
@@ -210,10 +210,10 @@ export default {
         pieceIndex++;
       });
     }
-    //the total recording count
+    // the total recording count
     this.totalRec = (pieceIndex - simplePieceCount) + 1;
-  }
-}
+  },
+};
 </script>
 
 <style>

@@ -3,26 +3,26 @@ import EventBus from '../../eventBus.js';
 
 export default {
   props: ['page', 'scale'],
-  data: function() {
+  data() {
     return {
-      scaleRatio: undefined
-    }
+      scaleRatio: undefined,
+    };
   },
   computed: {
     actualSizeViewport() {
-      return this.viewport.clone({scale: this.scale});
+      return this.viewport.clone({ scale: this.scale });
     },
 
     canvasStyle() {
-      const {width: actualSizeWidth, height: actualSizeHeight} = this.actualSizeViewport;
+      const { width: actualSizeWidth, height: actualSizeHeight } = this.actualSizeViewport;
       const pixelRatio = window.devicePixelRatio || 1;
-      const scaleRatio = (window.innerHeight - 48 /*48 is the height of the navBar*/ ) / actualSizeHeight;
+      const scaleRatio = (window.innerHeight - 48 /* 48 is the height of the navBar */) / actualSizeHeight;
       const [pixelWidth, pixelHeight] = [actualSizeWidth, actualSizeHeight].map(dim => Math.ceil((dim / pixelRatio) * (scaleRatio * this.scale)));
-      return `width: ${pixelWidth}px; height: ${pixelHeight}px;`
+      return `width: ${pixelWidth}px; height: ${pixelHeight}px;`;
     },
 
     canvasAttrs() {
-      let {width, height} = this.viewport;
+      let { width, height } = this.viewport;
       [width, height] = [width, height].map(dim => Math.ceil(dim));
 
       const style = this.canvasStyle;
@@ -37,7 +37,7 @@ export default {
 
     pageNumber() {
       return this.page.pageNumber;
-    }
+    },
   },
 
   methods: {
@@ -46,9 +46,9 @@ export default {
       // https://mozilla.github.io/pdf.js/api/draft/PDFPageProxy.html
       try {
         this.renderTask = await this.page.render(this.getRenderContext());
-        EventBus.$emit("PAGE_RENDERED", this.pageNumber);
-      } catch(error) {
-        console.log("ERROR CAUGHT. Something funny happened on render");
+        EventBus.$emit('PAGE_RENDERED', this.pageNumber);
+      } catch (error) {
+        console.log('ERROR CAUGHT. Something funny happened on render');
       }
     },
 
@@ -63,10 +63,10 @@ export default {
     },
 
     getRenderContext() {
-      const {viewport} = this;
+      const { viewport } = this;
       const canvasContext = this.$el.getContext('2d');
 
-      return {canvasContext, viewport};
+      return { canvasContext, viewport };
     },
   },
 
@@ -91,8 +91,8 @@ export default {
   },
 
   render(h) {
-    const {canvasAttrs: attrs} = this;
-    return h('canvas', {attrs});
+    const { canvasAttrs: attrs } = this;
+    return h('canvas', { attrs });
   },
 };
 </script>

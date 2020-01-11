@@ -25,11 +25,11 @@ export default {
     Parallax,
   },
   computed: {
-    smallHeaderImg: function() {
-      return (this.$mq == 'sm') ? true : false;
-    }
-  }
-}
+    smallHeaderImg() {
+      return (this.$mq == 'sm');
+    },
+  },
+};
 </script>
 
 <style>

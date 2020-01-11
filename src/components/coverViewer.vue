@@ -23,32 +23,32 @@ export default {
   name: 'cover-viewer',
   props: ['slug'],
   components: {
-    'font-awesome': FontAwesomeIcon
+    'font-awesome': FontAwesomeIcon,
   },
-  data: function() {
+  data() {
     return {
       publicPath: process.env.BASE_URL,
       coverHover: false,
       coverFile: this.$store.state.musicData[this.slug].cover,
-      isPortrait: true
-    }
+      isPortrait: true,
+    };
   },
   methods: {
-    openPdfModal: function() {
+    openPdfModal() {
       EventBus.$emit('OPEN_PDF_MODAL', this.slug);
     },
-    imageProgress(instance, image ) {
+    imageProgress(instance, image) {
       if (image.isLoaded) {
-        let width = image.img.naturalWidth;
-        let height = image.img.naturalHeight;
-        this.isPortrait = (width < height) ? true : false;
+        const width = image.img.naturalWidth;
+        const height = image.img.naturalHeight;
+        this.isPortrait = (width < height);
       }
-    }
+    },
   },
   directives: {
-    imagesLoaded
+    imagesLoaded,
   },
-}
+};
 </script>
 
 <style>

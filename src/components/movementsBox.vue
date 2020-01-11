@@ -34,7 +34,7 @@
 
 <script>
 
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core';
 import { faBars, faPlayCircle } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -44,14 +44,14 @@ import 'vue-popperjs/dist/vue-popper.css';
 import 'animate.css/animate.min.css';
 import EventBus from '../eventBus.js';
 
-library.add(faBars, faPlayCircle)
+library.add(faBars, faPlayCircle);
 
 export default {
   components: {
     'font-awesome': FontAwesomeIcon,
-    'popper': Popper
+    popper: Popper,
   },
-  data: function() {
+  data() {
     return {
       durationPercent: [],
       movementPlaying: {},
@@ -61,55 +61,55 @@ export default {
         placement: '',
         modifiers: {
           preventOverflow: {
-            enabled: false
+            enabled: false,
           },
           hide: {
-            enabled: false
-          }
-        }
-      }
-    }
+            enabled: false,
+          },
+        },
+      },
+    };
   },
   methods: {
-    //take the clicked element, find the time code, and emit the event to the EventBus
-    selectMvmt: function(mvmtIndex) {
-      let newTimecodeEmit = `NEW_TIMECODE_${this.slug}`;
-      let newTimecodeString = this.mvmts[mvmtIndex].timecode;
-      let newTimecode = newTimecodeString.toSeconds();
+    // take the clicked element, find the time code, and emit the event to the EventBus
+    selectMvmt(mvmtIndex) {
+      const newTimecodeEmit = `NEW_TIMECODE_${this.slug}`;
+      const newTimecodeString = this.mvmts[mvmtIndex].timecode;
+      const newTimecode = newTimecodeString.toSeconds();
       EventBus.$emit(newTimecodeEmit, newTimecode);
     },
 
     calculateDurationPercent() {
-      let duration = this.$store.getters.getRequestedDuration(this.slug);
+      const duration = this.$store.getters.getRequestedDuration(this.slug);
       this.mvmts.forEach((mvmt, index) => {
-        let percent = mvmt.timecode.toSeconds() / duration;
+        const percent = mvmt.timecode.toSeconds() / duration;
         this.durationPercent[index] = percent;
       });
     },
 
     determineWhatMvmtIsPlaying(percent) {
-      let realPercent = percent / 100;
-      let durationPercentLength = this.durationPercent.length;
-      let lastMvmtPlaying = realPercent.between(this.durationPercent[durationPercentLength - 1], 1);
-      //if we're playing this piece
+      const realPercent = percent / 100;
+      const durationPercentLength = this.durationPercent.length;
+      const lastMvmtPlaying = realPercent.between(this.durationPercent[durationPercentLength - 1], 1);
+      // if we're playing this piece
       if (this.$store.state.whatIsPlaying == this.slug) {
-        //if the last movement is playing set it to true, otherwise loop through and set what is playing
+        // if the last movement is playing set it to true, otherwise loop through and set what is playing
         if (lastMvmtPlaying) {
           this.movementPlaying[durationPercentLength - 1] = true;
         } else {
           this.durationPercent.forEach((mvmtPercent, index) => {
-            //compare the percent with two movements to see if it's inbetween
-            let isMvmtPlaying = realPercent.between(mvmtPercent, this.durationPercent[index+1]);
+            // compare the percent with two movements to see if it's inbetween
+            const isMvmtPlaying = realPercent.between(mvmtPercent, this.durationPercent[index + 1]);
             this.movementPlaying[index] = isMvmtPlaying;
           });
         }
       }
     },
 
-    //set up and reactive object with all the movements.
+    // set up and reactive object with all the movements.
     instantiateMovementPlaying() {
-      this.mvmts.forEach( (mvmt, index) => {
-        this.$set(this.movementPlaying, index, false)
+      this.mvmts.forEach((mvmt, index) => {
+        this.$set(this.movementPlaying, index, false);
       });
     },
   },
@@ -117,23 +117,22 @@ export default {
   props: ['mvmts', 'slug'],
 
   computed: {
-    columnsCalc () {
+    columnsCalc() {
       let columns;
       if (this.$mq !== 'lg') {
         columns = 1;
       } else {
         columns = this.mvmts.length;
       }
-      return `gridTemplateColumns: repeat(${columns}, auto)`
+      return `gridTemplateColumns: repeat(${columns}, auto)`;
     },
     menuCalc() {
-      let length = this.mvmts.length;
+      const { length } = this.mvmts;
       if (this.$mq !== 'lg') {
         return `gridTemplateRows: repeat(${length}, auto)`;
-      } else {
-        return `gridTemplateColumns: repeat(${length}, auto)`;
       }
-    }
+      return `gridTemplateColumns: repeat(${length}, auto)`;
+    },
   },
 
   created() {
@@ -153,19 +152,19 @@ export default {
       this.progressPercent = percent;
       this.determineWhatMvmtIsPlaying(percent);
     });
-  }
-}
+  },
+};
 
-//convert [M]M:SS to seconds. Ripped from https://stackoverflow.com/questions/9640266/convert-hhmmss-string-to-seconds-only-in-javascript
-String.prototype.toSeconds = function() {
+// convert [M]M:SS to seconds. Ripped from https://stackoverflow.com/questions/9640266/convert-hhmmss-string-to-seconds-only-in-javascript
+String.prototype.toSeconds = function () {
   if (!this) return null;
-  let ms = this.split(':');
+  const ms = this.split(':');
   return (+ms[0]) * 60 + (+ms[1] || 0);
-}
-//check between number. ripped from https://stackoverflow.com/questions/14718561/how-to-check-if-a-number-is-between-two-values
-Number.prototype.between = function(a, b) {
-  var min = Math.min.apply(Math, [a, b]),
-    max = Math.max.apply(Math, [a, b]);
+};
+// check between number. ripped from https://stackoverflow.com/questions/14718561/how-to-check-if-a-number-is-between-two-values
+Number.prototype.between = function (a, b) {
+  const min = Math.min.apply(Math, [a, b]);
+  const max = Math.max.apply(Math, [a, b]);
   return this > min && this < max;
 };
 </script>

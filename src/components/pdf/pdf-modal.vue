@@ -45,24 +45,27 @@
 </template>
 
 <script>
-//stuff for pdf modal
-import PDFPage from './PDFPage';
+// stuff for pdf modal
 import range from 'lodash/range';
-import ProgressBar from 'vue-simple-progress'
-import RemotePlayer from '@/components/RemotePlayer.vue'
+import ProgressBar from 'vue-simple-progress';
 
-import EventBus from '@/eventBus.js';
 
 // stuff for font awesome
-import { library } from '@fortawesome/fontawesome-svg-core'
-import { faTimes, faSearchPlus, faSearchMinus, faDownload } from '@fortawesome/free-solid-svg-icons';
+import { library } from '@fortawesome/fontawesome-svg-core';
+import {
+  faTimes, faSearchPlus, faSearchMinus, faDownload,
+} from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import EventBus from '@/eventBus.js';
+import RemotePlayer from '@/components/RemotePlayer.vue';
+import PDFPage from './PDFPage';
+
 library.add(faTimes, faSearchPlus, faSearchMinus, faDownload);
 
 export default {
   name: 'pdf-modal',
 
-  data: function() {
+  data() {
     return {
       pages: [],
       pdf: undefined,
@@ -73,20 +76,20 @@ export default {
       progressArray: [],
       loadingProgress: 0,
       loadingEndPointScale: 0,
-    }
+    };
   },
 
   components: {
     PDFPage,
     'font-awesome': FontAwesomeIcon,
     ProgressBar,
-    RemotePlayer
+    RemotePlayer,
   },
 
   methods: {
     async fetchPDF() {
-      let PDFJS = await import('pdfjs-dist/webpack'); /* webpackChunkName: 'pdfjs-dist' */
-      let pdf = await PDFJS.getDocument(this.url);
+      const PDFJS = await import('pdfjs-dist/webpack'); /* webpackChunkName: 'pdfjs-dist' */
+      const pdf = await PDFJS.getDocument(this.url);
       this.pdf = pdf;
     },
 
@@ -115,19 +118,19 @@ export default {
 
     getPdfInfo(slug) {
       return this.$store.getters.getPdfState(slug);
-    }
+    },
   },
 
   mounted() {
-    //load when it's time to load
+    // load when it's time to load
     EventBus.$on('LOAD_PDF', (slug) => {
-      let pdfInfo = this.getPdfInfo(slug);
+      const pdfInfo = this.getPdfInfo(slug);
       this.url = `/pdfs/${pdfInfo.file}`;
       this.downloadable = pdfInfo.downloadable;
       this.fetchPDF();
     });
 
-    //When a page is rendered increase the loading bar
+    // When a page is rendered increase the loading bar
     EventBus.$on('PAGE_RENDERED', (page) => {
       this.progressArray.push(page);
       this.loadingProgress = this.progressArray.length * this.loadingEndPointScale;
@@ -138,14 +141,14 @@ export default {
     pdf: {
       handler(pdf) {
         this.pages = [];
-        const promises = range(1, pdf.numPages+1).map(number => pdf.getPage(number));
-        return Promise.all(promises).
-          then( (pages) => {
-            this.pages = pages
-            let loadingEndPoint = pages.length
+        const promises = range(1, pdf.numPages + 1).map(number => pdf.getPage(number));
+        return Promise.all(promises)
+          .then((pages) => {
+            this.pages = pages;
+            const loadingEndPoint = pages.length;
             this.loadingEndPointScale = 100 / loadingEndPoint;
           });
-      }
+      },
     },
   },
 };

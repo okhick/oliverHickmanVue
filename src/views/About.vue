@@ -27,7 +27,7 @@
         to free improvisation. He is a co-founder of the improv ensemble <em><a class='linkOut' href='https://www.facebook.com/ensembleconsensus/'>Consensus</a></em>. He also has been working within the theatre and dance worlds as a composer and sound designer on various productions
         in Chicago and New York City since 2014.
        </br> </p>
-      <h1 v-bind:style="{ fontSize: ($mq == 'sm') ? '20px' : '24px' }"> 
+      <h1 v-bind:style="{ fontSize: ($mq == 'sm') ? '20px' : '24px' }">
         <router-link to="/music"> LISTEN TO WORKS >> </router-link>
       </h1>
     </div>
@@ -42,20 +42,20 @@ export default {
     Parallax,
   },
   computed: {
-    padding: function() {
-      switch(this.$mq) {
-        case "sm":
+    padding() {
+      switch (this.$mq) {
+        case 'sm':
           return '10px 20px 10px 25px';
-          break
+          break;
         case 'md':
           return '10px 50px 10px 50px';
-          break
+          break;
         default:
           return '10px 100px 10px 100px';
       }
-    }
-  }
-}
+    },
+  },
+};
 </script>
 
 

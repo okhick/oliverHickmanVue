@@ -1,7 +1,7 @@
 <template>
   <div class = "bar menuText">
 
-    <mq-layout mq="lg" v-for="page in pages" class="navBar"
+    <mq-layout mq="lg" v-for="page in pages" :key="page" class="navBar"
       v-bind:class="[page.classStyle, { navBarCurrent: page.classStyle == currentPage }]">
       <router-link class='menuText' v-bind:to="page.to">{{ page.label }}</router-link>
     </mq-layout>
@@ -10,7 +10,7 @@
       <popper trigger="click" ref="popper" :visible-arrow="false" :options="popperOpts"
         transition="fade" enter-active-class="fade-enter-active-nav" leave-active-class="fade-leave-active-nav">
         <div class="popper">
-          <router-link v-for="page in pages" class='menuText' v-bind:to="page.to"
+          <router-link v-for="page in pages" :key="page" class='menuText' v-bind:to="page.to"
             v-bind:class="{ navBarCurrentPopper: page.classStyle == currentPage }"
           ><span v-on:click="toggleMenu()">{{ page.label }}</span></router-link>
         </div>
@@ -26,7 +26,7 @@
 </template>
 
 <script>
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core';
 import { faBars } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 
@@ -39,11 +39,11 @@ export default {
   data() {
     return {
       pages: [
-        {'classStyle': 'home-nav', 'to': '/', 'label': 'HOME'},
-        {'classStyle': 'about', 'to': '/about', 'label': 'ABOUT'},
-        {'classStyle': 'music', 'to': '/music', 'label': 'MUSIC'},
-        {'classStyle': 'downloads', 'to': '/downloads', 'label': 'DOWNLOADS'},
-        {'classStyle': 'contact', 'to': '/contact', 'label': 'CONTACT'},
+        { classStyle: 'home-nav', to: '/', label: 'HOME' },
+        { classStyle: 'about', to: '/about', label: 'ABOUT' },
+        { classStyle: 'music', to: '/music', label: 'MUSIC' },
+        // { classStyle: 'downloads', to: '/downloads', label: 'DOWNLOADS' }, TODO: get some downloads
+        { classStyle: 'contact', to: '/contact', label: 'CONTACT' },
       ],
       currentPage: 'home-nav',
       popperOpts: {
@@ -52,19 +52,19 @@ export default {
         modifiers: {
           offset: {
             enabled: true,
-            offset: '0, 7'
+            offset: '0, 7',
           },
           preventOverflow: {
-            enabled: false
+            enabled: false,
           },
-        }
-      }
-    }
+        },
+      },
+    };
   },
 
   components: {
     'font-awesome': FontAwesomeIcon,
-    'popper': Popper
+    popper: Popper,
   },
 
   mounted() {
@@ -72,17 +72,17 @@ export default {
   },
 
   methods: {
-    toggleMenu: function() {
-      this.$refs.popper.doClose()
-    }
+    toggleMenu() {
+      this.$refs.popper.doClose();
+    },
   },
 
   watch: {
-    '$route' (newRoute) {
+    $route(newRoute) {
       this.currentPage = (newRoute.name == 'home') ? 'home-nav' : newRoute.name;
-    }
-  }
-}
+    },
+  },
+};
 
 </script>
 
@@ -129,13 +129,13 @@ a.menuText {
   grid-row: 1;
   grid-column: 4;
 }
-.downloads {
+/* .downloads {
   grid-row: 1;
   grid-column: 5;
-}
+} */
 .contact {
   grid-row: 1;
-  grid-column: 6;
+  grid-column: 5;
 }
 /* Padding for the sticky header */
 .bar + .contentWrapper {

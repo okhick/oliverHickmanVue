@@ -23,7 +23,7 @@ export default {
   components: {
     Parallax,
   },
-}
+};
 </script>
 
 <style>

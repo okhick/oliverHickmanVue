@@ -8,39 +8,39 @@ export default new Vuex.Store({
     durations: {},
     titles: [],
     whatIsPlaying: -1,
-    musicData: {}
+    musicData: {},
   },
 
   getters: {
-    getRequestedDuration: (state) => (slug) => {
+    getRequestedDuration: state => (slug) => {
       try {
         return state.durations[slug];
-      } catch(e) {
-        //do nothing
+      } catch (e) {
+        // do nothing
       }
     },
 
     getAllTitlesWithRec(state) {
-      let allTitlesWithRec = []
-      for (let piece in state.musicData) {
-        let music = state.musicData[piece];
+      const allTitlesWithRec = [];
+      for (const piece in state.musicData) {
+        const music = state.musicData[piece];
         if (music.audio) {
-          allTitlesWithRec.push({ title: music.title,  slug: piece})
+          allTitlesWithRec.push({ title: music.title, slug: piece });
         }
       }
       return allTitlesWithRec;
     },
 
-    getPdfState: (state) => (slug) => {
-      let pdf = state.musicData[slug].pdf;
+    getPdfState: state => (slug) => {
+      const { pdf } = state.musicData[slug];
       return pdf;
-    }
+    },
   },
 
   mutations: {
     addDuration(state, payload) {
-      let slug = payload.slug;
-      let duration = payload.duration;
+      const { slug } = payload;
+      const { duration } = payload;
       state.durations[slug] = duration;
     },
     updateWhatIsPlaying(state, index) {
@@ -48,10 +48,10 @@ export default new Vuex.Store({
     },
     addMusicData(state, payload) {
       state.musicData[payload.slug] = payload.musicData;
-    }
+    },
   },
 
   actions: {
     // actions
-  }
+  },
 });

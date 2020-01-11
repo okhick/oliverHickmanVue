@@ -43,11 +43,12 @@ import { VuePlyr } from 'vue-plyr';
 import MovementsBox from '@/components/movementsBox.vue';
 import 'vue-plyr/dist/vue-plyr.css';
 import 'rangetouch/dist/rangetouch.js';
-import EventBus from '../eventBus.js';
 
-import { library } from '@fortawesome/fontawesome-svg-core'
+import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import EventBus from '../eventBus.js';
+
 library.add(faEye);
 
 export default {
@@ -55,37 +56,37 @@ export default {
   components: {
     VuePlyr,
     'mvmt-box': MovementsBox,
-    'font-awesome': FontAwesomeIcon
+    'font-awesome': FontAwesomeIcon,
   },
-  data: function() {
+  data() {
     return {
       playbackPercent: 0,
       publicPath: process.env.BASE_URL,
       playerIsPlaying: false,
       musicData: this.$store.state.musicData[this.slug],
-      audioOnly: false
-    }
+      audioOnly: false,
+    };
   },
   props: ['slug'],
 
   methods: {
-    //this updates the bar as it progresses
-    updatePlaybackBar: function() {
-      let percent = (this.player.currentTime / this.duration) * 100;
+    // this updates the bar as it progresses
+    updatePlaybackBar() {
+      const percent = (this.player.currentTime / this.duration) * 100;
       this.playbackPercent = percent;
-      //send progress to modal
+      // send progress to modal
       EventBus.$emit('NEW_PROGRESS_PERCENT', percent);
       this.$store.commit('updateWhatIsPlaying', this.slug);
     },
 
-    //when the player stops, send it to the store
-    playerStatusChange: function() {
+    // when the player stops, send it to the store
+    playerStatusChange() {
       this.playerIsPlaying = !this.playerIsPlaying;
       this.updateWhatIsPlaying();
     },
     updateWhatIsPlaying() {
-      //remember what we are playing for the remote-player. If nothing then -1
-      if(this.playerIsPlaying) {
+      // remember what we are playing for the remote-player. If nothing then -1
+      if (this.playerIsPlaying) {
         this.$store.commit('updateWhatIsPlaying', this.slug);
       } else {
         this.$store.commit('updateWhatIsPlaying', -1);
@@ -93,81 +94,80 @@ export default {
       // console.log(this.$store.state.whatIsPlaying);
     },
 
-    openPdfModal: function() {
+    openPdfModal() {
       EventBus.$emit('OPEN_PDF_MODAL', this.slug);
     },
 
-    //store the duration
-    registerDurations: function() {
-      //Have to use a time out because aparently durations are not ready when the player is?
+    // store the duration
+    registerDurations() {
+      // Have to use a time out because aparently durations are not ready when the player is?
       setTimeout(() => {
         this.$store.commit({
           type: 'addDuration',
           slug: this.slug,
-          duration: this.player.duration
+          duration: this.player.duration,
         });
       }, 1000);
     },
 
-    validateMovements: function (piece) {
-      //return the movements if exist or false
+    validateMovements(piece) {
+      // return the movements if exist or false
       return (typeof piece !== 'object' ? false : piece);
     },
   },
 
-  mounted () {
-    //set some things up if this is an audio only situation
-    this.audioOnly = (this.musicData.workType == 'AUDIO_ONLY') ? true : false;
+  mounted() {
+    // set some things up if this is an audio only situation
+    this.audioOnly = (this.musicData.workType == 'AUDIO_ONLY');
 
     if (this.$mq === 'lg' && this.audioOnly === false) {
       this.$refs.plyr.$el.style.width = 'calc(100vw - 155px - 5px)';
     } else if (this.$mq === 'lg' && this.audioOnly === true) {
       this.$refs.plyr.$el.style.width = '100vw';
-    } else if (this.mq !== 'lg' && this.audioOnly === true){
+    } else if (this.mq !== 'lg' && this.audioOnly === true) {
       this.$refs.plyr.$el.style.width = '100vw';
     } else {
       this.$refs.plyr.$el.style.width = '98vw';
     }
 
-    //send some data to the store
-    this.player.on('ready', this.registerDurations)
+    // send some data to the store
+    this.player.on('ready', this.registerDurations);
 
-    //do some things when the player changes
+    // do some things when the player changes
     this.player.on('timeupdate', this.updatePlaybackBar);
     this.player.on('playing', this.playerStatusChange);
     this.player.on('pause', this.playerStatusChange);
 
-    //update the player times. TIMECODE comes from movement box. PROGRESS comes from remote player
-    EventBus.$on(`NEW_TIMECODE_${this.slug}`, timecode => {
+    // update the player times. TIMECODE comes from movement box. PROGRESS comes from remote player
+    EventBus.$on(`NEW_TIMECODE_${this.slug}`, (timecode) => {
       this.player.currentTime = timecode;
     });
     EventBus.$on(`PLAYER_PROGRESS_UPDATE_${this.slug}`, (update) => {
-      let updateMul = update / 100;
-      let currentTime = this.duration * updateMul;
+      const updateMul = update / 100;
+      const currentTime = this.duration * updateMul;
       this.player.currentTime = currentTime;
     });
 
-    //start and stop the plater when remote player says to
+    // start and stop the plater when remote player says to
     EventBus.$on(`START_PLAYER_${this.slug}`, () => {
       this.player.play();
     });
     EventBus.$on(`PAUSE_PLAYER_${this.slug}`, () => {
       this.player.pause();
     });
-
   },
   computed: {
-    //define the player object. Can now be accessed through this.player
-    player () { return this.$refs.plyr.player },
+    // define the player object. Can now be accessed through this.player
+    player() { return this.$refs.plyr.player; },
 
-    //returns the duration of the track
-    duration () { return this.$refs.plyr.player.duration },
+    // returns the duration of the track
+    duration() { return this.$refs.plyr.player.duration; },
 
-    playerWrapperSize () { return (this.$mq === 'lg') ? 'playerWrapper' : 'playerWrapper small' },
-    waveformSize () { return (this.$mq === 'lg') ? 'waveform' : 'waveform small' },
-    detailSize () { return (this.$mq === 'sm') ? 'detail small' : 'detail' }
+    playerWrapperSize() { return (this.$mq === 'lg') ? 'playerWrapper' : 'playerWrapper small'; },
+    waveformSize() { return (this.$mq === 'lg') ? 'waveform' : 'waveform small'; },
+    detailSize() { return (this.$mq === 'sm') ? 'detail small' : 'detail'; },
   },
-}
+};
 </script>
 
 <style>

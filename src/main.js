@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import App from './App.vue';
 import VueMq from 'vue-mq';
+import App from './App.vue';
 import router from './router';
 import store from './store';
 
@@ -12,8 +12,8 @@ Vue.use(VueMq, {
     md: 650,
     lg: Infinity,
   },
-  defaultBreakpoint: 'sm' // customize this for SSR
-})
+  defaultBreakpoint: 'sm', // customize this for SSR
+});
 
 new Vue({
   store,

@@ -68,62 +68,62 @@ export default {
     Parallax,
   },
 
-  data: function() {
+  data() {
     return {
       img2Margin: 0,
       nameBoxClasses: {
         wrapper: undefined,
         firstName: undefined,
-        lastName: undefined
-      }
-    }
+        lastName: undefined,
+      },
+    };
   },
 
   mounted() {
-    //Becase the second picture also scrolls down, we need to offset it.
-    //the 0.15 comes from the parallax speed. Add ten for good measure.
+    // Becase the second picture also scrolls down, we need to offset it.
+    // the 0.15 comes from the parallax speed. Add ten for good measure.
     const img2Height = this.$refs.img2.clientHeight;
     this.img2Margin = (img2Height * 0.15 + 10) * -1;
   },
 
   computed: {
-    whichMusicLink: function() {
-      switch(this.$mq) {
+    whichMusicLink() {
+      switch (this.$mq) {
         case 'sm':
           return {
             wrapper: 'musicLinkBox small',
             linkBox: 'musicLink small',
-          }
+          };
         default:
           return {
             wrapper: 'musicLinkBox',
             linkBox: 'musicLink',
-          }
+          };
       }
     },
 
-    whichNameBox: function() {
-      switch(this.$mq) {
+    whichNameBox() {
+      switch (this.$mq) {
         case 'sm':
           return {
             wrapper: 'titleNameBox small',
             firstName: 'firstName small',
-            lastName: 'lastName small'
-          }
-      default:
+            lastName: 'lastName small',
+          };
+        default:
           return {
             wrapper: 'titleNameBox',
             firstName: 'firstName',
-            lastName: 'lastName'
-          }
+            lastName: 'lastName',
+          };
       }
     },
 
-    smallHeaderImg: function() {
-      return (this.$mq == 'sm') ? true : false;
-    }
-  }
-}
+    smallHeaderImg() {
+      return (this.$mq == 'sm');
+    },
+  },
+};
 </script>
 
 <style>
