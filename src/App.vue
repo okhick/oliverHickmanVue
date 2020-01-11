@@ -34,7 +34,7 @@ body {
   margin: 0px;
 }
 h1 {
-  color: #02552b;
+  color: #12211d;
   font-size: 24px;
   font-family: 'Nunito Sans', sans-serif;
   font-weight: 400;
@@ -47,7 +47,7 @@ p {
 }
 a {
   text-decoration : none;
-  color: #02552b;
+  color: #12211d;
 }
 a:visited {
   text-decoration: none;

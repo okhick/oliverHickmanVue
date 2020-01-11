@@ -89,7 +89,8 @@ export default {
 <style>
 .navBar {
   padding: 10px 8px 8px 8px;
-  border-bottom: 3px solid #02552b;
+  /* border-bottom: 3px solid #12211d; */
+  border-bottom: 3px solid #12211d;
 }
 .navBar:hover {
   border-bottom: 3px solid #fff;
@@ -104,7 +105,7 @@ a.menuText {
   padding-left: 4px;
 }
 .bar {
-  background-color: #02552b;
+  background-color: #12211d;
   grid-row: nav;
   display: inline-grid;
   grid-template-columns: 0.5fr auto auto auto auto auto 0.5fr;
@@ -147,7 +148,7 @@ a.menuText {
 
 /* Things for the small nav */
 .small-nav {
-  background-color: #02552b;
+  background-color: #12211d;
   position: fixed;
   top: 0;
   width: 100vw;

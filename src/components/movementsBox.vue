@@ -4,8 +4,8 @@
 
     <popper trigger="click" :options="popperOpts" :visible-arrow="true">
 
-      <div class="moreMvmts popper"v-bind:style="menuCalc">
-        <div v-for="(mvmt, mvmtIndex) in mvmts"
+      <div class="moreMvmts popper" v-bind:style="menuCalc">
+        <div v-for="(mvmt, mvmtIndex) in mvmts" :key="mvmt"
           class="mvmt"
           v-on:click="selectMvmt(mvmtIndex)"
         >
@@ -253,7 +253,7 @@ Number.prototype.between = function (a, b) {
   grid-column-gap: 3px;
 }
 .mvmt:hover {
-  background-color: #02552b;
+  background-color: #12211d;
   color: #fff;
 }
 .playerMovementBoxWrapper.small .mvmt {

@@ -2,7 +2,7 @@
   <div id="music">
 
     <parallax :speedFactor="0.2" direction="down" breakpoint="(min-width: 10px)">
-      <img src="@/assets/img/Oliver+Kiersten-169.jpg" alt="noImg">
+      <img src="@/assets/img/sunset_at_park.jpg" alt="noImg">
     </parallax>
 
     <div class="content">
@@ -10,12 +10,12 @@
       <pdf-modal v-show="modalIsShowing" />
 
       <h1> MUSIC </h1>
-      <div v-for="(category) in $options.musicData">
+      <div v-for="(category) in $options.musicData" :key="category">
         <h2 class="musicTitle categoryTitle"> {{ category.label }} </h2>
 
         <!-- For large screens -->
         <mq-layout mq="lg"
-          v-for="(piece,catIndex) in category.pieces"
+          v-for="(piece,catIndex) in category.pieces" :key="piece"
           v-bind:class="{
             marginTopSmall: (catIndex==0)
           }"
@@ -49,7 +49,7 @@
 
         <!-- For not large screens -->
         <mq-layout :mq="['sm', 'md']"
-          v-for="(piece,catIndex) in category.pieces"
+          v-for="(piece,catIndex) in category.pieces" :key="piece"
           v-bind:class="{
             marginTopSmall: (catIndex==0)
           }"
@@ -286,29 +286,27 @@ export default {
   font-size: 20px;
   letter-spacing: 0.1em;
   display: inline;
-  float: left;
 }
 
 .cover {
   grid-column: cover;
 }
-.scoreOnly {
+/* .scoreOnly {
 
-}
+} */
 .scoreOnlyDetails {
   grid-column: player
 }
 
 .pieceWrapperBareSmall .fa-eye {
   padding: 7px 7px 7px 7px;
-  float: left;
   display: inline-block;
 }
 .pieceWrapperBareSmall .fa-eye:hover {
-  background-color: #02552b;
+  background-color: #12211d;
   color: #fff;
   cursor: pointer;
-  -webkit-filter: brightness(85%);
+  /* -webkit-filter: brightness(85%); */
 }
 
 .smallNoAudioWrapper {

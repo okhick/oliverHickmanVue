@@ -7,7 +7,7 @@
         :speedFactor="0.15" direction="down"
         breakpoint="(min-width: 10px)"
       >
-        <img src="@/assets/img/Oliver+Kiersten-184.jpg" alt="noImg">
+        <img src="@/assets/img/smile_at_park_crop.jpg" alt="noImg">
       </parallax>
     </div>
 
@@ -21,13 +21,18 @@
         Dal Niente, the JACK Quartet, Chicago Composers Orchestra, Mocrep, the NYU Contemporary Music Ensemble,
         and the NYU Percussion Ensemble and his compositions have been performed throughout the United States and Europe.
         As a composer, his current interests include timbre, economy of means as it pertains to music,
-        and the relationship between composer control and player freedom.
+        and utilizing web technology in live new music performance.
         <br><br>
         As a guitarist, Oliver has played with a variety of ensembles ranging from musical theatre to comtemporary music
-        to free improvisation. He is a co-founder of the improv ensemble <em><a class='linkOut' href='https://www.facebook.com/ensembleconsensus/'>Consensus</a></em>. He also has been working within the theatre and dance worlds as a composer and sound designer on various productions
+        to free improvisation. He is a co-founder of the improv ensemble <em><a class='linkOut' href='https://www.facebook.com/ensembleconsensus/'>Consensus</a></em>. He also has worked within the theatre and dance worlds as a composer and sound designer on various productions
         in Chicago and New York City since 2014.
-       </br> </p>
+        <br><br>
+        When he's not composing, he works in web development at Carl Fischer Music.
+       <br><br> </p>
       <h1 v-bind:style="{ fontSize: ($mq == 'sm') ? '20px' : '24px' }">
+        <router-link to="/contact"> GET IN TOUCH >> </router-link>
+        <br>
+        <br>
         <router-link to="/music"> LISTEN TO WORKS >> </router-link>
       </h1>
     </div>

@@ -7,7 +7,7 @@
         :speedFactor="0.15" direction="down"
         breakpoint="(min-width: 10px)"
       >
-        <img src="@/assets/img/image1-okhick-bw-crop.jpg" alt="noImg">
+        <img src="@/assets/img/at_train_station.jpg" alt="noImg">
       </parallax>
 
       <div :class="whichNameBox.wrapper">
@@ -22,9 +22,9 @@
             <img class="logoImg" src="@/assets/img/headphones-icon.png" alt="noLogo">
         </div>
         <div class="text">
-          <h1> COMPOSER, MUSIC TECHNOLOGIST, </br> GUITARIST, SOUND DESIGNER </h1>
+          <h1> COMPOSER, MUSIC TECHNOLOGIST, <br> GUITARIST, SOUND DESIGNER </h1>
           <p> Oliver Hickman is a composer, music technologist, guitarist, and sound designer
-              currently residing in Brooklyn, New York. </br> </p>
+              currently residing in Brooklyn, New York. <br> </p>
           <h1> <router-link to="/about"> MORE ABOUT OLIVER >> </router-link> </h1>
         </div>
       </div>
@@ -33,10 +33,10 @@
     <mq-layout :mq="['sm', 'md']">
       <div class="homeContent small">
         <div class="text">
-          <h1> COMPOSER, </br> MUSIC TECHNOLOGIST, </br> GUITARIST, </br> SOUND DESIGNER </h1>
+          <h1> COMPOSER, <br> MUSIC TECHNOLOGIST, <br> GUITARIST, <br> SOUND DESIGNER </h1>
           <p> Oliver Hickman is a composer, music technologist, guitarist, and sound designer
-              currently residing in Brooklyn, New York. </br> </p>
-          <h1 class="toAbout"> <router-link to="/about"> MORE ABOUT </br> OLIVER >> </router-link> </h1>
+              currently residing in Brooklyn, New York. <br> </p>
+          <h1 class="toAbout"> <router-link to="/about"> MORE ABOUT <br> OLIVER >> </router-link> </h1>
         </div>
       </div>
     </mq-layout>
@@ -49,7 +49,7 @@
         breakpoint="(min-width: 10px)"
         v-bind:style="{ marginTop: img2Margin + 'px' }"
       >
-        <img src="@/assets/img/image2-okhick-bw-crop.jpg" ref="img2">
+        <img src="@/assets/img/waiting_for_train.jpg" ref="img2">
       </parallax>
       <div class="img2Top"></div>
       <div v-bind:class="whichMusicLink.wrapper">
@@ -157,7 +157,7 @@ export default {
 .musicLinkBox {
   grid-row: 2;
   grid-column: 2;
-  background-color: #02552b;
+  background-color: #12211d;
   outline-style: solid;
   outline-color: #ffffff;
   outline-width: 10px;

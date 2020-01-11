@@ -7,7 +7,7 @@
         :speedFactor="0.15" direction="down"
         breakpoint="(min-width: 10px)"
       >
-        <img src="@/assets/img/image1-okhick-bw-crop.jpg" alt="noImg">
+        <!-- <img src="@/assets/img/image1-okhick-bw-crop.jpg" alt="noImg"> -->
       </parallax>
     </div>
     <div class="downloadContent">

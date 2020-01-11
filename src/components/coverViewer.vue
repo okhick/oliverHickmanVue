@@ -96,7 +96,7 @@ export default {
   top: 52px;
 }
 .coverImage:hover .fa-eye {
-  background-color: #02552b;
+  background-color: #12211d;
   color: #fff;
   cursor: pointer;
 }

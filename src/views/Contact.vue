@@ -6,7 +6,7 @@
         :speedFactor="0.15" direction="down"
         breakpoint="(min-width: 10px)"
       >
-        <img src="@/assets/img/image2-okhick-bw-crop.jpg" alt="noImg">
+        <img src="@/assets/img/in_street.jpg" alt="noImg">
       </parallax>
     </div>
     <div class="contactInfo">
@@ -36,9 +36,9 @@ export default {
   padding-top: 10px;
   margin-top: -8px;
 }
-.contactInfo h1 {
-  /* margin-top: 0; */
-}
+/* .contactInfo h1 {
+  margin-top: 0;
+} */
 .contactInfo p {
   margin: auto;
   line-height: 150px;

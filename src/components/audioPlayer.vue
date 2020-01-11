@@ -278,13 +278,13 @@ h2.musicTitle {
 }
 /* Change the background color of the volume and progress */
 .plyr--full-ui input[type="range"] {
-  color: #02552b;
+  color: #12211d;
 }
 .plyr--audio .plyr__control, .plyr--audio .plyr__controls {
   color: #000;
 }
 .plyr--audio .plyr__control:hover {
-  background: #02552b;
+  background: #12211d;
   color: #fff;
 }
 /* Change the slider background color on all browsers */
@@ -323,7 +323,7 @@ h2.musicTitle {
 
 .playerWrapper.small .fa-eye:hover {
   color: #fff;
-  background: #02552b;
+  background: #12211d;
   cursor: pointer;
 }
 </style>
