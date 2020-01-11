@@ -73,7 +73,18 @@
 	},
 	"chamber": {
 		"label": "CHAMBER",
-		"pieces": [{
+		"pieces": [
+			{
+				"title": "Jaded Rows (2019)",
+				"slug": "jaded_rows",
+				"details": "for Piano, Toy Piano, and Electronics <br> Commissioned and premiered by <a class='linkOut' href='https://www.chromic.space/'>Chromic</a>",
+				"pdf": {
+					"file": "Jaded Rows_fs.pdf",
+					"downloadable": true
+				},
+				"cover": "Jaded Rows_cover.jpg"
+			},
+			{
 				"title": "Sonorous Noise (2018)",
 				"slug": "sonorous_noise",
 				"details": "for Laptop Orchestra <br> Commissioned and premiered by Stony Brook University's Synthbeats",
@@ -209,7 +220,13 @@
 	},
 	"large": {
 		"label": "LARGE ENSEMBLE",
-		"pieces": [{
+		"pieces": [
+			{
+				"title": "Ear Talk (2019)",
+				"slug": "ear_talk",
+				"details": "A YouTube live stream performance commissioned by <a class='linkOut' href='https://www.facebook.com/ensembleconsensus/'>Consensus</a>. <br> Performance ongoing; <a class='linkOut' href='https://www.youtube.com/playlist?list=PLftyPddgVZ2QF5-q1W8-94VhYaPrbc5Rz'>view here</a>. Premiered October 2019."
+			},
+			{
 				"title": "CO<sub>3</sub> (2018)",
 				"slug": "co3",
 				"details": "for Large Mixed Ensemble <br> Premiered by the NYU Contempoary Music Ensemble",

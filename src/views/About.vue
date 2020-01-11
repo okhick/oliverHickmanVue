@@ -24,7 +24,7 @@
         and the relationship between composer control and player freedom.
         <br><br>
         As a guitarist, Oliver has played with a variety of ensembles ranging from musical theatre to comtemporary music
-        to free improvisation. He is a co-founder of the improv ensemble <em>Consensus</em>. He also has been working within the theatre and dance worlds as a composer and sound designer on various productions
+        to free improvisation. He is a co-founder of the improv ensemble <em><a class='linkOut' href='https://www.facebook.com/ensembleconsensus/'>Consensus</a></em>. He also has been working within the theatre and dance worlds as a composer and sound designer on various productions
         in Chicago and New York City since 2014.
        </br> </p>
       <h1 v-bind:style="{ fontSize: ($mq == 'sm') ? '20px' : '24px' }"> 
