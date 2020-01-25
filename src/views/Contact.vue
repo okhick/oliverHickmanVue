@@ -6,7 +6,7 @@
         :speedFactor="0.15" direction="down"
         breakpoint="(min-width: 10px)"
       >
-        <img src="@/assets/img/in_street.jpg" alt="noImg">
+        <img :src="imageLinks.topImage" alt="noImg">
       </parallax>
     </div>
     <div class="contactInfo">
@@ -18,11 +18,21 @@
 
 <script>
 import Parallax from 'vue-parallaxy';
+import CDN_Link from '@/inc/cdn.js';
 
 export default {
   components: {
     Parallax,
   },
+
+  computed: {
+    imageLinks() {
+      const topImage = new CDN_Link('images', 'in_street.jpg');
+      return {
+        topImage: topImage.getAssetLink(),
+      };
+    }
+  }
 };
 </script>
 

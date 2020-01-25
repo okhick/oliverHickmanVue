@@ -2,7 +2,7 @@
   <div id="music">
 
     <parallax :speedFactor="0.2" direction="down" breakpoint="(min-width: 10px)">
-      <img src="@/assets/img/sunset_at_park.jpg" alt="noImg">
+      <img :src="imageLinks.topImage" alt="noImg">
     </parallax>
 
     <div class="content">
@@ -10,12 +10,12 @@
       <pdf-modal v-show="modalIsShowing" />
 
       <h1> MUSIC </h1>
-      <div v-for="(category) in $options.musicData" :key="category">
+      <div v-for="(category) in $options.musicData" :key="category.label">
         <h2 class="musicTitle categoryTitle"> {{ category.label }} </h2>
 
         <!-- For large screens -->
         <mq-layout mq="lg"
-          v-for="(piece,catIndex) in category.pieces" :key="piece"
+          v-for="(piece,catIndex) in category.pieces" :key="piece.slug"
           v-bind:class="{
             marginTopSmall: (catIndex==0)
           }"
@@ -49,7 +49,7 @@
 
         <!-- For not large screens -->
         <mq-layout :mq="['sm', 'md']"
-          v-for="(piece,catIndex) in category.pieces" :key="piece"
+          v-for="(piece,catIndex) in category.pieces" :key="catIndex"
           v-bind:class="{
             marginTopSmall: (catIndex==0)
           }"
@@ -89,6 +89,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
 import AudioPlayer from '@/components/audioPlayer.vue';
 import coverViewer from '@/components/coverViewer.vue';
 import pdfModal from '@/components/pdf/pdf-modal.vue';
+import CDN_Link from '@/inc/cdn.js';
 
 
 import musicData from '@/musicData.json';
@@ -141,6 +142,15 @@ export default {
     // Used here only on mobile, score only works
     openPdfModal(slug) {
       EventBus.$emit('OPEN_PDF_MODAL', slug);
+    },
+  },
+
+  computed: {
+    imageLinks() {
+      const topImage = new CDN_Link('images', 'sunset_at_park.jpg');
+      return {
+        topImage: topImage.getAssetLink(),
+      };
     },
   },
 

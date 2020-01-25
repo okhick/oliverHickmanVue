@@ -5,7 +5,7 @@
     <popper trigger="click" :options="popperOpts" :visible-arrow="true">
 
       <div class="moreMvmts popper" v-bind:style="menuCalc">
-        <div v-for="(mvmt, mvmtIndex) in mvmts" :key="mvmt"
+        <div v-for="(mvmt, mvmtIndex) in mvmts" :key="mvmtIndex"
           class="mvmt"
           v-on:click="selectMvmt(mvmtIndex)"
         >
