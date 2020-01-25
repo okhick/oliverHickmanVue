@@ -25,7 +25,7 @@
     <div class='player'>
       <vue-plyr ref="plyr">
         <audio>
-          <source :src="`${publicPath}audio/${musicData.audio}`" type="audio/mp3"/>
+          <source :src="audioLink" type="audio/mp3"/>
         </audio>
       </vue-plyr>
     </div> <!-- end player -->
@@ -43,6 +43,7 @@ import { VuePlyr } from 'vue-plyr';
 import MovementsBox from '@/components/movementsBox.vue';
 import 'vue-plyr/dist/vue-plyr.css';
 import 'rangetouch/dist/rangetouch.js';
+import CDN_Link from '@/inc/cdn.js';
 
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
@@ -156,6 +157,7 @@ export default {
       this.player.pause();
     });
   },
+
   computed: {
     // define the player object. Can now be accessed through this.player
     player() { return this.$refs.plyr.player; },
@@ -166,6 +168,11 @@ export default {
     playerWrapperSize() { return (this.$mq === 'lg') ? 'playerWrapper' : 'playerWrapper small'; },
     waveformSize() { return (this.$mq === 'lg') ? 'waveform' : 'waveform small'; },
     detailSize() { return (this.$mq === 'sm') ? 'detail small' : 'detail'; },
+
+    audioLink() {
+      const audioLink = new CDN_Link('audio', this.musicData.audio);
+      return audioLink.getAssetLink();
+    }
   },
 };
 </script>
