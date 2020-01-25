@@ -17,7 +17,7 @@
       />
     </mq-layout>
 
-    <img :src="`${publicPath}waveforms/${musicData.waveform}`" :class="waveformSize" />
+    <img :src="waveformLink" :class="waveformSize" />
 
     <div class='songProgress'>
       <div class='songProgressBar' v-bind:style="{ width:`${playbackPercent}%` }"></div>
@@ -172,6 +172,10 @@ export default {
     audioLink() {
       const audioLink = new CDN_Link('audio', this.musicData.audio);
       return audioLink.getAssetLink();
+    },
+    waveformLink() {
+      const waveformLink = new CDN_Link('waveforms', this.musicData.waveform);
+      return waveformLink.getAssetLink();
     }
   },
 };
