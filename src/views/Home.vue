@@ -7,7 +7,7 @@
         :speedFactor="0.15" direction="down"
         breakpoint="(min-width: 10px)"
       >
-        <img src="@/assets/img/at_train_station.jpg" alt="noImg">
+        <img :src="imageLinks.topImage" alt="noImg">
       </parallax>
 
       <div :class="whichNameBox.wrapper">
@@ -19,7 +19,7 @@
     <mq-layout mq="lg">
       <div class="homeContent">
         <div class="logo">
-            <img class="logoImg" src="@/assets/img/headphones-icon.png" alt="noLogo">
+            <img class="logoImg" :src="imageLinks.logo" alt="noLogo">
         </div>
         <div class="text">
           <h1> COMPOSER, MUSIC TECHNOLOGIST, <br> GUITARIST, SOUND DESIGNER </h1>
@@ -49,7 +49,7 @@
         breakpoint="(min-width: 10px)"
         v-bind:style="{ marginTop: img2Margin + 'px' }"
       >
-        <img src="@/assets/img/waiting_for_train.jpg" ref="img2">
+        <img :src="imageLinks.bottomImage" ref="img2">
       </parallax>
       <div class="img2Top"></div>
       <div v-bind:class="whichMusicLink.wrapper">
@@ -62,6 +62,7 @@
 
 <script>
 import Parallax from 'vue-parallaxy';
+import CDN_Link from '@/inc/cdn.js';
 
 export default {
   components: {
@@ -121,6 +122,17 @@ export default {
 
     smallHeaderImg() {
       return (this.$mq == 'sm');
+    },
+
+    imageLinks() {
+      const topImage = new CDN_Link('images', 'at_train_station.jpg');
+      const bottomImage = new CDN_Link('images', 'waiting_for_train.jpg');
+      const logo = new CDN_Link('images', 'headphones-icon.png');
+      return {
+        topImage: topImage.getAssetLink(),
+        bottomImage: bottomImage.getAssetLink(),
+        logo: logo.getAssetLink(),
+      };
     },
   },
 };

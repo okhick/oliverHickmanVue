@@ -41,6 +41,7 @@
 
 <script>
 import Parallax from 'vue-parallaxy';
+import CDN_Link from '@/inc/cdn.js'
 
 export default {
   components: {

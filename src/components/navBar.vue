@@ -1,7 +1,7 @@
 <template>
   <div class = "bar menuText">
 
-    <mq-layout mq="lg" v-for="page in pages" :key="page" class="navBar"
+    <mq-layout mq="lg" v-for="(page, index) in pages" :key="index" class="navBar"
       v-bind:class="[page.classStyle, { navBarCurrent: page.classStyle == currentPage }]">
       <router-link class='menuText' v-bind:to="page.to">{{ page.label }}</router-link>
     </mq-layout>
@@ -10,7 +10,7 @@
       <popper trigger="click" ref="popper" :visible-arrow="false" :options="popperOpts"
         transition="fade" enter-active-class="fade-enter-active-nav" leave-active-class="fade-leave-active-nav">
         <div class="popper">
-          <router-link v-for="page in pages" :key="page" class='menuText' v-bind:to="page.to"
+          <router-link v-for="(page, index) in pages" :key="index" class='menuText' v-bind:to="page.to"
             v-bind:class="{ navBarCurrentPopper: page.classStyle == currentPage }"
           ><span v-on:click="toggleMenu()">{{ page.label }}</span></router-link>
         </div>
