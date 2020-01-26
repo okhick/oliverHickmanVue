@@ -49,6 +49,8 @@
 import range from 'lodash/range';
 import ProgressBar from 'vue-simple-progress';
 
+import CDN_Link from '@/inc/cdn.js';
+
 
 // stuff for font awesome
 import { library } from '@fortawesome/fontawesome-svg-core';
@@ -119,13 +121,18 @@ export default {
     getPdfInfo(slug) {
       return this.$store.getters.getPdfState(slug);
     },
+
+    getPdfLink(pdfName) {
+      const pdfLink = new CDN_Link('pdfs', pdfName);
+      return pdfLink.getAssetLink();
+    }
   },
 
   mounted() {
     // load when it's time to load
     EventBus.$on('LOAD_PDF', (slug) => {
       const pdfInfo = this.getPdfInfo(slug);
-      this.url = `/pdfs/${pdfInfo.file}`;
+      this.url = this.getPdfLink(pdfInfo.file);
       this.downloadable = pdfInfo.downloadable;
       this.fetchPDF();
     });
