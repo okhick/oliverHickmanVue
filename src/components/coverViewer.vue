@@ -2,7 +2,7 @@
   <div class="coverImage" v-on:click="openPdfModal">
     <img
       ref="cover"
-      v-bind:src="`${publicPath}covers/${coverFile}`"
+      v-bind:src="coverLink"
       v-images-loaded:on.progress="imageProgress"
     />
     <font-awesome icon="eye" class="fa-eye" v-bind:class="{portrait: isPortrait, landscape: !isPortrait}"/>
@@ -14,6 +14,7 @@ import imagesLoaded from 'vue-images-loaded';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome';
+import CDN_Link from '@/inc/cdn.js';
 
 import EventBus from '../eventBus.js';
 
@@ -33,6 +34,7 @@ export default {
       isPortrait: true,
     };
   },
+
   methods: {
     openPdfModal() {
       EventBus.$emit('OPEN_PDF_MODAL', this.slug);
@@ -45,6 +47,14 @@ export default {
       }
     },
   },
+
+  computed: {
+    coverLink() {
+      const coverLink = new CDN_Link('covers', this.coverFile);
+      return coverLink.getAssetLink();
+    }
+  },
+
   directives: {
     imagesLoaded,
   },
